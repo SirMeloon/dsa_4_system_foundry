@@ -72,6 +72,18 @@ async function seedSpeciesCompendium() {
     const missingSpecies = DSA41_SPECIES.filter((entry) => !existingNames.has(entry.name));
     if (!missingSpecies.length) return;
 
-    await Item.createDocuments(missingSpecies, { pack: pack.collection });
-    console.log(`dsa_4_system_foundry | Seeded ${missingSpecies.length} species entries`);
+    const wasLocked = pack.locked;
+
+    try {
+        if (wasLocked) {
+            await pack.configure({ locked: false });
+        }
+
+        await Item.createDocuments(missingSpecies, { pack: pack.collection });
+        console.log(`dsa_4_system_foundry | Seeded ${missingSpecies.length} species entries`);
+    } finally {
+        if (wasLocked) {
+            await pack.configure({ locked: true });
+        }
+    }
 }
