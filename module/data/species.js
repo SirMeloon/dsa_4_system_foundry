@@ -71,5 +71,165 @@ export const DSA41_SPECIES = [
             ],
             grantedTalents: []
         }
+    },
+    {
+        name: "Tulamiden",
+        type: "species",
+        img: "icons/svg/mystery-man.svg",
+        system: {
+            description: "Eine vielschichtige Rasse mit mehreren verschiedenen, komplexen Kulturen sind die Tulamiden Südost-Aventuriens: Als eines der ältesten Menschenvölker hatten sie schon eine Hochkultur, ehe die ersten güldenländischen Siedler eintrafen. Ihnen wird nachgesagt, sie verbänden große Lebensfreude mit einem ebenso großen Interesse an Reichtum, aber auch an der Welt des Spiri- tuellen und der Mysterien.",
+            notes: "",
+            gpCost: 0,
+            originDistribution: "Die Gelehrten sind sich einig, dass die Tulamiden zu den aventurischen Ureinwohnern zählen. Ihre ursprüngliche Heimat liegt im Raschtulswall, von dort haben sie sich im Gebiet zwischen Baburin und Selem ausgebreitet. Auch die Bevölkerung Almadas sowie Al’Anfas und anderer südlicher Städte ist tulamidisch geprägt. Die Norbarden, die als reisende Händler durchs Bornland und die Nivesensteppe ziehen, haben ebenso tulamidische Vorfahren wie die zweigottgläubigen Maraskaner.",
+            appearance: "Tulamiden sind von mittelgroßem Wuchs, haben eine hellbraune Haut, schwarzes Haar, scharfe Gesichtszüge und dunkle Augen. (An den Grenzen zu den Siedlungsräumen der Mittelländer findet man aufgrund der Vermischung auch hellhäutigere Tulamiden, die teils blau- oder grünäugig, teils blond oder rot-haarig sind.) Da die Haltung von Waldmenschensklaven Tradition hat, haben sich die Tulamiden immer wieder mit diesen vermischt, was sich durch kleineren Wuchs, hohe Wangenknochen, weichere Gesichtszügen und vor allem dunklere Haut bemerkbar machen kann.",
+            hairColors: [
+                { min: 1, max: 6, label: "schwarz" },
+                { min: 7, max: 12, label: "dunkelbraun" },
+                { min: 13, max: 14, label: "mittelbraun" },
+                { min: 15, max: 17, label: "hellbraun" },
+                { min: 18, max: 19, label: "blond" },
+                { min: 20, max: 20, label: "rot" }
+            ],
+            eyeColors: [
+                { min: 1, max: 4, label: "schwarz" },
+                { min: 5, max: 12, label: "dunkelbraun" },
+                { min: 13, max: 16, label: "braun" },
+                { min: 17, max: 18, label: "grau" },
+                { min: 19, max: 19, label: "grün" },
+                { min: 20, max: 20, label: "blau" }
+            ],
+            height: {
+                base: 1.55,
+                diceCount: 2,
+                diceFaces: 20,
+                step: 0.01,
+                unit: "Schritt",
+                formula: "1.55 + 2W20 * 0.01"
+            },
+            weight: {
+                formula: "GroesseCm - 105",
+                unit: "Stein"
+            },
+            modifiers: {
+                characteristics: {
+                    mu: 0,
+                    kl: 0,
+                    in: 0,
+                    ch: 0,
+                    ff: 0,
+                    ge: 0,
+                    ko: 0,
+                    kk: 0
+                },
+                lifePoints: 10,
+                endurance: 10,
+                magicResistance: -4
+            },
+            automaticAdvantages: [],
+            automaticDisadvantages: [],
+            recommendedAdvantages: [],
+            recommendedDisadvantages: [],
+            unsuitableAdvantages: [
+                "Herausragende Balance"
+            ],
+            unsuitableDisadvantages: [
+                "Nahrungsrestriktion"
+            ],
+            allowedCultures: [
+                "Tulamidische Stadtstaaten",
+                "Novadi",
+                "Südaventurien"
+            ],
+            grantedTalents: []
+        }
+    },
+    {
+        name: "Thorwaler",
+        type: "species",
+        img: "icons/svg/mystery-man.svg",
+        system: {
+            description: "Große, stämmige, muskelbepackte Männer und Frauen mit wilden, blonden oder roten Mähnen – das sind die Thorwaler, wie jedes Kind in Aventurien sie kennt. Sie sind geradlinig und haben die feine Diplomatie nicht eben erfunden, was sie im Rollenspiel zu idealen Einsteigercharakteren macht.",
+            notes: "",
+            gpCost: 5,
+            originDistribution: "Thorwaler leben an der aventurischen Nordwestküste von der Ingval-Mündung bis zum Golf von Riva sowie in einigen verstreuten Siedlungen (Piratennester oder Seesöldner-Niederlassungen) entlang aller aventurischen Küsten. Ebenfalls zu den Thorwalern gerechnet werden die Gjalskerländer, die in den Hochländern nördlich des Orklands beheimatet sind, und die Fjarninger in den Nebelzinnen und der Grimmfrostöde. Es gilt als gesichert, dass die genannten Völker Nachfahren der legendären Hjaldinger sind, die vor etwa 2.650 Jahren aus dem nördlichen Güldenland in der Nähe der heutigen Stadt Olport anlandeten.",
+            appearance: "Die Thorwaler sind der größte (verbreitete) Menschenschlag Aventuriens: Muskulöse Hünen von über 2 Schritt Körpergröße sind keine Seltenheit, helle Haarfarben und blaue Augen herrschen vor, aber auch Rotschöpfe mit grünen Augen sind weit verbreitet. Die Haut ist meist recht hell, dafür aber bei fast allen Thorwalern wettergegerbt. Kopf- und Körperbehaarung der Thorwaler sind üppig; Bärte in verschiedensten wilden Formen bei den Männern und Zöpfe bei Männern und Frauen sind beliebter Schmuck. Unter Thorwaler recht verbreitet ist ein Kampfrausch (bei der Kultur der Thorwaler als Swafskari oder Walwut berüchtigt), in dem sie keinen Schmerz mehr spüren und Freund und Feind nicht mehr unterscheiden können. Manche haben gelernt, diesen Rausch zu beherrschen und sich gezielt hineinzuversetzen, aber die meisten können ihn nicht kontrollieren und werden damit schnell zu einer Gefahr für sich und ihre Umgebung.",
+            hairColors: [
+                { min: 1, max: 8, label: "blond" },
+                { min: 9, max: 13, label: "rotblond" },
+                { min: 14, max: 15, label: "weißblond" },
+                { min: 16, max: 17, label: "rot" },
+                { min: 18, max: 18, label: "dunkelblond" },
+                { min: 19, max: 19, label: "braun" },
+                { min: 20, max: 20, label: "schwarz" }
+            ],
+            eyeColors: [
+                { min: 1, max: 2, label: "dunkelbraun" },
+                { min: 3, max: 7, label: "braun" },
+                { min: 8, max: 11, label: "grün" },
+                { min: 12, max: 18, label: "blau" },
+                { min: 19, max: 20, label: "grau" }
+            ],
+            height: {
+                base: 1.68,
+                diceCount: 2,
+                diceFaces: 20,
+                step: 0.01,
+                unit: "Schritt",
+                formula: "1.68 + 2W20 * 0.01"
+            },
+            weight: {
+                formula: "GroesseCm - 95",
+                unit: "Stein"
+            },
+            modifiers: {
+                characteristics: {
+                    mu: 1,
+                    kl: 0,
+                    in: 0,
+                    ch: 0,
+                    ff: 0,
+                    ge: 0,
+                    ko: 1,
+                    kk: 1
+                },
+                lifePoints: 11,
+                endurance: 10,
+                magicResistance: -5
+            },
+            automaticAdvantages: [],
+            automaticDisadvantages: [
+                "Jähzorn 6"
+            ],
+            recommendedAdvantages: [
+                "Ausdauernd",
+                "Eisern",
+                "Hohe Lebendskraft",
+                "Kampfrausch",
+                "Richtungssinn",
+                "Zäher Hund"
+            ],
+            recommendedDisadvantages: [
+                "Blutrausch"
+            ],
+            unsuitableAdvantages: [
+                "Herausragende Balance"
+            ],
+            unsuitableDisadvantages: [
+                "Glasknochen",
+                "Nahrungsrestriktion"
+            ],
+            allowedCultures: [
+                "Thorwal",
+                "Mittelländische Städte",
+                "Andergast/Nostria",
+                "Südaventurien"
+            ],
+            grantedTalents: [
+                "Athletik: 1",
+                "Sinnenschärfe: 1",
+                "Zechen: 1",
+                "Wettervorhersage: 1"
+            ]
+        }
     }
 ];
