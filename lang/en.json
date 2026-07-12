@@ -1,0 +1,21 @@
+{
+    "fs2e": {
+        "attack": {
+            "none": "",
+            "guns": "Guns",
+            "martialArts": "Martial Arts",
+            "sorcery": "Sorcery",
+            "creature": "Creature",
+            "scroungetexh": "Scroungetech",
+            "mutant": "Mutant"
+        },
+        "weapon": {
+            "attackWith": "Attack with:",
+            "damage": "Damage",
+            "conceal": "Conceal",
+            "reload": "Reload",
+            "mookBonus": "Bonus vs Mooks",
+            "pumpAction": "Pump Action?"
+        }
+    }
+}
