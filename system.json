@@ -1,0 +1,31 @@
+{
+    "name": "dsa_4.1_system_foundry",
+    "title": "Das schwarze Auge 4.1",
+    "description": "Foundry VTT system for Das Schwarze Auge 4.1",
+    "author": "André Schucht",
+    "version": "0.0.1",
+    "compatibility": {
+        "minimum": "14.364",
+        "verified": "14.364",
+        "maximum": "14"
+    },
+    "esmodules": [
+        "dsa4.js"
+    ],
+    "styles": [
+        "dsa4.css"
+    ],
+    "packs": [
+
+    ],
+    "languages": [
+        
+    ],
+    "grid": {
+        "diagonals": 2,
+        "distance": 1,
+        "units": "Schritt"
+    },
+    "primaryTokenAttribute": "wounds",
+    "initiative": "1d6 + @speed"
+}
