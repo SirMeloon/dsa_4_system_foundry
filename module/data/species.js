@@ -1,40 +1,40 @@
 export const DSA41_SPECIES = [
     {
-        name: "Tulamiden",
+        name: "Mittelländer",
         type: "species",
         img: "icons/svg/mystery-man.svg",
         system: {
-            description: "Die Tulamiden Suedost-Aventuriens zaehlen zu den aeltesten Menschenvoelkern Aventuriens. Ihnen wird nachgesagt, grosse Lebensfreude mit ebenso grossem Interesse an Reichtum, Spiritualitaet und den Mysterien zu verbinden.",
+            description: "Die hellhäutigen Mittelländer dominieren heutzutage Aventurien, stellen sie doh mehr als die Hälfte der Bewohner des Kontinents. Daraus ergibt sich eine kulturelle Vielfalt, die keine andere Rasse zu bieten hat; zudem kann fast jede erdenkliche PRofession gewählt werden. Daher hat der Spieler bei der Gestaltung 'seines' Mittelländers größtmögliche Freiheit.",
             notes: "",
             gpCost: 0,
-            originDistribution: "Die urspruengliche Heimat liegt im Raschtulswall. Von dort haben sich die Tulamiden im Gebiet zwischen Baburin und Selem ausgebreitet. Auch die Bevoelkerung Almadas, Al'Anfas und weiterer suedlicher Staedte ist tulamidisch gepraegt.",
-            appearance: "Tulamiden sind von mittelgrossem Wuchs, haben oft hellbraune Haut, schwarzes Haar, scharfe Gesichtszuege und dunkle Augen. Durch Vermischung mit Waldmenschen und Mittellaendern kommen auch hellhaeutigere, blau- oder gruenaeugige sowie blonde oder rothaarige Auspraegungen vor.",
+            originDistribution: "Die Mittelländer sind die Nachkommen der güldenländischen Siedler, die vor etwa 2.500 Jahren an den Küsten des heutigen Horasreichs landeten. Eine ebenso aggressive wie erfolgreiche Eroberungspolitik führte zur raschen Verbreitung dieser Rasse über große Teile Aventuriens. Mittelländer leben heute in Riva, dem Svellttal, Nostria, Andergast, dem Mittelreich, dem Bornland, dem Horasreich, auf Maraskan und in den südlichen Stadtstaaten; einzelne Familien kann man aber auch in jedem anderen Winkel Aventuriens antreffen.",
+            appearance: "Die weite Verbreitung der Mittelländer bewirkte natürlich auch eine Vermischung mit anderen Völkern, weshalb sich kein einheitliches Erscheinungsbild festmachen lässt. Die Körpergröße variiert, wobei aber ausgesprochene Hünen oder Kleinwüchsig die Ausnahme sind. Alle Haarfarben von Hellblond bis Schwarz sind vertreten, im Norden herrschen hellere und im Süden dunklere Farbtöne vor. Blauschwarzes Haar ist selten und kommt nur bei Familien vor, die einen guten Schuss Waldmenschenblut in den Adern haben. Bei den Augenfarben dominieren Blau, Grün und Braun; Dunkelbraun und Schwarz sind wiederum selten und treten ebenfalls nur bei Menschen auf, die entweder Tulamiden oder Waldmenschen in der Ahnenreihe haben. Der Bartwuchs ist bei Mittelländern stark ausgeprägt, wie man aber diese Zierde des Antlitzes trägt, hängt von der regionalen Mode ab.",
             hairColors: [
-                { min: 1, max: 6, label: "schwarz" },
-                { min: 7, max: 12, label: "dunkelbraun" },
-                { min: 13, max: 14, label: "mittelbraun" },
-                { min: 15, max: 17, label: "hellbraun" },
-                { min: 18, max: 19, label: "blond" },
-                { min: 20, max: 20, label: "rot" }
+                { min: 1, max: 3, label: "schwarz" },
+                { min: 4, max: 7, label: "braun" },
+                { min: 8, max: 12, label: "dunkelblond" },
+                { min: 13, max: 16, label: "blond" },
+                { min: 17, max: 18, label: "weißblond" },
+                { min: 19, max: 20, label: "rot" }
             ],
             eyeColors: [
-                { min: 1, max: 4, label: "schwarz" },
-                { min: 5, max: 12, label: "dunkelbraun" },
-                { min: 13, max: 16, label: "braun" },
-                { min: 17, max: 18, label: "grau" },
-                { min: 19, max: 19, label: "gruen" },
-                { min: 20, max: 20, label: "blau" }
+                { min: 1, max: 2, label: "dunkelbraun" },
+                { min: 3, max: 9, label: "braun" },
+                { min: 10, max: 11, label: "grün" },
+                { min: 12, max: 17, label: "blau" },
+                { min: 18, max: 19, label: "grau" },
+                { min: 20, max: 20, label: "schwarz" }
             ],
             height: {
-                base: 1.55,
+                base: 1.60,
                 diceCount: 2,
                 diceFaces: 20,
                 step: 0.01,
                 unit: "Schritt",
-                formula: "1.55 + 2W20 * 0.01"
+                formula: "1.60 + 2W20 * 0.01"
             },
             weight: {
-                formula: "GroesseCm - 105",
+                formula: "GroesseCm - 100",
                 unit: "Stein"
             },
             modifiers: {
@@ -57,13 +57,17 @@ export const DSA41_SPECIES = [
             recommendedAdvantages: [],
             recommendedDisadvantages: [],
             unsuitableAdvantages: [
-                "Herausragende Balance",
+                "Herausragende Balance"
+            ],
+            unsuitableDisadvantages: [
                 "Nahrungsrestriktion"
             ],
             allowedCultures: [
-                "Tulamidische Stadtstaaten",
-                "Novadi",
-                "Suedaventurien"
+                "Mittelländische Städte",
+                "Andergast/Nostria",
+                "Bornland",
+                "Horasreich",
+                "Südaventurien"
             ],
             grantedTalents: []
         }
