@@ -1,4 +1,5 @@
 import { DSA41 } from "./module/config.js";
+import { DSA41_SPECIES } from "./module/data/species.js";
 import SpeciesGenerationDialog from "./module/apps/SpeciesGenerationDialog.js";
 import DSA41ActorSheet from "./module/sheets/DSA41ActorSheet.js";
 import DSA41ItemSheet from "./module/sheets/DSA41ItemSheet.js";
@@ -17,18 +18,22 @@ Hooks.once("init", function () {
     });
 
     Items.registerSheet("dsa_4_system_foundry", DSA41ItemSheet, {
-        types: ["weapon", "skill", "specialAbility", "species", "culture"],
+        types: ["weapon", "skill", "specialAbility", "species", "culture", "profession", "advantage", "disadvantage"],
         makeDefault: true
     });
 });
 
 Hooks.on("preCreateItem", (item) => {
     if (!(item.parent instanceof Actor)) return;
-    if (!["species", "culture"].includes(item.type)) return;
+    if (!["species", "culture", "profession"].includes(item.type)) return;
     if (item.parent.type !== "character") return;
     const existingEntry = item.parent.items.some((actorItem) => actorItem.type === item.type);
     if (!existingEntry) return;
-    const messageKey = item.type === "species" ? "DSA41.Dialog.currentSpeciesExists" : "DSA41.Dialog.currentCultureExists";
+    const messageKey = {
+        species: "DSA41.Dialog.currentSpeciesExists",
+        culture: "DSA41.Dialog.currentCultureExists",
+        profession: "DSA41.Dialog.currentProfessionExists"
+    }[item.type];
     ui.notifications?.warn(game.i18n.localize(messageKey));
     return false;
 });
@@ -45,5 +50,28 @@ Hooks.on("createItem", async (item, _options, userId) => {
 
     if (item.type === "culture") {
         await item.parent.update({ "system.culture": item.name });
+        return;
+    }
+
+    if (item.type === "profession") {
+        await item.parent.update({ "system.profession": item.name });
     }
 });
+
+Hooks.once("ready", async () => {
+    if (!game.user?.isGM) return;
+    await seedSpeciesCompendium();
+});
+
+async function seedSpeciesCompendium() {
+    const pack = game.packs.get("dsa_4_system_foundry.species");
+    if (!pack) return;
+
+    const index = await pack.getIndex();
+    const existingNames = new Set(index.map((entry) => entry.name));
+    const missingSpecies = DSA41_SPECIES.filter((entry) => !existingNames.has(entry.name));
+    if (!missingSpecies.length) return;
+
+    await Item.createDocuments(missingSpecies, { pack: pack.collection });
+    console.log(`dsa_4_system_foundry | Seeded ${missingSpecies.length} species entries`);
+}

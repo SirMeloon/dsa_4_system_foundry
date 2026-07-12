@@ -8,7 +8,7 @@ export default class DSA41ItemSheet extends ItemSheet {
     }
 
     get template() {
-        const specialized = ["weapon", "species", "culture"];
+        const specialized = ["weapon", "species", "culture", "profession"];
         const sheet = specialized.includes(this.item.type) ? this.item.type : "item";
         return `systems/dsa_4_system_foundry/templates/sheets/${sheet}-sheet.html`;
     }
@@ -49,6 +49,28 @@ export default class DSA41ItemSheet extends ItemSheet {
                 scriptsLanguagesTalentsText: this.#formatTalentList(this.item.system.talents?.scriptsLanguages),
                 craftTalentsText: this.#formatTalentList(this.item.system.talents?.craft),
                 specialAbilitiesText: this.#formatList(this.item.system.specialAbilities)
+            };
+        }
+        if (this.item.type === "profession") {
+            data.profession = {
+                requirementsText: this.#formatList(this.item.system.requirements),
+                modificationsText: this.#formatList(this.item.system.modifications),
+                automaticAdvantagesText: this.#formatList(this.item.system.automaticAdvantages),
+                automaticDisadvantagesText: this.#formatList(this.item.system.automaticDisadvantages),
+                recommendedAdvantagesText: this.#formatList(this.item.system.recommendedAdvantages),
+                recommendedDisadvantagesText: this.#formatList(this.item.system.recommendedDisadvantages),
+                unsuitableAdvantagesText: this.#formatList(this.item.system.unsuitableAdvantages),
+                unsuitableDisadvantagesText: this.#formatList(this.item.system.unsuitableDisadvantages),
+                equipmentText: this.#formatList(this.item.system.equipment),
+                specialPossessionsText: this.#formatList(this.item.system.specialPossessions),
+                discountedSpecialAbilitiesText: this.#formatList(this.item.system.discountedSpecialAbilities),
+                combatTalentsText: this.#formatTalentList(this.item.system.talents?.combat),
+                bodyTalentsText: this.#formatTalentList(this.item.system.talents?.body),
+                socialTalentsText: this.#formatTalentList(this.item.system.talents?.social),
+                natureTalentsText: this.#formatTalentList(this.item.system.talents?.nature),
+                knowledgeTalentsText: this.#formatTalentList(this.item.system.talents?.knowledge),
+                scriptsLanguagesTalentsText: this.#formatTalentList(this.item.system.talents?.scriptsLanguages),
+                craftTalentsText: this.#formatTalentList(this.item.system.talents?.craft)
             };
         }
         return data;
@@ -114,6 +136,42 @@ export default class DSA41ItemSheet extends ItemSheet {
                 ["culture.knowledgeTalentsText", "system.talents.knowledge"],
                 ["culture.scriptsLanguagesTalentsText", "system.talents.scriptsLanguages"],
                 ["culture.craftTalentsText", "system.talents.craft"]
+            ];
+
+            for (const [source, target] of talentFields) {
+                data[target] = this.#parseTalentList(foundry.utils.getProperty(data, source));
+                delete data[source];
+            }
+        }
+
+        if (this.item.type === "profession") {
+            const listFields = [
+                ["profession.requirementsText", "system.requirements"],
+                ["profession.modificationsText", "system.modifications"],
+                ["profession.automaticAdvantagesText", "system.automaticAdvantages"],
+                ["profession.automaticDisadvantagesText", "system.automaticDisadvantages"],
+                ["profession.recommendedAdvantagesText", "system.recommendedAdvantages"],
+                ["profession.recommendedDisadvantagesText", "system.recommendedDisadvantages"],
+                ["profession.unsuitableAdvantagesText", "system.unsuitableAdvantages"],
+                ["profession.unsuitableDisadvantagesText", "system.unsuitableDisadvantages"],
+                ["profession.equipmentText", "system.equipment"],
+                ["profession.specialPossessionsText", "system.specialPossessions"],
+                ["profession.discountedSpecialAbilitiesText", "system.discountedSpecialAbilities"]
+            ];
+
+            for (const [source, target] of listFields) {
+                data[target] = this.#parseList(foundry.utils.getProperty(data, source));
+                delete data[source];
+            }
+
+            const talentFields = [
+                ["profession.combatTalentsText", "system.talents.combat"],
+                ["profession.bodyTalentsText", "system.talents.body"],
+                ["profession.socialTalentsText", "system.talents.social"],
+                ["profession.natureTalentsText", "system.talents.nature"],
+                ["profession.knowledgeTalentsText", "system.talents.knowledge"],
+                ["profession.scriptsLanguagesTalentsText", "system.talents.scriptsLanguages"],
+                ["profession.craftTalentsText", "system.talents.craft"]
             ];
 
             for (const [source, target] of talentFields) {

@@ -11,7 +11,7 @@
     "url": "https://github.com/SirMeloon/dsa_4_system_foundry",
     "manifest": "https://raw.githubusercontent.com/SirMeloon/dsa_4_system_foundry/main/system.json",
     "download": "https://github.com/SirMeloon/dsa_4_system_foundry/archive/refs/heads/main.zip",
-    "version": "0.3.0",
+    "version": "0.5.0",
     "compatibility": {
         "minimum": "13",
         "verified": "13",
@@ -26,9 +26,27 @@
     ],
     "packs": [
         {
+            "name": "advantages",
+            "label": "Vorteile",
+            "path": "packs/advantages.db",
+            "type": "Item"
+        },
+        {
             "name": "cultures",
             "label": "Kulturen",
             "path": "packs/cultures.db",
+            "type": "Item"
+        },
+        {
+            "name": "disadvantages",
+            "label": "Nachteile",
+            "path": "packs/disadvantages.db",
+            "type": "Item"
+        },
+        {
+            "name": "professions",
+            "label": "Professionen",
+            "path": "packs/professions.db",
             "type": "Item"
         },
         {

@@ -9,11 +9,17 @@
             "skill": "Talent",
             "specialAbility": "Sonderfertigkeit",
             "species": "Rasse",
-            "culture": "Kultur"
+            "culture": "Kultur",
+            "profession": "Profession",
+            "advantage": "Vorteil",
+            "disadvantage": "Nachteil"
         },
         "Sheet": {
             "description": "Beschreibung",
-            "notes": "Notizen"
+            "notes": "Notizen",
+            "characterSummary": "Charakterelemente",
+            "advantages": "Vorteile",
+            "disadvantages": "Nachteile"
         },
         "Character": {
             "title": "Heldenbogen",
@@ -120,6 +126,31 @@
             "listHint": "Ein Eintrag pro Zeile",
             "talentHint": "Format: Name: Wert oder Notiz"
         },
+        "Profession": {
+            "title": "Profession",
+            "gpCost": "Generierungskosten (GP)",
+            "requirements": "Voraussetzungen",
+            "modifications": "Modifikationen",
+            "automaticAdvantages": "Automatische Vorteile",
+            "automaticDisadvantages": "Automatische Nachteile",
+            "recommendedAdvantages": "Empfohlene Vorteile",
+            "recommendedDisadvantages": "Empfohlene Nachteile",
+            "unsuitableAdvantages": "Ungeeignete Vorteile",
+            "unsuitableDisadvantages": "Ungeeignete Nachteile",
+            "equipment": "Ausrüstung",
+            "specialPossessions": "Besonderer Besitz",
+            "discountedSpecialAbilities": "Verbilligte Sonderfertigkeiten",
+            "talents": "Talente",
+            "combatTalents": "Kampf",
+            "bodyTalents": "Koerper",
+            "socialTalents": "Gesellschaft",
+            "natureTalents": "Natur",
+            "knowledgeTalents": "Wissen",
+            "scriptsLanguagesTalents": "Schriften/Sprachen",
+            "craftTalents": "Handwerk",
+            "listHint": "Ein Eintrag pro Zeile",
+            "talentHint": "Format: Name: Wert oder Notiz"
+        },
         "Dialog": {
             "speciesGenerationTitle": "Spezieswerte festlegen",
             "roll": "Erwuerfeln",
@@ -129,6 +160,7 @@
             "cancel": "Abbrechen",
             "currentSpeciesExists": "Der Held hat bereits eine Spezies.",
             "currentCultureExists": "Der Held hat bereits eine Kultur.",
+            "currentProfessionExists": "Der Held hat bereits eine Profession.",
             "noFormula": "Keine Formel oder Tabelle hinterlegt."
         },
         "WeaponGroup": {

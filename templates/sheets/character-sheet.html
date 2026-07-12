@@ -73,6 +73,62 @@
     </section>
 
     <section class="dsa41-stack">
+        <h2>{{localize "DSA41.Sheet.characterSummary"}}</h2>
+        <div class="dsa41-summary-grid">
+            <div class="dsa41-card">
+                <h3>{{localize "DSA41.Character.species"}}</h3>
+                {{#if speciesItem}}
+                <p>{{speciesItem.name}}</p>
+                {{else}}
+                <p>-</p>
+                {{/if}}
+            </div>
+            <div class="dsa41-card">
+                <h3>{{localize "DSA41.Character.culture"}}</h3>
+                {{#if cultureItem}}
+                <p>{{cultureItem.name}}</p>
+                {{else}}
+                <p>-</p>
+                {{/if}}
+            </div>
+            <div class="dsa41-card">
+                <h3>{{localize "DSA41.Character.profession"}}</h3>
+                {{#if professionItem}}
+                <p>{{professionItem.name}}</p>
+                {{else}}
+                <p>-</p>
+                {{/if}}
+            </div>
+        </div>
+        <div class="dsa41-summary-grid">
+            <div class="dsa41-card">
+                <h3>{{localize "DSA41.Sheet.advantages"}}</h3>
+                {{#if advantages.length}}
+                <ul class="dsa41-plain-list">
+                    {{#each advantages}}
+                    <li>{{name}}</li>
+                    {{/each}}
+                </ul>
+                {{else}}
+                <p>-</p>
+                {{/if}}
+            </div>
+            <div class="dsa41-card">
+                <h3>{{localize "DSA41.Sheet.disadvantages"}}</h3>
+                {{#if disadvantages.length}}
+                <ul class="dsa41-plain-list">
+                    {{#each disadvantages}}
+                    <li>{{name}}</li>
+                    {{/each}}
+                </ul>
+                {{else}}
+                <p>-</p>
+                {{/if}}
+            </div>
+        </div>
+    </section>
+
+    <section class="dsa41-stack">
         <label>{{localize "DSA41.Sheet.notes"}}</label>
         <textarea name="system.notes">{{system.notes}}</textarea>
     </section>

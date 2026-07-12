@@ -1,0 +1,123 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <header class="sheet-header">
+        <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="64" width="64" />
+        <div class="dsa41-header-fields">
+            <h1><input name="name" type="text" value="{{item.name}}" placeholder="Name" /></h1>
+            <label>
+                {{localize "DSA41.Profession.gpCost"}}
+                <input name="system.gpCost" type="number" value="{{system.gpCost}}" />
+            </label>
+        </div>
+    </header>
+
+    <section class="dsa41-grid">
+        <label class="dsa41-stack">
+            {{localize "DSA41.Sheet.description"}}
+            <textarea name="system.description">{{system.description}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Profession.requirements"}}
+            <small>{{localize "DSA41.Profession.listHint"}}</small>
+            <textarea name="profession.requirementsText">{{profession.requirementsText}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Profession.modifications"}}
+            <small>{{localize "DSA41.Profession.listHint"}}</small>
+            <textarea name="profession.modificationsText">{{profession.modificationsText}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Profession.discountedSpecialAbilities"}}
+            <small>{{localize "DSA41.Profession.listHint"}}</small>
+            <textarea name="profession.discountedSpecialAbilitiesText">{{profession.discountedSpecialAbilitiesText}}</textarea>
+        </label>
+    </section>
+
+    <section class="dsa41-grid">
+        <label class="dsa41-stack">
+            {{localize "DSA41.Profession.automaticAdvantages"}}
+            <small>{{localize "DSA41.Profession.listHint"}}</small>
+            <textarea name="profession.automaticAdvantagesText">{{profession.automaticAdvantagesText}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Profession.automaticDisadvantages"}}
+            <small>{{localize "DSA41.Profession.listHint"}}</small>
+            <textarea name="profession.automaticDisadvantagesText">{{profession.automaticDisadvantagesText}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Profession.recommendedAdvantages"}}
+            <small>{{localize "DSA41.Profession.listHint"}}</small>
+            <textarea name="profession.recommendedAdvantagesText">{{profession.recommendedAdvantagesText}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Profession.recommendedDisadvantages"}}
+            <small>{{localize "DSA41.Profession.listHint"}}</small>
+            <textarea name="profession.recommendedDisadvantagesText">{{profession.recommendedDisadvantagesText}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Profession.unsuitableAdvantages"}}
+            <small>{{localize "DSA41.Profession.listHint"}}</small>
+            <textarea name="profession.unsuitableAdvantagesText">{{profession.unsuitableAdvantagesText}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Profession.unsuitableDisadvantages"}}
+            <small>{{localize "DSA41.Profession.listHint"}}</small>
+            <textarea name="profession.unsuitableDisadvantagesText">{{profession.unsuitableDisadvantagesText}}</textarea>
+        </label>
+    </section>
+
+    <section class="dsa41-grid">
+        <label class="dsa41-stack">
+            {{localize "DSA41.Profession.combatTalents"}}
+            <small>{{localize "DSA41.Profession.talentHint"}}</small>
+            <textarea name="profession.combatTalentsText">{{profession.combatTalentsText}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Profession.bodyTalents"}}
+            <small>{{localize "DSA41.Profession.talentHint"}}</small>
+            <textarea name="profession.bodyTalentsText">{{profession.bodyTalentsText}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Profession.socialTalents"}}
+            <small>{{localize "DSA41.Profession.talentHint"}}</small>
+            <textarea name="profession.socialTalentsText">{{profession.socialTalentsText}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Profession.natureTalents"}}
+            <small>{{localize "DSA41.Profession.talentHint"}}</small>
+            <textarea name="profession.natureTalentsText">{{profession.natureTalentsText}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Profession.knowledgeTalents"}}
+            <small>{{localize "DSA41.Profession.talentHint"}}</small>
+            <textarea name="profession.knowledgeTalentsText">{{profession.knowledgeTalentsText}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Profession.scriptsLanguagesTalents"}}
+            <small>{{localize "DSA41.Profession.talentHint"}}</small>
+            <textarea name="profession.scriptsLanguagesTalentsText">{{profession.scriptsLanguagesTalentsText}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Profession.craftTalents"}}
+            <small>{{localize "DSA41.Profession.talentHint"}}</small>
+            <textarea name="profession.craftTalentsText">{{profession.craftTalentsText}}</textarea>
+        </label>
+    </section>
+
+    <section class="dsa41-grid">
+        <label class="dsa41-stack">
+            {{localize "DSA41.Profession.equipment"}}
+            <small>{{localize "DSA41.Profession.listHint"}}</small>
+            <textarea name="profession.equipmentText">{{profession.equipmentText}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Profession.specialPossessions"}}
+            <small>{{localize "DSA41.Profession.listHint"}}</small>
+            <textarea name="profession.specialPossessionsText">{{profession.specialPossessionsText}}</textarea>
+        </label>
+    </section>
+
+    <section class="dsa41-stack">
+        <label>{{localize "DSA41.Sheet.notes"}}</label>
+        <textarea name="system.notes">{{system.notes}}</textarea>
+    </section>
+</form>

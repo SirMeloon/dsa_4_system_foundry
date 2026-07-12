@@ -102,7 +102,10 @@
             "skill",
             "specialAbility",
             "species",
-            "culture"
+            "culture",
+            "profession",
+            "advantage",
+            "disadvantage"
         ],
         "templates": {
             "described": {
@@ -139,6 +142,16 @@
                 "described"
             ]
         },
+        "advantage": {
+            "templates": [
+                "described"
+            ]
+        },
+        "disadvantage": {
+            "templates": [
+                "described"
+            ]
+        },
         "species": {
             "templates": [
                 "described"
@@ -169,7 +182,7 @@
                 "formula": "1.50 + 2W20 * 0.01"
             },
             "weight": {
-                "formula": "Groesse - 100",
+                "formula": "GroesseCm - 100",
                 "unit": "Stein"
             },
             "modifiers": {
@@ -236,6 +249,37 @@
                 "craft": []
             },
             "specialAbilities": []
+        },
+        "profession": {
+            "templates": [
+                "described"
+            ],
+            "gpCost": 0,
+            "requirements": [],
+            "modifications": [],
+            "automaticAdvantages": [],
+            "automaticDisadvantages": [],
+            "recommendedAdvantages": [],
+            "recommendedDisadvantages": [],
+            "unsuitableAdvantages": [],
+            "unsuitableDisadvantages": [],
+            "equipment": [],
+            "specialPossessions": [],
+            "discountedSpecialAbilities": [],
+            "talents": {
+                "combat": [
+                    {
+                        "name": "",
+                        "value": ""
+                    }
+                ],
+                "body": [],
+                "social": [],
+                "nature": [],
+                "knowledge": [],
+                "scriptsLanguages": [],
+                "craft": []
+            }
         }
     }
 }

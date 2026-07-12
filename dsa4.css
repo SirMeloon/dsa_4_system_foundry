@@ -23,6 +23,12 @@
     gap: 0.75rem;
 }
 
+.dsa41-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0.75rem;
+}
+
 .dsa41-stack {
     display: grid;
     gap: 0.35rem;
