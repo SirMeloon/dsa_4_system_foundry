@@ -1,31 +1,131 @@
 {
-    "Actor": {},
+    "Actor": {
+        "types": [
+            "character",
+            "creature"
+        ],
+        "templates": {
+            "base": {
+                "notes": "",
+                "description": ""
+            },
+            "characteristics": {
+                "characteristics": {
+                    "mu": {
+                        "value": 8
+                    },
+                    "kl": {
+                        "value": 8
+                    },
+                    "in": {
+                        "value": 8
+                    },
+                    "ch": {
+                        "value": 8
+                    },
+                    "ff": {
+                        "value": 8
+                    },
+                    "ge": {
+                        "value": 8
+                    },
+                    "ko": {
+                        "value": 8
+                    },
+                    "kk": {
+                        "value": 8
+                    }
+                }
+            }
+        },
+        "character": {
+            "templates": [
+                "base",
+                "characteristics"
+            ],
+            "species": "",
+            "culture": "",
+            "profession": "",
+            "experience": 0,
+            "resources": {
+                "lifePoints": {
+                    "value": 30,
+                    "max": 30
+                },
+                "astralPoints": {
+                    "value": 0,
+                    "max": 0
+                },
+                "karmaPoints": {
+                    "value": 0,
+                    "max": 0
+                }
+            },
+            "combat": {
+                "initiativeBase": 0,
+                "attackBase": 0,
+                "parryBase": 0
+            }
+        },
+        "creature": {
+            "templates": [
+                "base",
+                "characteristics"
+            ],
+            "species": "",
+            "resources": {
+                "lifePoints": {
+                    "value": 20,
+                    "max": 20
+                }
+            },
+            "combat": {
+                "initiativeBase": 0,
+                "attackBase": 0,
+                "parryBase": 0
+            }
+        }
+    },
     "Item": {
         "types": [
             "weapon",
-            "vehicle"
+            "skill",
+            "specialAbility"
         ],
         "templates": {
-            "itemDescription": {
-                "description": ""
+            "described": {
+                "description": "",
+                "notes": ""
             }
         },
         "weapon": {
-            "templates": ["itemDescription"],
-            "attackWith": "guns",
-            "damage": 0,
-            "concealment": 0,
-            "reload": 0,
-            "mookBonus": 0,
-            "pumpAction": false
+            "templates": [
+                "described"
+            ],
+            "group": "none",
+            "damage": "1W6",
+            "attackModifier": 0,
+            "parryModifier": 0,
+            "initiativeModifier": 0,
+            "range": "",
+            "weight": ""
         },
-        "vehicle": {
-            "templates": ["itemDescription"],
-            "acceleration": 0,
-            "frame": 0,
-            "handling": 0,
-            "personal": false
+        "skill": {
+            "templates": [
+                "described"
+            ],
+            "probe": [
+                "mu",
+                "kl",
+                "in"
+            ],
+            "group": "",
+            "complexity": "A"
+        },
+        "specialAbility": {
+            "templates": [
+                "described"
+            ]
         }
-
     }
 }

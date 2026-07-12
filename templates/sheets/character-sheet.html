@@ -1,0 +1,56 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <header class="sheet-header">
+        <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="96" width="96" />
+        <div class="dsa41-header-fields">
+            <h1><input name="name" type="text" value="{{actor.name}}" placeholder="Name" /></h1>
+            <label>{{localize "DSA41.Character.species"}}<input name="system.species" type="text" value="{{system.species}}" /></label>
+            <label>{{localize "DSA41.Character.culture"}}<input name="system.culture" type="text" value="{{system.culture}}" /></label>
+            <label>{{localize "DSA41.Character.profession"}}<input name="system.profession" type="text" value="{{system.profession}}" /></label>
+        </div>
+    </header>
+
+    <section class="dsa41-grid dsa41-characteristics">
+        {{#each system.characteristics as |char key|}}
+        <label>
+            {{localize (lookup ../config.characteristics key)}}
+            <input name="system.characteristics.{{key}}.value" type="number" value="{{char.value}}" />
+        </label>
+        {{/each}}
+    </section>
+
+    <section class="dsa41-grid">
+        <label>
+            {{localize "DSA41.Character.experience"}}
+            <input name="system.experience" type="number" value="{{system.experience}}" />
+        </label>
+        <label>
+            {{localize "DSA41.Character.lifePoints"}}
+            <input name="system.resources.lifePoints.value" type="number" value="{{system.resources.lifePoints.value}}" />
+        </label>
+        <label>
+            {{localize "DSA41.Character.astralPoints"}}
+            <input name="system.resources.astralPoints.value" type="number" value="{{system.resources.astralPoints.value}}" />
+        </label>
+        <label>
+            {{localize "DSA41.Character.karmaPoints"}}
+            <input name="system.resources.karmaPoints.value" type="number" value="{{system.resources.karmaPoints.value}}" />
+        </label>
+        <label>
+            {{localize "DSA41.Character.initiativeBase"}}
+            <input name="system.combat.initiativeBase" type="number" value="{{system.combat.initiativeBase}}" />
+        </label>
+        <label>
+            {{localize "DSA41.Character.attackBase"}}
+            <input name="system.combat.attackBase" type="number" value="{{system.combat.attackBase}}" />
+        </label>
+        <label>
+            {{localize "DSA41.Character.parryBase"}}
+            <input name="system.combat.parryBase" type="number" value="{{system.combat.parryBase}}" />
+        </label>
+    </section>
+
+    <section class="dsa41-stack">
+        <label>{{localize "DSA41.Sheet.notes"}}</label>
+        <textarea name="system.notes">{{system.notes}}</textarea>
+    </section>
+</form>

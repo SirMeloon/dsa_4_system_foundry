@@ -1,0 +1,64 @@
+{
+    "DSA41": {
+        "Actor": {
+            "character": "Held",
+            "creature": "Kreatur"
+        },
+        "Item": {
+            "weapon": "Waffe",
+            "skill": "Talent",
+            "specialAbility": "Sonderfertigkeit"
+        },
+        "Sheet": {
+            "description": "Beschreibung",
+            "notes": "Notizen"
+        },
+        "Character": {
+            "title": "Heldenbogen",
+            "species": "Spezies",
+            "culture": "Kultur",
+            "profession": "Profession",
+            "experience": "Abenteuerpunkte",
+            "lifePoints": "Lebensenergie",
+            "astralPoints": "Astralenergie",
+            "karmaPoints": "Karmaenergie",
+            "initiativeBase": "Initiative-Basis",
+            "attackBase": "Attacke-Basis",
+            "parryBase": "Parade-Basis"
+        },
+        "Characteristic": {
+            "mu": "Mut",
+            "kl": "Klugheit",
+            "in": "Intuition",
+            "ch": "Charisma",
+            "ff": "Fingerfertigkeit",
+            "ge": "Gewandtheit",
+            "ko": "Konstitution",
+            "kk": "Koerperkraft"
+        },
+        "Weapon": {
+            "title": "Waffe",
+            "group": "Waffengruppe",
+            "damage": "Trefferpunkte",
+            "attackModifier": "AT-Modifikator",
+            "parryModifier": "PA-Modifikator",
+            "initiativeModifier": "INI-Modifikator",
+            "range": "Reichweite",
+            "weight": "Gewicht"
+        },
+        "Skill": {
+            "title": "Talent",
+            "probe": "Probe",
+            "group": "Talentgruppe",
+            "complexity": "Steigerung"
+        },
+        "WeaponGroup": {
+            "none": "-",
+            "dagger": "Dolche",
+            "sword": "Schwerter",
+            "staff": "Staebe",
+            "polearm": "Stangenwaffen",
+            "axe": "Aexte"
+        }
+    }
+}
