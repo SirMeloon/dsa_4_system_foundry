@@ -19,3 +19,10 @@ DSA41.weaponGroups = {
     polearm: "DSA41.WeaponGroup.polearm",
     axe: "DSA41.WeaponGroup.axe"
 };
+
+DSA41.speciesFields = {
+    hairColor: "DSA41.Species.hairColor",
+    eyeColor: "DSA41.Species.eyeColor",
+    height: "DSA41.Species.height",
+    weight: "DSA41.Species.weight"
+};

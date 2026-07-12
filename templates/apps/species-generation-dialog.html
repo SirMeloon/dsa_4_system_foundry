@@ -1,0 +1,65 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <h2>{{species.name}}</h2>
+
+    <section class="dsa41-grid">
+        <div class="dsa41-card">
+            <h3>{{localize "DSA41.Species.hairColor"}}</h3>
+            {{#if hairColors.length}}
+            <ul class="dsa41-plain-list">
+                {{#each hairColors}}
+                <li>{{min}}-{{max}}: {{label}}</li>
+                {{/each}}
+            </ul>
+            {{else}}
+            <p>{{localize "DSA41.Dialog.noFormula"}}</p>
+            {{/if}}
+            <button type="button" data-roll-field="hairColor">{{localize "DSA41.Dialog.roll"}}</button>
+            <label>
+                {{localize "DSA41.Dialog.result"}}
+                <input name="hairColor" type="text" value="{{state.hairColor}}" />
+            </label>
+        </div>
+
+        <div class="dsa41-card">
+            <h3>{{localize "DSA41.Species.eyeColor"}}</h3>
+            {{#if eyeColors.length}}
+            <ul class="dsa41-plain-list">
+                {{#each eyeColors}}
+                <li>{{min}}-{{max}}: {{label}}</li>
+                {{/each}}
+            </ul>
+            {{else}}
+            <p>{{localize "DSA41.Dialog.noFormula"}}</p>
+            {{/if}}
+            <button type="button" data-roll-field="eyeColor">{{localize "DSA41.Dialog.roll"}}</button>
+            <label>
+                {{localize "DSA41.Dialog.result"}}
+                <input name="eyeColor" type="text" value="{{state.eyeColor}}" />
+            </label>
+        </div>
+
+        <div class="dsa41-card">
+            <h3>{{localize "DSA41.Species.height"}}</h3>
+            <p>{{system.height.formula}}</p>
+            <button type="button" data-roll-field="height">{{localize "DSA41.Dialog.roll"}}</button>
+            <label>
+                {{localize "DSA41.Dialog.result"}}
+                <input name="height" type="text" value="{{state.height}}" />
+            </label>
+        </div>
+
+        <div class="dsa41-card">
+            <h3>{{localize "DSA41.Species.weight"}}</h3>
+            <p>{{system.weight.formula}} {{system.weight.unit}}</p>
+            <button type="button" data-roll-field="weight">{{localize "DSA41.Dialog.roll"}}</button>
+            <label>
+                {{localize "DSA41.Dialog.result"}}
+                <input name="weight" type="text" value="{{state.weight}}" />
+            </label>
+        </div>
+    </section>
+
+    <footer class="sheet-footer">
+        <button type="submit">{{localize "DSA41.Dialog.apply"}}</button>
+    </footer>
+</form>

@@ -1,0 +1,144 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <header class="sheet-header">
+        <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="64" width="64" />
+        <div class="dsa41-header-fields">
+            <h1><input name="name" type="text" value="{{item.name}}" placeholder="Name" /></h1>
+            <label>
+                {{localize "DSA41.Species.gpCost"}}
+                <input name="system.gpCost" type="number" value="{{system.gpCost}}" />
+            </label>
+        </div>
+    </header>
+
+    <section class="dsa41-grid">
+        <label class="dsa41-stack">
+            {{localize "DSA41.Sheet.description"}}
+            <textarea name="system.description">{{system.description}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Species.originDistribution"}}
+            <textarea name="system.originDistribution">{{system.originDistribution}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Species.appearanceDescription"}}
+            <textarea name="system.appearance">{{system.appearance}}</textarea>
+        </label>
+    </section>
+
+    <section class="dsa41-grid">
+        <label class="dsa41-stack">
+            {{localize "DSA41.Species.hairColor"}}
+            <small>{{localize "DSA41.Species.tableHint"}}</small>
+            <textarea name="species.hairColorsText">{{species.hairColorsText}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Species.eyeColor"}}
+            <small>{{localize "DSA41.Species.tableHint"}}</small>
+            <textarea name="species.eyeColorsText">{{species.eyeColorsText}}</textarea>
+        </label>
+    </section>
+
+    <section class="dsa41-grid">
+        <label>
+            {{localize "DSA41.Species.base"}}
+            <input name="system.height.base" type="text" value="{{system.height.base}}" />
+        </label>
+        <label>
+            {{localize "DSA41.Species.diceCount"}}
+            <input name="system.height.diceCount" type="number" value="{{system.height.diceCount}}" />
+        </label>
+        <label>
+            {{localize "DSA41.Species.diceFaces"}}
+            <input name="system.height.diceFaces" type="number" value="{{system.height.diceFaces}}" />
+        </label>
+        <label>
+            {{localize "DSA41.Species.step"}}
+            <input name="system.height.step" type="text" value="{{system.height.step}}" />
+        </label>
+        <label>
+            {{localize "DSA41.Species.unit"}}
+            <input name="system.height.unit" type="text" value="{{system.height.unit}}" />
+        </label>
+        <label>
+            {{localize "DSA41.Species.formula"}}
+            <input name="system.height.formula" type="text" value="{{system.height.formula}}" />
+        </label>
+        <label>
+            {{localize "DSA41.Species.weight"}}
+            <input name="system.weight.formula" type="text" value="{{system.weight.formula}}" />
+        </label>
+        <label>
+            {{localize "DSA41.Species.unit"}}
+            <input name="system.weight.unit" type="text" value="{{system.weight.unit}}" />
+        </label>
+    </section>
+
+    <section class="dsa41-grid dsa41-characteristics">
+        {{#each system.modifiers.characteristics as |value key|}}
+        <label>
+            {{localize (lookup ../config.characteristics key)}}
+            <input name="system.modifiers.characteristics.{{key}}" type="number" value="{{value}}" />
+        </label>
+        {{/each}}
+        <label>
+            {{localize "DSA41.Species.lifePointsModifier"}}
+            <input name="system.modifiers.lifePoints" type="number" value="{{system.modifiers.lifePoints}}" />
+        </label>
+        <label>
+            {{localize "DSA41.Species.enduranceModifier"}}
+            <input name="system.modifiers.endurance" type="number" value="{{system.modifiers.endurance}}" />
+        </label>
+        <label>
+            {{localize "DSA41.Species.magicResistanceModifier"}}
+            <input name="system.modifiers.magicResistance" type="number" value="{{system.modifiers.magicResistance}}" />
+        </label>
+    </section>
+
+    <section class="dsa41-grid">
+        <label class="dsa41-stack">
+            {{localize "DSA41.Species.automaticAdvantages"}}
+            <small>{{localize "DSA41.Species.listHint"}}</small>
+            <textarea name="species.automaticAdvantagesText">{{species.automaticAdvantagesText}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Species.automaticDisadvantages"}}
+            <small>{{localize "DSA41.Species.listHint"}}</small>
+            <textarea name="species.automaticDisadvantagesText">{{species.automaticDisadvantagesText}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Species.recommendedAdvantages"}}
+            <small>{{localize "DSA41.Species.listHint"}}</small>
+            <textarea name="species.recommendedAdvantagesText">{{species.recommendedAdvantagesText}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Species.recommendedDisadvantages"}}
+            <small>{{localize "DSA41.Species.listHint"}}</small>
+            <textarea name="species.recommendedDisadvantagesText">{{species.recommendedDisadvantagesText}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Species.unsuitableAdvantages"}}
+            <small>{{localize "DSA41.Species.listHint"}}</small>
+            <textarea name="species.unsuitableAdvantagesText">{{species.unsuitableAdvantagesText}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Species.unsuitableDisadvantages"}}
+            <small>{{localize "DSA41.Species.listHint"}}</small>
+            <textarea name="species.unsuitableDisadvantagesText">{{species.unsuitableDisadvantagesText}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Species.allowedCultures"}}
+            <small>{{localize "DSA41.Species.listHint"}}</small>
+            <textarea name="species.allowedCulturesText">{{species.allowedCulturesText}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Species.grantedTalents"}}
+            <small>{{localize "DSA41.Species.talentHint"}}</small>
+            <textarea name="species.grantedTalentsText">{{species.grantedTalentsText}}</textarea>
+        </label>
+    </section>
+
+    <section class="dsa41-stack">
+        <label>{{localize "DSA41.Sheet.notes"}}</label>
+        <textarea name="system.notes">{{system.notes}}</textarea>
+    </section>
+</form>

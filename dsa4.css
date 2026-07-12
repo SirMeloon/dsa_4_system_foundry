@@ -37,3 +37,21 @@
     min-height: 6rem;
     resize: vertical;
 }
+
+.dsa41-card {
+    border: 1px solid #999;
+    border-radius: 6px;
+    padding: 0.75rem;
+    display: grid;
+    gap: 0.5rem;
+}
+
+.dsa41-plain-list {
+    margin: 0;
+    padding-left: 1.25rem;
+}
+
+.dsa41 .sheet-footer {
+    display: flex;
+    justify-content: flex-end;
+}

@@ -47,8 +47,18 @@
             "culture": "",
             "profession": "",
             "experience": 0,
+            "appearance": {
+                "hairColor": "",
+                "eyeColor": "",
+                "height": "",
+                "weight": ""
+            },
             "resources": {
                 "lifePoints": {
+                    "value": 30,
+                    "max": 30
+                },
+                "endurance": {
                     "value": 30,
                     "max": 30
                 },
@@ -90,7 +100,8 @@
         "types": [
             "weapon",
             "skill",
-            "specialAbility"
+            "specialAbility",
+            "species"
         ],
         "templates": {
             "described": {
@@ -125,6 +136,68 @@
         "specialAbility": {
             "templates": [
                 "described"
+            ]
+        },
+        "species": {
+            "templates": [
+                "described"
+            ],
+            "gpCost": 0,
+            "originDistribution": "",
+            "appearance": "",
+            "hairColors": [
+                {
+                    "min": 1,
+                    "max": 20,
+                    "label": ""
+                }
+            ],
+            "eyeColors": [
+                {
+                    "min": 1,
+                    "max": 20,
+                    "label": ""
+                }
+            ],
+            "height": {
+                "base": 1.5,
+                "diceCount": 2,
+                "diceFaces": 20,
+                "step": 0.01,
+                "unit": "Schritt",
+                "formula": "1.50 + 2W20 * 0.01"
+            },
+            "weight": {
+                "formula": "Groesse - 100",
+                "unit": "Stein"
+            },
+            "modifiers": {
+                "characteristics": {
+                    "mu": 0,
+                    "kl": 0,
+                    "in": 0,
+                    "ch": 0,
+                    "ff": 0,
+                    "ge": 0,
+                    "ko": 0,
+                    "kk": 0
+                },
+                "lifePoints": 0,
+                "endurance": 0,
+                "magicResistance": 0
+            },
+            "automaticAdvantages": [],
+            "automaticDisadvantages": [],
+            "recommendedAdvantages": [],
+            "recommendedDisadvantages": [],
+            "unsuitableAdvantages": [],
+            "unsuitableDisadvantages": [],
+            "allowedCultures": [],
+            "grantedTalents": [
+                {
+                    "name": "",
+                    "value": ""
+                }
             ]
         }
     }

@@ -17,6 +17,7 @@ export default class DSA41ActorSheet extends ActorSheet {
         const data = super.getData();
         data.config = CONFIG.DSA41;
         data.system = this.actor.system;
+        data.speciesItem = this.actor.items.find((item) => item.type === "species") ?? null;
         return data;
     }
 }
