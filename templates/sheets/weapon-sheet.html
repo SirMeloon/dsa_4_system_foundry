@@ -15,32 +15,32 @@
             </tr>
             <tr>
                 <td>
-                    <select name="data.attackWith">
-                        {{#select data.attackWith}}
-                        {{#each config.attackTypes as |type|}}
-                        <option value="{{type}}">{{name}}</option>
+                    <select name="system.attackWith">
+                        {{#select system.attackWith}}
+                        {{#each config.attackTypes as |label key|}}
+                        <option value="{{key}}">{{localize label}}</option>
                         {{/each}}
                         {{/select}}
                     </select>
                 </td>
                 <td>
-                    <input name="data.damage" type="text" value="{{data.damage}}" data-dtype="Number" />
+                    <input name="system.damage" type="text" value="{{system.damage}}" data-dtype="Number" />
                 </td>
                 <td>
-                    <input name="data.conceal" type="text" value="{{data.conceal}}" data-dtype="Number" />
+                    <input name="system.concealment" type="text" value="{{system.concealment}}" data-dtype="Number" />
                 </td>
                 <td>
-                    <input name="data.reload" type="text" value="{{data.reload}}" data-dtype="Number" />
+                    <input name="system.reload" type="text" value="{{system.reload}}" data-dtype="Number" />
                 </td>
                 <td>
-                    <input name="data.mookBonus" type="text" value="{{data.mookBonus}}" data-dtype="Number" />
+                    <input name="system.mookBonus" type="text" value="{{system.mookBonus}}" data-dtype="Number" />
                 </td>
                 <td>
-                    <input name="data.pumpAction" type="checkbox" {{checked data.pumpAction}} />
+                    <input name="system.pumpAction" type="checkbox" {{checked system.pumpAction}} />
                 </td>
             </tr>
 
         </table>
-        <textarea name="data.description">{{data.description}}</textarea>
+        <textarea name="system.description">{{system.description}}</textarea>
     </div>
 </form>

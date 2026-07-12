@@ -7,6 +7,7 @@ export default class FS2ItemSheet extends ItemSheet {
         const data = super.getData();
 
         data.config = CONFIG.fs2e;
+        data.system = this.item.system;
 
         return data;
     }
