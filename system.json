@@ -3,11 +3,17 @@
     "name": "dsa_4_system_foundry",
     "title": "Das schwarze Auge 4.1",
     "description": "Foundry VTT system for Das Schwarze Auge 4.1",
-    "author": "André Schucht",
+    "authors": [
+        {
+            "name": "André Schucht"
+        }
+    ],
+    "url": "https://github.com/SirMeloon/dsa_4_system_foundry",
+    "manifest": "https://raw.githubusercontent.com/SirMeloon/dsa_4_system_foundry/main/system.json",
     "version": "0.0.1",
     "compatibility": {
-        "minimum": "14.364",
-        "verified": "14.364",
+        "minimum": "13",
+        "verified": "13",
         "maximum": "14"
     },
     "esmodules": [
