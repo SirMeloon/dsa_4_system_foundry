@@ -7,7 +7,9 @@
         "Item": {
             "weapon": "Waffe",
             "skill": "Talent",
-            "specialAbility": "Sonderfertigkeit"
+            "specialAbility": "Sonderfertigkeit",
+            "species": "Rasse",
+            "culture": "Kultur"
         },
         "Sheet": {
             "description": "Beschreibung",
@@ -88,6 +90,36 @@
             "tableHint": "Format: min-max: Wert",
             "talentHint": "Format: Name: Wert oder Notiz"
         },
+        "Culture": {
+            "title": "Kultur",
+            "gpCost": "Generierungskosten (GP)",
+            "livingArea": "Lebensraum",
+            "lifestyle": "Lebensweise",
+            "worldviewFaith": "Weltsicht und Glaube",
+            "customs": "Sitten und Braeuche",
+            "clothingWeapons": "Tracht und Bewaffnung",
+            "selfImage": "Darstellung",
+            "languageNames": "Sprache und Namen",
+            "modifications": "Modifikationen",
+            "automaticAdvantages": "Automatische Vorteile",
+            "automaticDisadvantages": "Automatische Nachteile",
+            "recommendedAdvantages": "Empfohlene Vorteile",
+            "recommendedDisadvantages": "Empfohlene Nachteile",
+            "unsuitableAdvantages": "Ungeeignete Vorteile",
+            "unsuitableDisadvantages": "Ungeeignete Nachteile",
+            "allowedProfessions": "Professionen",
+            "talents": "Talente",
+            "combatTalents": "Kampf",
+            "bodyTalents": "Koerper",
+            "socialTalents": "Gesellschaft",
+            "natureTalents": "Natur",
+            "knowledgeTalents": "Wissen",
+            "scriptsLanguagesTalents": "Schriften/Sprachen",
+            "craftTalents": "Handwerk",
+            "specialAbilities": "Sonderfertigkeiten",
+            "listHint": "Ein Eintrag pro Zeile",
+            "talentHint": "Format: Name: Wert oder Notiz"
+        },
         "Dialog": {
             "speciesGenerationTitle": "Spezieswerte festlegen",
             "roll": "Erwuerfeln",
@@ -96,6 +128,7 @@
             "apply": "Uebernehmen",
             "cancel": "Abbrechen",
             "currentSpeciesExists": "Der Held hat bereits eine Spezies.",
+            "currentCultureExists": "Der Held hat bereits eine Kultur.",
             "noFormula": "Keine Formel oder Tabelle hinterlegt."
         },
         "WeaponGroup": {

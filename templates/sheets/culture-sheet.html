@@ -1,0 +1,138 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <header class="sheet-header">
+        <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="64" width="64" />
+        <div class="dsa41-header-fields">
+            <h1><input name="name" type="text" value="{{item.name}}" placeholder="Name" /></h1>
+            <label>
+                {{localize "DSA41.Culture.gpCost"}}
+                <input name="system.gpCost" type="number" value="{{system.gpCost}}" />
+            </label>
+        </div>
+    </header>
+
+    <section class="dsa41-grid">
+        <label class="dsa41-stack">
+            {{localize "DSA41.Sheet.description"}}
+            <textarea name="system.description">{{system.description}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Culture.livingArea"}}
+            <textarea name="system.livingArea">{{system.livingArea}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Culture.lifestyle"}}
+            <textarea name="system.lifestyle">{{system.lifestyle}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Culture.worldviewFaith"}}
+            <textarea name="system.worldviewFaith">{{system.worldviewFaith}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Culture.customs"}}
+            <textarea name="system.customs">{{system.customs}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Culture.clothingWeapons"}}
+            <textarea name="system.clothingWeapons">{{system.clothingWeapons}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Culture.selfImage"}}
+            <textarea name="system.selfImage">{{system.selfImage}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Culture.languageNames"}}
+            <textarea name="system.languageNames">{{system.languageNames}}</textarea>
+        </label>
+    </section>
+
+    <section class="dsa41-grid">
+        <label class="dsa41-stack">
+            {{localize "DSA41.Culture.modifications"}}
+            <small>{{localize "DSA41.Culture.listHint"}}</small>
+            <textarea name="culture.modificationsText">{{culture.modificationsText}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Culture.automaticAdvantages"}}
+            <small>{{localize "DSA41.Culture.listHint"}}</small>
+            <textarea name="culture.automaticAdvantagesText">{{culture.automaticAdvantagesText}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Culture.automaticDisadvantages"}}
+            <small>{{localize "DSA41.Culture.listHint"}}</small>
+            <textarea name="culture.automaticDisadvantagesText">{{culture.automaticDisadvantagesText}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Culture.recommendedAdvantages"}}
+            <small>{{localize "DSA41.Culture.listHint"}}</small>
+            <textarea name="culture.recommendedAdvantagesText">{{culture.recommendedAdvantagesText}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Culture.recommendedDisadvantages"}}
+            <small>{{localize "DSA41.Culture.listHint"}}</small>
+            <textarea name="culture.recommendedDisadvantagesText">{{culture.recommendedDisadvantagesText}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Culture.unsuitableAdvantages"}}
+            <small>{{localize "DSA41.Culture.listHint"}}</small>
+            <textarea name="culture.unsuitableAdvantagesText">{{culture.unsuitableAdvantagesText}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Culture.unsuitableDisadvantages"}}
+            <small>{{localize "DSA41.Culture.listHint"}}</small>
+            <textarea name="culture.unsuitableDisadvantagesText">{{culture.unsuitableDisadvantagesText}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Culture.allowedProfessions"}}
+            <small>{{localize "DSA41.Culture.listHint"}}</small>
+            <textarea name="culture.allowedProfessionsText">{{culture.allowedProfessionsText}}</textarea>
+        </label>
+    </section>
+
+    <section class="dsa41-grid">
+        <label class="dsa41-stack">
+            {{localize "DSA41.Culture.combatTalents"}}
+            <small>{{localize "DSA41.Culture.talentHint"}}</small>
+            <textarea name="culture.combatTalentsText">{{culture.combatTalentsText}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Culture.bodyTalents"}}
+            <small>{{localize "DSA41.Culture.talentHint"}}</small>
+            <textarea name="culture.bodyTalentsText">{{culture.bodyTalentsText}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Culture.socialTalents"}}
+            <small>{{localize "DSA41.Culture.talentHint"}}</small>
+            <textarea name="culture.socialTalentsText">{{culture.socialTalentsText}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Culture.natureTalents"}}
+            <small>{{localize "DSA41.Culture.talentHint"}}</small>
+            <textarea name="culture.natureTalentsText">{{culture.natureTalentsText}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Culture.knowledgeTalents"}}
+            <small>{{localize "DSA41.Culture.talentHint"}}</small>
+            <textarea name="culture.knowledgeTalentsText">{{culture.knowledgeTalentsText}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Culture.scriptsLanguagesTalents"}}
+            <small>{{localize "DSA41.Culture.talentHint"}}</small>
+            <textarea name="culture.scriptsLanguagesTalentsText">{{culture.scriptsLanguagesTalentsText}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Culture.craftTalents"}}
+            <small>{{localize "DSA41.Culture.talentHint"}}</small>
+            <textarea name="culture.craftTalentsText">{{culture.craftTalentsText}}</textarea>
+        </label>
+        <label class="dsa41-stack">
+            {{localize "DSA41.Culture.specialAbilities"}}
+            <small>{{localize "DSA41.Culture.listHint"}}</small>
+            <textarea name="culture.specialAbilitiesText">{{culture.specialAbilitiesText}}</textarea>
+        </label>
+    </section>
+
+    <section class="dsa41-stack">
+        <label>{{localize "DSA41.Sheet.notes"}}</label>
+        <textarea name="system.notes">{{system.notes}}</textarea>
+    </section>
+</form>

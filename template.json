@@ -101,7 +101,8 @@
             "weapon",
             "skill",
             "specialAbility",
-            "species"
+            "species",
+            "culture"
         ],
         "templates": {
             "described": {
@@ -199,6 +200,42 @@
                     "value": ""
                 }
             ]
+        },
+        "culture": {
+            "templates": [
+                "described"
+            ],
+            "gpCost": 0,
+            "livingArea": "",
+            "lifestyle": "",
+            "worldviewFaith": "",
+            "customs": "",
+            "clothingWeapons": "",
+            "selfImage": "",
+            "languageNames": "",
+            "modifications": [],
+            "automaticAdvantages": [],
+            "automaticDisadvantages": [],
+            "recommendedAdvantages": [],
+            "recommendedDisadvantages": [],
+            "unsuitableAdvantages": [],
+            "unsuitableDisadvantages": [],
+            "allowedProfessions": [],
+            "talents": {
+                "combat": [
+                    {
+                        "name": "",
+                        "value": ""
+                    }
+                ],
+                "body": [],
+                "social": [],
+                "nature": [],
+                "knowledge": [],
+                "scriptsLanguages": [],
+                "craft": []
+            },
+            "specialAbilities": []
         }
     }
 }

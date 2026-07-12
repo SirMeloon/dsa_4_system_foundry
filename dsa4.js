@@ -17,26 +17,33 @@ Hooks.once("init", function () {
     });
 
     Items.registerSheet("dsa_4_system_foundry", DSA41ItemSheet, {
-        types: ["weapon", "skill", "specialAbility", "species"],
+        types: ["weapon", "skill", "specialAbility", "species", "culture"],
         makeDefault: true
     });
 });
 
 Hooks.on("preCreateItem", (item) => {
     if (!(item.parent instanceof Actor)) return;
-    if (item.type !== "species") return;
+    if (!["species", "culture"].includes(item.type)) return;
     if (item.parent.type !== "character") return;
-    const existingSpecies = item.parent.items.some((actorItem) => actorItem.type === "species");
-    if (!existingSpecies) return;
-    ui.notifications?.warn(game.i18n.localize("DSA41.Dialog.currentSpeciesExists"));
+    const existingEntry = item.parent.items.some((actorItem) => actorItem.type === item.type);
+    if (!existingEntry) return;
+    const messageKey = item.type === "species" ? "DSA41.Dialog.currentSpeciesExists" : "DSA41.Dialog.currentCultureExists";
+    ui.notifications?.warn(game.i18n.localize(messageKey));
     return false;
 });
 
 Hooks.on("createItem", async (item, _options, userId) => {
     if (game.userId !== userId) return;
     if (!(item.parent instanceof Actor)) return;
-    if (item.type !== "species") return;
     if (item.parent.type !== "character") return;
 
-    new SpeciesGenerationDialog(item.parent, item).render(true);
+    if (item.type === "species") {
+        new SpeciesGenerationDialog(item.parent, item).render(true);
+        return;
+    }
+
+    if (item.type === "culture") {
+        await item.parent.update({ "system.culture": item.name });
+    }
 });

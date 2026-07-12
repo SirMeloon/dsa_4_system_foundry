@@ -4,6 +4,18 @@ function normalizeNumber(value) {
     return Number.isNaN(normalized) ? null : normalized;
 }
 
+function inferHeightInCentimeters(heightValue, unit) {
+    const numericHeight = normalizeNumber(heightValue);
+    if (numericHeight === null) return null;
+
+    const normalizedUnit = String(unit ?? "").toLowerCase();
+    if (normalizedUnit.includes("schritt") || normalizedUnit === "m" || normalizedUnit.includes("meter")) {
+        return numericHeight * 100;
+    }
+
+    return numericHeight;
+}
+
 export default class SpeciesGenerationDialog extends FormApplication {
     constructor(actor, species, options = {}) {
         super({}, options);
@@ -82,13 +94,16 @@ export default class SpeciesGenerationDialog extends FormApplication {
 
     async #rollWeight() {
         const weight = this.species.system.weight ?? {};
+        const height = this.species.system.height ?? {};
         const heightValue = this.state.height || await this.#rollHeight();
         if (!this.state.height) this.state.height = heightValue;
+        const heightInCentimeters = inferHeightInCentimeters(heightValue, height.unit);
         const numericHeight = normalizeNumber(heightValue);
-        if (numericHeight === null || !weight.formula) return "";
+        if (numericHeight === null || heightInCentimeters === null || !weight.formula) return "";
 
         const expression = String(weight.formula)
-            .replace(/Größe|Groesse|groesse|größe|Hoehe|Höhe|height/gi, String(numericHeight))
+            .replace(/GrößeCm|GroesseCm|groessecm|größecm|heightcm/gi, String(heightInCentimeters))
+            .replace(/Größe|Groesse|groesse|größe|Hoehe|Höhe|height/gi, String(heightInCentimeters))
             .replace(",", ".");
 
         const safeExpression = expression.replace(/[^0-9+\-*/(). ]/g, "");
