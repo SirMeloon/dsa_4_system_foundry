@@ -26,7 +26,7 @@ export class dsaActorSheet extends ActorSheet {
 
   /** @override */
   get template() {
-    return `systems/dsa/templates/actor/actor-${this.actor.type}-sheet.hbs`;
+    return `systems/dsa_4_system_foundry/templates/actor/actor-${this.actor.type}-sheet.hbs`;
   }
 
   /* -------------------------------------------- */

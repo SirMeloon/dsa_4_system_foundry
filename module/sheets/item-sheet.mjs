@@ -26,7 +26,7 @@ export class dsaItemSheet extends ItemSheet {
 
   /** @override */
   get template() {
-    const path = 'systems/dsa/templates/item';
+    const path = 'systems/dsa_4_system_foundry/templates/item';
     // Return a single sheet for all item types.
     // return `${path}/item-sheet.hbs`;
 

@@ -10,14 +10,14 @@
 >
 > <details><summary>Edited a file</summary>
 >
-> - Wrote `./dsa/module/data/actor-character.mjs` (+2 -2)
+> - Wrote `./dsa_4_system_foundry/module/data/actor-character.mjs` (+2 -2)
 >
 > </details>
 >
 > Die Änderung ist gesetzt. Die kombinierte Syntaxprüfung liefert keinen Detailtext und endet mit Status 1, daher kläre ich kurz, ob `node` in dieser Umgebung verfügbar ist oder ob nur die Suche keinen Treffer zurückgegeben hat.
 </details>
 
-Der Sheet wurde wegen eines Syntaxfehlers nicht geladen. In [actor-character.mjs](./dsa/module/data/actor-character.mjs:27) war:
+Der Sheet wurde wegen eines Syntaxfehlers nicht geladen. In [actor-character.mjs](./dsa_4_system_foundry/module/data/actor-character.mjs:27) war:
 
 ```js
 initial=0
@@ -37,11 +37,11 @@ Die betroffenen Moduldateien bestehen jetzt die JavaScript-Syntaxprüfung. Found
 >
 > <details><summary>Edited 5 files</summary>
 >
-> - Wrote `./dsa/css/dsa.css` (+23 -3)
-> - Wrote `./dsa/lang/de.json` (+12 -4)
-> - Wrote `./dsa/lang/en.json` (+12 -4)
-> - Wrote `./dsa/module/sheets/actor-sheet.mjs` (+34 -4)
-> - Wrote `./dsa/templates/actor/actor-character-sheet.hbs` (+29 -9)
+> - Wrote `./dsa_4_system_foundry/css/dsa.css` (+23 -3)
+> - Wrote `./dsa_4_system_foundry/lang/de.json` (+12 -4)
+> - Wrote `./dsa_4_system_foundry/lang/en.json` (+12 -4)
+> - Wrote `./dsa_4_system_foundry/module/sheets/actor-sheet.mjs` (+34 -4)
+> - Wrote `./dsa_4_system_foundry/templates/actor/actor-character-sheet.hbs` (+29 -9)
 >
 > </details>
 </details>
@@ -54,7 +54,7 @@ Die Proficiencies stehen jetzt direkt unter den Abilities im Character-Sheet:
 - Änderungen werden direkt am Actor gespeichert
 - deutsche und englische Beschriftungen ergänzt
 
-Geändert in [actor-character-sheet.hbs](./dsa/templates/actor/actor-character-sheet.hbs:75), [actor-sheet.mjs](./dsa/module/sheets/actor-sheet.mjs:188), [dsa.css](./dsa/css/dsa.css:167) und den Sprachdateien. JavaScript- und JSON-Prüfung sind erfolgreich.
+Geändert in [actor-character-sheet.hbs](./dsa_4_system_foundry/templates/actor/actor-character-sheet.hbs:75), [actor-sheet.mjs](./dsa_4_system_foundry/module/sheets/actor-sheet.mjs:188), [dsa.css](./dsa_4_system_foundry/css/dsa.css:167) und den Sprachdateien. JavaScript- und JSON-Prüfung sind erfolgreich.
 
 > Ich bin neu in foundry system dev.
 > Bitte erklär mir seh reinfach wie ich zum Beispiel die Abilities zu einem anderen System abändern kann
@@ -74,7 +74,7 @@ Beispiel: Du willst statt `str`, `dex`, `con`, `int`, `wis`, `cha` nur DSA-nahe 
 
 **1. Schlüssel und Namen ändern**
 
-In [config.mjs](./dsa/module/helpers/config.mjs:7) ersetzt du die Einträge:
+In [config.mjs](./dsa_4_system_foundry/module/helpers/config.mjs:7) ersetzt du die Einträge:
 
 ```js
 DSA.abilities = {
@@ -93,7 +93,7 @@ Die Kürzel, etwa `mu`, sind wichtig: Sie werden als Datenpfad gespeichert, z. B
 
 **2. Die Texte übersetzen**
 
-In [de.json](./dsa/lang/de.json) legst du die passenden Namen an:
+In [de.json](./dsa_4_system_foundry/lang/de.json) legst du die passenden Namen an:
 
 ```json
 "Ability": {
@@ -110,7 +110,7 @@ In [de.json](./dsa/lang/de.json) legst du die passenden Namen an:
 
 **3. Das Datenmodell musst du hier nicht ändern**
 
-In [actor-character.mjs](./dsa/module/data/actor-character.mjs) wird diese Zeile verwendet:
+In [actor-character.mjs](./dsa_4_system_foundry/module/data/actor-character.mjs) wird diese Zeile verwendet:
 
 ```js
 Object.keys(CONFIG.DSA.abilities)
@@ -120,7 +120,7 @@ Sie erzeugt automatisch für jeden Schlüssel aus `config.mjs` ein Feld mit `val
 
 **4. Das Sheet passt sich ebenfalls an**
 
-In [actor-character-sheet.hbs](./dsa/templates/actor/actor-character-sheet.hbs:67) läuft bereits diese Schleife:
+In [actor-character-sheet.hbs](./dsa_4_system_foundry/templates/actor/actor-character-sheet.hbs:67) läuft bereits diese Schleife:
 
 ```hbs
 {{#each system.abilities as |ability key|}}
@@ -130,7 +130,7 @@ Sie zeigt automatisch alle Abilities an. Du musst dort nichts ergänzen, solange
 
 **5. Formel anpassen**
 
-In [dsa.mjs](./dsa/module/dsa.mjs:27) steht noch:
+In [dsa.mjs](./dsa_4_system_foundry/module/dsa.mjs:27) steht noch:
 
 ```js
 formula: "1d20 + @abilities.dex.mod"
@@ -144,7 +144,7 @@ Wichtig: Nach solchen Änderungen Foundry mit `Strg+F5` neu laden und einen **ne
 
 `mod` steht für **Modifier** bzw. **Modifikator**. Es wird nicht gespeichert, sondern beim Laden des Actors berechnet.
 
-In [actor-character.mjs](./dsa/module/data/actor-character.mjs:35) passiert das hier:
+In [actor-character.mjs](./dsa_4_system_foundry/module/data/actor-character.mjs:35) passiert das hier:
 
 ```js
 this.abilities[key].mod = Math.floor(
@@ -221,7 +221,7 @@ Dann wäre die Übersetzungslogik vollständig in `prepareDerivedData()` gebünd
 
 Nicht ganz. Es gibt noch einen fehlerhaften Rest im Sheet:
 
-- [actor-character-sheet.hbs](./dsa/templates/actor/actor-character-sheet.hbs:71) enthält noch:
+- [actor-character-sheet.hbs](./dsa_4_system_foundry/templates/actor/actor-character-sheet.hbs:71) enthält noch:
 
   ```hbs
   <span class="ability-mod rollable" data-roll="d20">
@@ -245,8 +245,8 @@ Die Ability-Zeile kann dann so aussehen:
 
 Unkritisch, aber aufräumenswert:
 
-- [actor-character.mjs](./dsa/module/data/actor-character.mjs:46) hat noch einen Kommentar über `@str.mod`; den anpassen oder entfernen.
-- [item-item.mjs](./dsa/module/data/item-item.mjs:17) erwähnt `@str.mod` nur in einer auskommentierten Beispielzeile, also kein Laufzeitproblem.
+- [actor-character.mjs](./dsa_4_system_foundry/module/data/actor-character.mjs:46) hat noch einen Kommentar über `@str.mod`; den anpassen oder entfernen.
+- [item-item.mjs](./dsa_4_system_foundry/module/data/item-item.mjs:17) erwähnt `@str.mod` nur in einer auskommentierten Beispielzeile, also kein Laufzeitproblem.
 
 Die JavaScript-Dateien bestehen die Syntaxprüfung.
 
@@ -257,7 +257,7 @@ Die JavaScript-Dateien bestehen die Syntaxprüfung.
 
 Die Rechenregel ist vermutlich richtig: `MU` kommt in DSA 4.1 tatsächlich zweimal vor.
 
-Falsch sind die **Datenpfade**. Deine Ability-Schlüssel heißen in [config.mjs](./dsa/module/helpers/config.mjs:7) klein: `mu`, `in`, `ge`. Und jeder Wert liegt in `.value`.
+Falsch sind die **Datenpfade**. Deine Ability-Schlüssel heißen in [config.mjs](./dsa_4_system_foundry/module/helpers/config.mjs:7) klein: `mu`, `in`, `ge`. Und jeder Wert liegt in `.value`.
 
 Außerdem erzeugt dein `getRollData()` die Werte direkt als `@mu`, `@in` und `@ge`, nicht unter `@abilities`.
 
@@ -405,7 +405,7 @@ Es fehlen aber noch drei wichtige Korrekturen:
    Der Code verwendet `this.roll`, aber eine Rasse hat kein Feld `roll`. Dadurch kann das Item beim Laden abstürzen.
 
 2. **Alle vier HTML-Texte separat aufbereiten.**
-   In [item-sheet.mjs](./dsa/module/sheets/item-sheet.mjs) wird aktuell dies aufgerufen:
+   In [item-sheet.mjs](./dsa_4_system_foundry/module/sheets/item-sheet.mjs) wird aktuell dies aufgerufen:
 
    ```js
    TextEditor.enrichHTML(this.item.system.description, ...)
@@ -441,7 +441,7 @@ Es fehlen aber noch drei wichtige Korrekturen:
    Derzeit zeigen alle vier Editoren denselben Wert `enrichedDescription` an.
 
 3. **Start-Tab korrigieren.**
-   In [item-sheet.mjs](./dsa/module/sheets/item-sheet.mjs:21) steht noch:
+   In [item-sheet.mjs](./dsa_4_system_foundry/module/sheets/item-sheet.mjs:21) steht noch:
 
    ```js
    initial: "description"
@@ -538,8 +538,8 @@ Ein weiterer Punkt: Du hast global `initial: "beschreibung"` gesetzt. Dadurch st
 >
 > <details><summary>Edited 2 files, ran a command</summary>
 >
-> - Wrote `./dsa/lang/en.json` (+6 -5)
-> - Wrote `./dsa/system.json` (+15 -3)
+> - Wrote `./dsa_4_system_foundry/lang/en.json` (+6 -5)
+> - Wrote `./dsa_4_system_foundry/system.json` (+15 -3)
 > - Ran `node -e "JSON.parse(require('fs').readFileSync('dsa/system.json', 'utf8')); JSON.parse(require('fs').readFileSync('dsa/lang/de.json', 'utf8')); JSON.parse(require('fs').readFileSync('dsa/lang/en.json', 'utf8'));"; node --check dsa\module\data\item-rasse.mjs; node --check dsa\module\sheets\item-sheet.mjs`
 >
 > </details>
@@ -579,10 +579,10 @@ Ein Screenshot oder eine konkrete Beschreibung des aktuellen und gewünschten Zu
 >
 > <details><summary>Edited 4 files, ran a command</summary>
 >
-> - Wrote `./dsa/css/dsa.css` (+42 -3)
-> - Wrote `./dsa/lang/de.json` (+1 -1)
-> - Wrote `./dsa/lang/en.json` (+11 -4)
-> - Wrote `./dsa/templates/item/item-rasse-sheet.hbs` (+45 -32)
+> - Wrote `./dsa_4_system_foundry/css/dsa.css` (+42 -3)
+> - Wrote `./dsa_4_system_foundry/lang/de.json` (+1 -1)
+> - Wrote `./dsa_4_system_foundry/lang/en.json` (+11 -4)
+> - Wrote `./dsa_4_system_foundry/templates/item/item-rasse-sheet.hbs` (+45 -32)
 > - Ran `node -e "JSON.parse(require('fs').readFileSync('dsa/lang/de.json', 'utf8')); JSON.parse(require('fs').readFileSync('dsa/lang/en.json', 'utf8'));"; node --check dsa\module\sheets\item-sheet.mjs; rg -n "rasse-sheet|description-grid|description-section" dsa\templates\item\item-rasse-sheet.hbs dsa\css\dsa.css`
 >
 > </details>
@@ -595,7 +595,7 @@ Das Rasse-Sheet zeigt die vier Texte jetzt als vier klar abgegrenzte Bereiche:
 - bei schmalem Sheet automatisch einspaltig
 - langer Inhalt scrollt im Sheet, statt die Editoren zu überlagern
 
-Geändert in [item-rasse-sheet.hbs](./dsa/templates/item/item-rasse-sheet.hbs:1), [dsa.css](./dsa/css/dsa.css:387) und den Sprachdateien. JSON und `item-sheet.mjs` bestehen die Prüfung.
+Geändert in [item-rasse-sheet.hbs](./dsa_4_system_foundry/templates/item/item-rasse-sheet.hbs:1), [dsa.css](./dsa_4_system_foundry/css/dsa.css:387) und den Sprachdateien. JSON und `item-sheet.mjs` bestehen die Prüfung.
 
 > Änder bitte nicht dsa.css sondern mache sowas alles in src
 
@@ -614,9 +614,9 @@ Geändert in [item-rasse-sheet.hbs](./dsa/templates/item/item-rasse-sheet.hbs:1)
 >
 > <details><summary>Created 2 files, edited a file, ran a command</summary>
 >
-> - Wrote `./dsa/src/scss/components/_proficiencies.scss` (+24 -0)
-> - Wrote `./dsa/src/scss/components/_rasse.scss` (+48 -0)
-> - Wrote `./dsa/src/scss/dsa.scss` (+7 -5)
+> - Wrote `./dsa_4_system_foundry/src/scss/components/_proficiencies.scss` (+24 -0)
+> - Wrote `./dsa_4_system_foundry/src/scss/components/_rasse.scss` (+48 -0)
+> - Wrote `./dsa_4_system_foundry/src/scss/dsa.scss` (+7 -5)
 > - Ran `npm run build`
 >
 > </details>
@@ -634,10 +634,10 @@ Geändert in [item-rasse-sheet.hbs](./dsa/templates/item/item-rasse-sheet.hbs:1)
 
 Erledigt. Neue Sheet-Stile liegen jetzt in den SCSS-Quellen:
 
-- [\_rasse.scss](./dsa/src/scss/components/_rasse.scss)
-- [\_proficiencies.scss](./dsa/src/scss/components/_proficiencies.scss)
+- [\_rasse.scss](./dsa_4_system_foundry/src/scss/components/_rasse.scss)
+- [\_proficiencies.scss](./dsa_4_system_foundry/src/scss/components/_proficiencies.scss)
 
-Beide sind in [dsa.scss](./dsa/src/scss/dsa.scss) eingebunden. `css/dsa.css` wurde anschließend ausschließlich über `npm run build` daraus erzeugt.
+Beide sind in [dsa.scss](./dsa_4_system_foundry/src/scss/dsa.scss) eingebunden. `css/dsa.css` wurde anschließend ausschließlich über `npm run build` daraus erzeugt.
 
 Für künftige CSS-Änderungen arbeitest du in `src/scss/...` und führst danach im Ordner `dsa` aus:
 
@@ -786,12 +786,12 @@ Für das Layout würde ich die Tabellen volle Breite verwenden, mit schmalen Zah
 >
 > <details><summary>Edited 6 files</summary>
 >
-> - Wrote `./dsa/module/data/item-rasse.mjs` (+16 -9)
-> - Wrote `./dsa/module/sheets/item-sheet.mjs` (+37 -5)
-> - Wrote `./dsa/templates/item/item-rasse-sheet.hbs` (+65 -8)
-> - Wrote `./dsa/src/scss/components/_rasse.scss` (+57 -0)
-> - Wrote `./dsa/lang/de.json` (+9 -1)
-> - Wrote `./dsa/lang/en.json` (+9 -1)
+> - Wrote `./dsa_4_system_foundry/module/data/item-rasse.mjs` (+16 -9)
+> - Wrote `./dsa_4_system_foundry/module/sheets/item-sheet.mjs` (+37 -5)
+> - Wrote `./dsa_4_system_foundry/templates/item/item-rasse-sheet.hbs` (+65 -8)
+> - Wrote `./dsa_4_system_foundry/src/scss/components/_rasse.scss` (+57 -0)
+> - Wrote `./dsa_4_system_foundry/lang/de.json` (+9 -1)
+> - Wrote `./dsa_4_system_foundry/lang/en.json` (+9 -1)
 >
 > </details>
 >
@@ -821,7 +821,7 @@ Um deine Haarfarbentabelle einzutragen, fügst du sechs Zeilen hinzu:
 
 Die Daten liegen strukturiert unter `system.appearanceTables.hairColors` bzw. `eyeColors`. Damit ist die Grundlage für den späteren Würfel-Button im Actor-Sheet vorhanden.
 
-Geändert wurden [item-rasse.mjs](./dsa/module/data/item-rasse.mjs:19), [item-rasse-sheet.hbs](./dsa/templates/item/item-rasse-sheet.hbs:92), [item-sheet.mjs](./dsa/module/sheets/item-sheet.mjs:91) und die SCSS-Quelle [\_rasse.scss](./dsa/src/scss/components/_rasse.scss:43). Der CSS-Build sowie JavaScript- und JSON-Prüfungen sind erfolgreich.
+Geändert wurden [item-rasse.mjs](./dsa_4_system_foundry/module/data/item-rasse.mjs:19), [item-rasse-sheet.hbs](./dsa_4_system_foundry/templates/item/item-rasse-sheet.hbs:92), [item-sheet.mjs](./dsa_4_system_foundry/module/sheets/item-sheet.mjs:91) und die SCSS-Quelle [\_rasse.scss](./dsa_4_system_foundry/src/scss/components/_rasse.scss:43). Der CSS-Build sowie JavaScript- und JSON-Prüfungen sind erfolgreich.
 
 > Nun möchte ich die Körpergtöße implementieren, diese soll ebenfalls erwürfelt werden können.
 > Dabei haben die Formeln aber diesen aufbau: 1,60+2W20
@@ -914,7 +914,7 @@ Nein, die Regelberechnung gehört nicht in `item-sheet.mjs`.
 
 `item-sheet.mjs` ist nur für die Darstellung zuständig: Es bereitet Daten für das HTML vor und reagiert auf Klicks. Die Größenregel soll auch später vom Actor verwendet werden können, ohne dass ein Sheet geöffnet ist.
 
-Die Berechnung gehört deshalb in [item-rasse.mjs](./dsa/module/data/item-rasse.mjs), am besten in eine eigene Methode:
+Die Berechnung gehört deshalb in [item-rasse.mjs](./dsa_4_system_foundry/module/data/item-rasse.mjs), am besten in eine eigene Methode:
 
 ```js
 getHeightRollData() {
@@ -961,7 +961,7 @@ Kurz:
 > }W${this.item.system.height.dieFaces}`;
 > context.heightRange = `${height.minimumCm}-${height.maximumCm} cm`; oder?
 
-Ja, genau. Das gehört in `getData()` von [item-sheet.mjs](./dsa/module/sheets/item-sheet.mjs), weil es nur die Werte für das HBS vorbereitet.
+Ja, genau. Das gehört in `getData()` von [item-sheet.mjs](./dsa_4_system_foundry/module/sheets/item-sheet.mjs), weil es nur die Werte für das HBS vorbereitet.
 
 Aber nur innerhalb der Rasse-Abfrage, damit andere Itemtypen nicht auf ein nicht vorhandenes `height` zugreifen:
 
@@ -1001,15 +1001,15 @@ Die Zahlenberechnung bleibt dabei in `item-rasse.mjs` in `getHeightRollData()`. 
 >
 > <details><summary>Edited 6 files, ran a command</summary>
 >
-> - Wrote `./dsa/module/data/item-rasse.mjs` (+6 -6)
-> - Wrote `./dsa/module/sheets/item-sheet.mjs` (+8 -4)
-> - Wrote `./dsa/src/scss/components/_rasse.scss` (+58 -0)
+> - Wrote `./dsa_4_system_foundry/module/data/item-rasse.mjs` (+6 -6)
+> - Wrote `./dsa_4_system_foundry/module/sheets/item-sheet.mjs` (+8 -4)
+> - Wrote `./dsa_4_system_foundry/src/scss/components/_rasse.scss` (+58 -0)
 > - Ran `$lines = Get-Content dsa\templates\item\item-rasse-sheet.hbs; $lines[88..150]`
-> - Wrote `./dsa/templates/item/item-rasse-sheet.hbs` (+24 -2)
-> - Wrote `./dsa/templates/item/item-rasse-sheet.hbs` (+0 -1)
-> - Wrote `./dsa/lang/de.json` (+7 -1)
-> - Wrote `./dsa/lang/en.json` (+7 -1)
-> - Wrote `./dsa/lang/de.json` (+4 -4)
+> - Wrote `./dsa_4_system_foundry/templates/item/item-rasse-sheet.hbs` (+24 -2)
+> - Wrote `./dsa_4_system_foundry/templates/item/item-rasse-sheet.hbs` (+0 -1)
+> - Wrote `./dsa_4_system_foundry/lang/de.json` (+7 -1)
+> - Wrote `./dsa_4_system_foundry/lang/en.json` (+7 -1)
+> - Wrote `./dsa_4_system_foundry/lang/de.json` (+4 -4)
 >
 > </details>
 >
