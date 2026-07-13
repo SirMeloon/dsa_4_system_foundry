@@ -1,40 +1,17 @@
 {{#if isSpecies}}
-<section class="dsa41-tab-panel {{#if (eq activeTab 'details')}}is-hidden{{/if}}">
+<section class="dsa41-tab-panel {{#unless (eq activeTab 'description')}}is-hidden{{/unless}}">
     {{#if isEditMode}}
     <div class="dsa41-two-column">
-        <section class="dsa41-panel">
-            <h3>{{localize "DSA41.Sheet.description"}}</h3>
-            <textarea name="system.description">{{system.description}}</textarea>
-        </section>
-        <section class="dsa41-panel">
-            <h3>{{localize "DSA41.Species.originDistribution"}}</h3>
-            <textarea name="system.originDistribution">{{system.originDistribution}}</textarea>
-        </section>
-        <section class="dsa41-panel">
-            <h3>{{localize "DSA41.Species.appearanceDescription"}}</h3>
-            <textarea name="system.appearance">{{system.appearance}}</textarea>
-        </section>
-        <section class="dsa41-panel">
-            <h3>{{localize "DSA41.Species.identifier"}}</h3>
-            <input name="system.identifier" type="text" value="{{system.identifier}}" />
-        </section>
-        <section class="dsa41-panel">
-            <h3>{{localize "DSA41.Species.reproductionAndAging"}}</h3>
-            <textarea name="system.reproductionAndAging">{{system.reproductionAndAging}}</textarea>
-        </section>
+        <section class="dsa41-panel"><h3>{{localize "DSA41.Sheet.description"}}</h3><textarea name="system.description">{{system.description}}</textarea></section>
+        <section class="dsa41-panel"><h3>{{localize "DSA41.Species.originDistribution"}}</h3><textarea name="system.originDistribution">{{system.originDistribution}}</textarea></section>
+        <section class="dsa41-panel"><h3>{{localize "DSA41.Species.appearanceDescription"}}</h3><textarea name="system.appearance">{{system.appearance}}</textarea></section>
+        <section class="dsa41-panel"><h3>{{localize "DSA41.Species.identifier"}}</h3><input name="system.identifier" type="text" value="{{system.identifier}}" /></section>
+        <section class="dsa41-panel"><h3>{{localize "DSA41.Species.reproductionAndAging"}}</h3><textarea name="system.reproductionAndAging">{{system.reproductionAndAging}}</textarea></section>
     </div>
 
     <div class="dsa41-two-column">
-        <section class="dsa41-panel">
-            <h3>{{localize "DSA41.Species.hairColor"}}</h3>
-            <small>{{localize "DSA41.Species.tableHint"}}</small>
-            <textarea name="species.hairColorsText">{{species.hairColorsText}}</textarea>
-        </section>
-        <section class="dsa41-panel">
-            <h3>{{localize "DSA41.Species.eyeColor"}}</h3>
-            <small>{{localize "DSA41.Species.tableHint"}}</small>
-            <textarea name="species.eyeColorsText">{{species.eyeColorsText}}</textarea>
-        </section>
+        <section class="dsa41-panel"><h3>{{localize "DSA41.Species.hairColor"}}</h3><small>{{localize "DSA41.Species.tableHint"}}</small><textarea name="species.hairColorsText">{{species.hairColorsText}}</textarea></section>
+        <section class="dsa41-panel"><h3>{{localize "DSA41.Species.eyeColor"}}</h3><small>{{localize "DSA41.Species.tableHint"}}</small><textarea name="species.eyeColorsText">{{species.eyeColorsText}}</textarea></section>
     </div>
 
     <div class="dsa41-two-column">
@@ -63,10 +40,7 @@
             <h3>{{localize "DSA41.Species.characteristicModifiers"}}</h3>
             <div class="dsa41-stats-grid">
                 {{#each system.modifiers.characteristics as |value key|}}
-                <label>
-                    <span>{{localize (lookup ../config.characteristics key)}}</span>
-                    <input name="system.modifiers.characteristics.{{key}}" type="number" value="{{value}}" />
-                </label>
+                <label><span>{{localize (lookup ../config.characteristics key)}}</span><input name="system.modifiers.characteristics.{{key}}" type="number" value="{{value}}" /></label>
                 {{/each}}
             </div>
         </section>
@@ -113,24 +87,10 @@
     </div>
     {{else}}
     <div class="dsa41-species-description">
-        <section class="dsa41-panel dsa41-species-lead">
-            <h3>{{localize "DSA41.Sheet.description"}}</h3>
-            <p>{{system.description}}</p>
-        </section>
-        <section class="dsa41-panel">
-            <h3>{{localize "DSA41.Species.originDistribution"}}</h3>
-            <p>{{system.originDistribution}}</p>
-        </section>
-        <section class="dsa41-panel">
-            <h3>{{localize "DSA41.Species.appearanceDescription"}}</h3>
-            <p>{{system.appearance}}</p>
-        </section>
-        {{#if species.hasReproductionAndAging}}
-        <section class="dsa41-panel">
-            <h3>{{localize "DSA41.Species.reproductionAndAging"}}</h3>
-            <p>{{species.reproductionAndAging}}</p>
-        </section>
-        {{/if}}
+        <section class="dsa41-panel dsa41-species-lead"><h3>{{localize "DSA41.Sheet.description"}}</h3><p>{{system.description}}</p></section>
+        <section class="dsa41-panel"><h3>{{localize "DSA41.Species.originDistribution"}}</h3><p>{{system.originDistribution}}</p></section>
+        <section class="dsa41-panel"><h3>{{localize "DSA41.Species.appearanceDescription"}}</h3><p>{{system.appearance}}</p></section>
+        {{#if species.hasReproductionAndAging}}<section class="dsa41-panel"><h3>{{localize "DSA41.Species.reproductionAndAging"}}</h3><p>{{species.reproductionAndAging}}</p></section>{{/if}}
     </div>
 
     <div class="dsa41-species-divider"></div>
@@ -138,35 +98,17 @@
     <div class="dsa41-two-column dsa41-species-pair">
         <section class="dsa41-panel">
             <h3>{{localize "DSA41.Species.hairColor"}}</h3>
-            <table class="dsa41-species-table">
-                <tbody>
-                    {{#each species.hairColors}}
-                    <tr><td class="range">{{min}}-{{max}}</td><td>{{label}}</td></tr>
-                    {{/each}}
-                </tbody>
-            </table>
+            <table class="dsa41-species-table"><tbody>{{#each species.hairColors}}<tr><td class="range">{{min}}-{{max}}</td><td>{{label}}</td></tr>{{/each}}</tbody></table>
         </section>
         <section class="dsa41-panel">
             <h3>{{localize "DSA41.Species.eyeColor"}}</h3>
-            <table class="dsa41-species-table">
-                <tbody>
-                    {{#each species.eyeColors}}
-                    <tr><td class="range">{{min}}-{{max}}</td><td>{{label}}</td></tr>
-                    {{/each}}
-                </tbody>
-            </table>
+            <table class="dsa41-species-table"><tbody>{{#each species.eyeColors}}<tr><td class="range">{{min}}-{{max}}</td><td>{{label}}</td></tr>{{/each}}</tbody></table>
         </section>
     </div>
 
     <div class="dsa41-two-column dsa41-species-pair">
-        <section class="dsa41-panel">
-            <h3>{{localize "DSA41.Species.height"}}</h3>
-            <p>{{species.heightText}}</p>
-        </section>
-        <section class="dsa41-panel">
-            <h3>{{localize "DSA41.Species.weight"}}</h3>
-            <p>{{species.weightText}}</p>
-        </section>
+        <section class="dsa41-panel"><h3>{{localize "DSA41.Species.height"}}</h3><p>{{species.heightText}}</p></section>
+        <section class="dsa41-panel"><h3>{{localize "DSA41.Species.weight"}}</h3><p>{{species.weightText}}</p></section>
     </div>
 
     <section class="dsa41-panel">
@@ -179,13 +121,8 @@
             </div>
             {{/each}}
         </div>
-
         <h3>{{localize "DSA41.Species.otherModifiers"}}</h3>
-        <ul class="dsa41-species-inline-list">
-            {{#each species.scalarModifiers}}
-            <li><strong>{{label}}:</strong> {{value}}</li>
-            {{/each}}
-        </ul>
+        <ul class="dsa41-species-inline-list">{{#each species.scalarModifiers}}<li><strong>{{label}}:</strong> {{value}}</li>{{/each}}</ul>
     </section>
 
     <section class="dsa41-panel">
@@ -194,13 +131,7 @@
             {{#each species.talentGroups as |group|}}
             <section class="dsa41-species-talent-group">
                 <h4>{{localize group.label}}</h4>
-                <table class="dsa41-species-table">
-                    <tbody>
-                        {{#each group.entries}}
-                        <tr><td>{{name}}</td><td class="range">{{value}}</td></tr>
-                        {{/each}}
-                    </tbody>
-                </table>
+                <table class="dsa41-species-table"><tbody>{{#each group.entries}}<tr><td>{{name}}</td><td class="range">{{value}}</td></tr>{{/each}}</tbody></table>
             </section>
             {{/each}}
         </div>
@@ -229,32 +160,18 @@
 
     <section class="dsa41-panel">
         <h3>{{localize "DSA41.Species.allowedCultures"}}</h3>
-        <ul class="dsa41-species-inline-list">
-            {{#each species.allowedCultures}}<li>{{this}}</li>{{/each}}
-        </ul>
+        <ul class="dsa41-species-inline-list">{{#each species.allowedCultures}}<li>{{this}}</li>{{/each}}</ul>
     </section>
-    </section>
+    {{/if}}
+</section>
 {{else}}
 <section class="dsa41-tab-panel {{#unless (eq activeTab 'description')}}is-hidden{{/unless}}">
     {{#if isComplexSheet}}
         {{#if isEditMode}}
         <div class="dsa41-two-column">
-            <section class="dsa41-panel">
-                <h3>{{localize "DSA41.Sheet.description"}}</h3>
-                <textarea name="system.description">{{system.description}}</textarea>
-            </section>
-            {{#if isCulture}}
-            <section class="dsa41-panel">
-                <h3>{{localize "DSA41.Culture.livingArea"}}</h3>
-                <textarea name="system.livingArea">{{system.livingArea}}</textarea>
-            </section>
-            {{/if}}
-            {{#if isProfession}}
-            <section class="dsa41-panel">
-                <h3>{{localize "DSA41.Profession.requirements"}}</h3>
-                <textarea name="profession.requirementsText">{{profession.requirementsText}}</textarea>
-            </section>
-            {{/if}}
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Sheet.description"}}</h3><textarea name="system.description">{{system.description}}</textarea></section>
+            {{#if isCulture}}<section class="dsa41-panel"><h3>{{localize "DSA41.Culture.livingArea"}}</h3><textarea name="system.livingArea">{{system.livingArea}}</textarea></section>{{/if}}
+            {{#if isProfession}}<section class="dsa41-panel"><h3>{{localize "DSA41.Profession.requirements"}}</h3><textarea name="profession.requirementsText">{{profession.requirementsText}}</textarea></section>{{/if}}
         </div>
         {{else}}
         <div class="dsa41-two-column">
@@ -264,10 +181,7 @@
         </div>
         {{/if}}
     {{else}}
-    <section class="dsa41-panel">
-        <h3>{{localize "DSA41.Sheet.description"}}</h3>
-        <textarea name="system.description">{{system.description}}</textarea>
-    </section>
+    <section class="dsa41-panel"><h3>{{localize "DSA41.Sheet.description"}}</h3><textarea name="system.description">{{system.description}}</textarea></section>
     {{/if}}
 </section>
 {{/if}}
