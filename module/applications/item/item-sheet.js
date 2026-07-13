@@ -224,7 +224,9 @@ export default class ItemSheetDSA41 extends DocumentSheetDSA41 {
 
     #prepareCultureContext() {
         const talents = this.#normalizeTalentMap(this.item.system.talents);
+        const fallbackIdentifier = String(this.item.name ?? "").toLowerCase().replace(/[^a-z0-9]+/g, "");
         return {
+            identifier: this.item.system.identifier ?? fallbackIdentifier,
             modificationsText: this.#formatList(this.item.system.modifications),
             automaticAdvantagesText: this.#formatList(this.item.system.automaticAdvantages),
             automaticDisadvantagesText: this.#formatList(this.item.system.automaticDisadvantages),

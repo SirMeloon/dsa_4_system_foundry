@@ -1,4 +1,4 @@
-<section class="dsa41-tab-panel dsa41-notes-panel {{#unless (eq activeTab 'notes')}}is-hidden{{/unless}} {{#if isSpecies}}dsa41-species-content{{/if}}">
+<section class="dsa41-tab-panel dsa41-notes-panel {{#unless (eq activeTab 'notes')}}is-hidden{{/unless}} {{#if isSpecies}}dsa41-species-content{{/if}}{{#if isCulture}} dsa41-culture-content{{/if}}">
     <section class="dsa41-species-block">
         <h3>{{#if isSpecies}}{{localize "DSA41.Species.notes"}}{{else}}{{localize "DSA41.Sheet.notes"}}{{/if}}</h3>
         {{#if isComplexSheet}}

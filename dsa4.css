@@ -172,7 +172,8 @@
     display: none;
 }
 
-.dsa41-species-content {
+.dsa41-species-content,
+.dsa41-culture-content {
     border: 1px solid var(--dsa41-border);
     border-radius: 18px;
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(250, 244, 233, 0.92));
@@ -181,7 +182,9 @@
     min-width: 0;
 }
 
-.dsa41-species-content .dsa41-species-block {
+.dsa41-species-content .dsa41-species-block,
+.dsa41-culture-content .dsa41-species-block,
+.dsa41-culture-content .dsa41-panel {
     border: 0;
     border-radius: 0;
     background: transparent;
@@ -190,7 +193,9 @@
     gap: 0.5rem;
 }
 
-.dsa41-species-content .dsa41-species-block h3 {
+.dsa41-species-content .dsa41-species-block h3,
+.dsa41-culture-content .dsa41-species-block h3,
+.dsa41-culture-content .dsa41-panel h3 {
     color: var(--dsa41-text);
     font-size: 0.98rem;
 }
@@ -198,7 +203,15 @@
 .dsa41-species-content .dsa41-species-block p,
 .dsa41-species-content .dsa41-species-block textarea,
 .dsa41-species-content .dsa41-species-block input,
-.dsa41-species-content .dsa41-species-block select {
+.dsa41-species-content .dsa41-species-block select,
+.dsa41-culture-content .dsa41-species-block p,
+.dsa41-culture-content .dsa41-species-block textarea,
+.dsa41-culture-content .dsa41-species-block input,
+.dsa41-culture-content .dsa41-species-block select,
+.dsa41-culture-content .dsa41-panel p,
+.dsa41-culture-content .dsa41-panel textarea,
+.dsa41-culture-content .dsa41-panel input,
+.dsa41-culture-content .dsa41-panel select {
     width: 100%;
 }
 
@@ -299,13 +312,15 @@
     margin-top: 0.1rem;
 }
 
-.dsa41-species-sheet .dsa41-tabs {
+.dsa41-species-sheet .dsa41-tabs,
+.dsa41-culture-sheet .dsa41-tabs {
     gap: 0;
     border-bottom: 1px solid var(--dsa41-border);
     padding-inline: 0.15rem;
 }
 
-.dsa41-species-sheet .dsa41-tab {
+.dsa41-species-sheet .dsa41-tab,
+.dsa41-culture-sheet .dsa41-tab {
     padding: 0.55rem 0.95rem 0.7rem;
     border: 0;
     border-radius: 0;
@@ -316,7 +331,8 @@
     font-size: 0.78rem;
 }
 
-.dsa41-species-sheet .dsa41-tab.is-active {
+.dsa41-species-sheet .dsa41-tab.is-active,
+.dsa41-culture-sheet .dsa41-tab.is-active {
     border-bottom-color: var(--dsa41-accent);
     color: var(--dsa41-accent);
     background: transparent;

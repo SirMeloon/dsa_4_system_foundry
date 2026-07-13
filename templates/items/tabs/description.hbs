@@ -165,7 +165,7 @@
     {{/if}}
 </section>
 {{else}}
-<section class="dsa41-tab-panel dsa41-description-scroll {{#unless (eq activeTab 'description')}}is-hidden{{/unless}}">
+<section class="dsa41-tab-panel dsa41-description-scroll {{#unless (eq activeTab 'description')}}is-hidden{{/unless}} {{#if isCulture}}dsa41-culture-content{{/if}}">
     {{#if isComplexSheet}}
         {{#if isEditMode}}
         <div class="dsa41-two-column">

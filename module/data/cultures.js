@@ -4,6 +4,7 @@ export const DSA41_CULTURES = [
         type: "culture",
         img: "icons/svg/book.svg",
         system: {
+            identifier: "mittellaendische-staedte",
             description: "Aventurische Städte sind meist klein, aber in der Weite des Landes sind Ansiedlungen mit 2.000 Seelen schon wahre Metropolen. Havena oder Festum bringen es auf ansehnliche 30.000 Einwohner, und der Moloch Gareth ist Heimstatt für mehr als 100.000 Menschen. Für viele Landbewohner ist das Leben in einer Stadt ein unerfüllter Traum, nicht zuletzt, weil Stadtluft frei macht. Wer es schafft, ein Jahr und einen Tag in einer Stadt zu verbringen, ist nicht mehr länger Leibeigener, sondern ein freier Mann oder eine freie Frau. Wer jedoch meint, das Stadtleben sei sicher, der irrt: Man wird hier zwar nicht von Wölfen gefressen, kann aber durchaus seiner Habe beraubt und sicherheitshalber gleich mit ermordet werden.",
             notes: "Typische Namen für Männer sind Alrik, Fingorn, Gerion, Pagol, Praiodan, Stipen und Ugdalf; für Frauen Alinde, Fiana, Harika, Maline und Traviane. Typische Nachnamen sind Aldebruck, Berlind, Helmisch, Lowanger, Steinhauer und Westinger. Adelsnamen werden mit 'von' gebildet, der Titel vorangestellt, etwa 'Junker Gero von Stipenbrink'.",
             gpCost: 0,

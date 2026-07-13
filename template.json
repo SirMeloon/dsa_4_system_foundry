@@ -222,6 +222,7 @@
                 "described"
             ],
             "gpCost": 0,
+            "identifier": "",
             "livingArea": "",
             "lifestyle": "",
             "worldviewFaith": "",

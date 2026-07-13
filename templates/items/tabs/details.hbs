@@ -1,7 +1,16 @@
-<section class="dsa41-tab-panel {{#unless (eq activeTab 'details')}}is-hidden{{/unless}} {{#if isSpecies}}dsa41-species-content{{/if}}">
+<section class="dsa41-tab-panel {{#unless (eq activeTab 'details')}}is-hidden{{/unless}} {{#if isSpecies}}dsa41-species-content{{/if}}{{#if isCulture}} dsa41-culture-content{{/if}}">
     {{#if isSpecies}}
     <section class="dsa41-species-block">
         <h3>{{localize "DSA41.Species.identifier"}}</h3>
+        {{#if editable}}
+        <input name="system.identifier" type="text" value="{{system.identifier}}" />
+        {{else}}
+        <p>{{system.identifier}}</p>
+        {{/if}}
+    </section>
+    {{else if isCulture}}
+    <section class="dsa41-species-block">
+        <h3>{{localize "DSA41.Culture.identifier"}}</h3>
         {{#if editable}}
         <input name="system.identifier" type="text" value="{{system.identifier}}" />
         {{else}}

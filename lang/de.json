@@ -119,6 +119,7 @@
         "Culture": {
             "title": "Kultur",
             "gpCost": "Generierungskosten (GP)",
+            "identifier": "Identifier",
             "livingArea": "Lebensraum",
             "lifestyle": "Lebensweise",
             "worldviewFaith": "Weltsicht und Glaube",
