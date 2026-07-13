@@ -1,0 +1,1019 @@
+# Sheet öffnen reparieren
+
+> Warum funktioniert hier nicht mehr der Sheet. Wenn ich drauf klicke öffnen sich nur name und Bild
+
+<details><summary>4 previous messages</summary>
+
+> Ich prüfe zuerst die Systemstruktur und die Datenmodell-Datei auf Fehler, die verhindern, dass Foundry das Actor-Sheet registriert oder rendert. Danach grenze ich ein, ob es ein Laufzeitfehler, ein fehlender Sheet-Registrierungseintrag oder eine fehlerhafte Actor-Datenklasse ist.
+>
+> Die Ursache ist eindeutig: In `actor-character.mjs` ist die Definition des XP-Felds syntaktisch ungültig (`initial=0` statt einer Objekt-Eigenschaft). Dadurch kann Foundry das gesamte Systemmodul nicht laden; es bleibt beim generischen Basisdialog mit Name und Bild. Ich korrigiere genau diese Felddefinition und prüfe anschließend den Modulimport auf weitere Syntaxfehler.
+>
+> <details><summary>Edited a file</summary>
+>
+> - Wrote `./dsa/module/data/actor-character.mjs` (+2 -2)
+>
+> </details>
+>
+> Die Änderung ist gesetzt. Die kombinierte Syntaxprüfung liefert keinen Detailtext und endet mit Status 1, daher kläre ich kurz, ob `node` in dieser Umgebung verfügbar ist oder ob nur die Suche keinen Treffer zurückgegeben hat.
+</details>
+
+Der Sheet wurde wegen eines Syntaxfehlers nicht geladen. In [actor-character.mjs](./dsa/module/data/actor-character.mjs:27) war:
+
+```js
+initial=0
+```
+
+Das habe ich zu `initial: 0` korrigiert. Dadurch kann Foundry das Systemmodul samt Actor-Sheet wieder laden.
+
+Die betroffenen Moduldateien bestehen jetzt die JavaScript-Syntaxprüfung. Foundry einmal neu laden, am besten mit `Strg+F5`; danach sollte beim Actor-Klick wieder das DSA-Sheet erscheinen.
+
+> Ich möchte die Felder für Proficiencys hier unter den abilities zeigen
+
+<details><summary>3 previous messages</summary>
+
+> Ich schaue mir die bestehende Character-Vorlage sowie die Stil- und Lokalisierungsmuster an und füge die beiden Proficiency-Listen direkt unterhalb der Abilities ein. Die Felder werden als editierbare, kommagetrennte Werte an das vorhandene Datenmodell gebunden.
+>
+> Die Vorlage enthält bereits einen begonnenen Skills-Block, aber er passt nicht zum Datenmodell: `weapons` und `skills` sind String-Listen, keine Werte mit Modifikator. Ich ersetze ihn durch zwei editierbare Listen mit Hinzufügen- und Entfernen-Steuerung, damit auch leere Listen sinnvoll bedienbar sind.
+>
+> <details><summary>Edited 5 files</summary>
+>
+> - Wrote `./dsa/css/dsa.css` (+23 -3)
+> - Wrote `./dsa/lang/de.json` (+12 -4)
+> - Wrote `./dsa/lang/en.json` (+12 -4)
+> - Wrote `./dsa/module/sheets/actor-sheet.mjs` (+34 -4)
+> - Wrote `./dsa/templates/actor/actor-character-sheet.hbs` (+29 -9)
+>
+> </details>
+</details>
+
+Die Proficiencies stehen jetzt direkt unter den Abilities im Character-Sheet:
+
+- getrennte Listen für `Waffen` und `Talente`
+- `+` fügt einen neuen Eintrag hinzu
+- Papierkorb entfernt einen Eintrag
+- Änderungen werden direkt am Actor gespeichert
+- deutsche und englische Beschriftungen ergänzt
+
+Geändert in [actor-character-sheet.hbs](./dsa/templates/actor/actor-character-sheet.hbs:75), [actor-sheet.mjs](./dsa/module/sheets/actor-sheet.mjs:188), [dsa.css](./dsa/css/dsa.css:167) und den Sprachdateien. JavaScript- und JSON-Prüfung sind erfolgreich.
+
+> Ich bin neu in foundry system dev.
+> Bitte erklär mir seh reinfach wie ich zum Beispiel die Abilities zu einem anderen System abändern kann
+
+<details><summary>1 previous message</summary>
+
+> Ich beziehe die Erklärung auf deinen aktuellen Aufbau, damit klar wird, welche Datei welche Aufgabe hat und welche Stellen zusammen geändert werden müssen.
+</details>
+
+Die **Abilities** sind bei dir an drei Stellen verbunden. Denk daran wie an:
+
+1. **Liste/Schlüssel**: Welche Werte gibt es?
+2. **Datenmodell**: Wie werden sie gespeichert?
+3. **Anzeige**: Wie erscheinen sie im Sheet?
+
+Beispiel: Du willst statt `str`, `dex`, `con`, `int`, `wis`, `cha` nur DSA-nahe Eigenschaften wie `mu`, `kl`, `in`, `ch`, `ff`, `ge`, `ko`, `kk`.
+
+**1. Schlüssel und Namen ändern**
+
+In [config.mjs](./dsa/module/helpers/config.mjs:7) ersetzt du die Einträge:
+
+```js
+DSA.abilities = {
+  mu: "DSA.Ability.Mu.long",
+  kl: "DSA.Ability.Kl.long",
+  in: "DSA.Ability.In.long",
+  ch: "DSA.Ability.Ch.long",
+  ff: "DSA.Ability.Ff.long",
+  ge: "DSA.Ability.Ge.long",
+  ko: "DSA.Ability.Ko.long",
+  kk: "DSA.Ability.Kk.long",
+};
+```
+
+Die Kürzel, etwa `mu`, sind wichtig: Sie werden als Datenpfad gespeichert, z. B. `system.abilities.mu.value`. Ändere sie später nicht leichtfertig, sonst passen alte Charakterdaten nicht mehr.
+
+**2. Die Texte übersetzen**
+
+In [de.json](./dsa/lang/de.json) legst du die passenden Namen an:
+
+```json
+"Ability": {
+  "Mu": { "long": "Mut", "abbr": "MU" },
+  "Kl": { "long": "Klugheit", "abbr": "KL" },
+  "In": { "long": "Intuition", "abbr": "IN" },
+  "Ch": { "long": "Charisma", "abbr": "CH" },
+  "Ff": { "long": "Fingerfertigkeit", "abbr": "FF" },
+  "Ge": { "long": "Gewandtheit", "abbr": "GE" },
+  "Ko": { "long": "Konstitution", "abbr": "KO" },
+  "Kk": { "long": "Körperkraft", "abbr": "KK" }
+}
+```
+
+**3. Das Datenmodell musst du hier nicht ändern**
+
+In [actor-character.mjs](./dsa/module/data/actor-character.mjs) wird diese Zeile verwendet:
+
+```js
+Object.keys(CONFIG.DSA.abilities)
+```
+
+Sie erzeugt automatisch für jeden Schlüssel aus `config.mjs` ein Feld mit `value`. Deine neuen acht Eigenschaften erhalten also automatisch Felder.
+
+**4. Das Sheet passt sich ebenfalls an**
+
+In [actor-character-sheet.hbs](./dsa/templates/actor/actor-character-sheet.hbs:67) läuft bereits diese Schleife:
+
+```hbs
+{{#each system.abilities as |ability key|}}
+```
+
+Sie zeigt automatisch alle Abilities an. Du musst dort nichts ergänzen, solange jede Ability nur einen Zahlenwert haben soll.
+
+**5. Formel anpassen**
+
+In [dsa.mjs](./dsa/module/dsa.mjs:27) steht noch:
+
+```js
+formula: "1d20 + @abilities.dex.mod"
+```
+
+Für DSA könntest du sie z. B. auf `@abilities.ge.mod` umstellen, oder die Initiative später ganz anders berechnen.
+
+Wichtig: Nach solchen Änderungen Foundry mit `Strg+F5` neu laden und einen **neuen Test-Actor** anlegen. Bereits vorhandene Actors enthalten noch die alten Werte wie `str` und `dex`; das ist normal.
+
+> Woher kommt denn das mod?
+
+`mod` steht für **Modifier** bzw. **Modifikator**. Es wird nicht gespeichert, sondern beim Laden des Actors berechnet.
+
+In [actor-character.mjs](./dsa/module/data/actor-character.mjs:35) passiert das hier:
+
+```js
+this.abilities[key].mod = Math.floor(
+  (this.abilities[key].value - 10) / 2
+);
+```
+
+Beispiele nach diesen D20-Regeln:
+
+- Ability `10` ergibt `mod = 0`
+- Ability `14` ergibt `mod = +2`
+- Ability `8` ergibt `mod = -1`
+
+Das Sheet zeigt ihn dann mit `{{ability.mod}}` an und Würfe verwenden ihn etwa so:
+
+```hbs
+data-roll="d20+@abilities.{{key}}.mod"
+```
+
+Für DSA 4.1 passt diese Formel vermutlich nicht. Du kannst sie entweder an deine Regel anpassen oder den gesamten `mod`-Teil entfernen, wenn Eigenschaften zunächst nur als Zahlen angezeigt werden sollen.
+
+> In preparedDerivedData ist auch was über localization
+
+Genau. In `prepareDerivedData()` wird neben `mod` auch ein **übersetzter Anzeigename** vorbereitet:
+
+```js
+this.abilities[key].label =
+  game.i18n.localize(CONFIG.DSA.abilities[key]) ?? key;
+```
+
+Am Beispiel `str`:
+
+1. `key` ist `"str"`.
+2. `CONFIG.DSA.abilities.str` kommt aus `config.mjs` und ist z. B.:
+
+   ```js
+   "DSA.Ability.Str.long"
+   ```
+
+3. `game.i18n.localize(...)` sucht diesen Schlüssel in der aktiven Sprachdatei, z. B. in `lang/de.json`:
+
+   ```json
+   "DSA": {
+     "Ability": {
+       "Str": { "long": "Stärke" }
+     }
+   }
+   ```
+
+4. Das Ergebnis ist `"Stärke"` und wird als `ability.label` bereitgestellt.
+
+Das ist praktisch, weil dein Sheet nicht wissen muss, ob es Deutsch oder Englisch anzeigen soll. Es verwendet den übersetzten Wert.
+
+Wichtig: Dein aktuelles Sheet übersetzt den Namen bereits selbst:
+
+```hbs
+{{localize (lookup @root.config.abilities key)}}
+```
+
+Darum wird `ability.label` momentan nicht verwendet. Du könntest stattdessen einfacher schreiben:
+
+```hbs
+{{ability.label}}
+```
+
+Dann wäre die Übersetzungslogik vollständig in `prepareDerivedData()` gebündelt.
+
+> Okay, ich habe weil ich es nicht brauche den Modifikator von den abilities entfernt. Schau nach ob alles korrekt ist
+
+<details><summary>1 previous message</summary>
+
+> Ich prüfe die aktuellen Änderungen darauf, ob alle Verwendungen von `mod` entfernt sind und ob Datenmodell, Sheet und Würfel-Formeln weiterhin zusammenpassen.
+</details>
+
+Nicht ganz. Es gibt noch einen fehlerhaften Rest im Sheet:
+
+- [actor-character-sheet.hbs](./dsa/templates/actor/actor-character-sheet.hbs:71) enthält noch:
+
+  ```hbs
+  <span class="ability-mod rollable" data-roll="d20">
+    {{numberFormat decimals=0 sign=true}}
+  </span>
+  ```
+
+  `numberFormat` bekommt keinen Wert mehr. Entferne den gesamten `<span>...</span>`-Block, wenn kein Modifikator angezeigt werden soll.
+
+Die Ability-Zeile kann dann so aussehen:
+
+```hbs
+<div class="ability flexrow flex-group-center">
+  <label ...>{{localize (lookup @root.config.abilities key)}}</label>
+  <input type="text"
+         name="system.abilities.{{key}}.value"
+         value="{{ability.value}}"
+         data-dtype="Number"/>
+</div>
+```
+
+Unkritisch, aber aufräumenswert:
+
+- [actor-character.mjs](./dsa/module/data/actor-character.mjs:46) hat noch einen Kommentar über `@str.mod`; den anpassen oder entfernen.
+- [item-item.mjs](./dsa/module/data/item-item.mjs:17) erwähnt `@str.mod` nur in einer auskommentierten Beispielzeile, also kein Laufzeitproblem.
+
+Die JavaScript-Dateien bestehen die Syntaxprüfung.
+
+> CONFIG.Combat.initiative = {
+>     formula: '(@abilities.Mu + @abilities.Mu + @abilities.In + @abilities.Ge) / 5 + 1d6',
+>     decimals: 2,
+>   }; Was ist falsch an der Formel?
+
+Die Rechenregel ist vermutlich richtig: `MU` kommt in DSA 4.1 tatsächlich zweimal vor.
+
+Falsch sind die **Datenpfade**. Deine Ability-Schlüssel heißen in [config.mjs](./dsa/module/helpers/config.mjs:7) klein: `mu`, `in`, `ge`. Und jeder Wert liegt in `.value`.
+
+Außerdem erzeugt dein `getRollData()` die Werte direkt als `@mu`, `@in` und `@ge`, nicht unter `@abilities`.
+
+Korrekt für deinen aktuellen Code wäre:
+
+```js
+CONFIG.Combat.initiative = {
+  formula: "(@mu.value + @mu.value + @in.value + @ge.value) / 5 + 1d6",
+  decimals: 2,
+};
+```
+
+Deine bisherige Formel sucht nach `@abilities.Mu`, aber es gibt im Roll-Datenobjekt weder `abilities` noch `Mu` mit großem `M`.
+
+`decimals: 2` ist technisch gültig. Wenn die Initiative immer ganzzahlig sein soll, musst du später entscheiden, ob und wie das Ergebnis gerundet wird.
+
+> Wofür ist prepareDerivedData?
+
+`prepareDerivedData()` ist für Werte gedacht, die **aus anderen Werten berechnet** werden.
+
+Diese Werte werden normalerweise nicht dauerhaft gespeichert, sondern jedes Mal neu erzeugt, wenn Foundry die Daten vorbereitet.
+
+In deinem Beispiel:
+
+```js
+prepareDerivedData() {
+  const roll = this.roll;
+
+  this.formula = `${roll.diceNum}${roll.diceSize}${roll.diceBonus}`;
+}
+```
+
+Du speicherst getrennt zum Beispiel:
+
+```js
+roll.diceNum = 2
+roll.diceSize = "d6"
+roll.diceBonus = "+3"
+```
+
+Daraus wird automatisch:
+
+```js
+this.formula = "2d6+3"
+```
+
+`formula` ist hier der abgeleitete Wert.
+
+Der Ablauf ist vereinfacht:
+
+1. Foundry lädt den gespeicherten Item- oder Actor-Wert.
+2. Foundry ruft `prepareDerivedData()` auf.
+3. Dein Code berechnet Zusatzwerte wie Formel, Trefferpunkte, Initiative oder Traglast.
+4. Sheet und Würfe können diese berechneten Werte verwenden.
+
+Weitere Beispiele:
+
+```js
+this.initiative = (this.abilities.mu.value * 2
+  + this.abilities.in.value
+  + this.abilities.ge.value) / 5;
+```
+
+```js
+this.maxEncumbrance = this.abilities.kk.value * 2;
+```
+
+```js
+this.attackFormula = `1d20 + ${this.combat.at.value}`;
+```
+
+Wichtig: Verwende dort keine `this.update(...)`-Aufrufe. `prepareDerivedData()` wird häufig ausgeführt und soll nur Werte im Speicher vorbereiten, nicht den Actor oder das Item erneut speichern.
+
+> Jetzt möchte ich ein neues Item namens Rasse implementieren, diese haben vier unterschiedliche Beschreibungstexte. Macht es Sinn diese als StringField zu implementieren? Od
+
+> Jetzt möchte ich ein neues Item namens Rasse implementieren, diese haben vier unterschiedliche Beschreibungstexte. Macht es Sinn diese als StringField zu implementieren? Oder als was anderes?
+
+Für vier echte Beschreibungstexte nimm `HTMLField`, nicht `StringField`.
+
+`StringField` eignet sich für kurze, einzeilige Daten wie Name, Kategorie oder Herkunft. Bei längeren Beschreibungen würdest du damit keinen Rich-Text-Editor bekommen und Zeilenumbrüche/Formatierung nur schlecht behandeln.
+
+Für eine Rasse könntest du die vier Texte als Gruppe strukturieren:
+
+```js
+schema.descriptions = new fields.SchemaField({
+  appearance: new fields.HTMLField(),
+  culture: new fields.HTMLField(),
+  advantages: new fields.HTMLField(),
+  disadvantages: new fields.HTMLField(),
+});
+```
+
+Dann liegen die Daten zum Beispiel hier:
+
+```js
+item.system.descriptions.appearance
+item.system.descriptions.culture
+```
+
+Im Sheet bindest du sie jeweils mit einem Editor ein:
+
+```hbs
+{{editor enrichedAppearance
+  target="system.descriptions.appearance"
+  engine="prosemirror"
+  button=true
+  editable=editable}}
+```
+
+Dafür musst du `enrichedAppearance` zuvor in `getData()` des Item-Sheets mit `TextEditor.enrichHTML(...)` erzeugen, genau wie `enrichedBiography` beim Actor.
+
+Kurzregel:
+
+- `StringField`: kurzer, unformatierter Text
+- `NumberField`: Zahlen
+- `BooleanField`: ja/nein
+- `ArrayField`: Liste gleichartiger Werte
+- `SchemaField`: zusammengehörige Unterfelder
+- `HTMLField`: längere Beschreibung mit Editor und Formatierung
+
+Zusätzlich ist `item-rasse.mjs` aktuell noch nicht im System registriert: Es fehlt später der Export in `_module.mjs`, der Eintrag `rasse: models.dsaRasse` in `CONFIG.Item.dataModels` und der Typ `rasse` in `lang/de.json`.
+
+> Muss ich um den Sheet zu implementieren, noch etwas machen?
+
+<details><summary>2 previous messages</summary>
+
+> Ich prüfe den aktuellen Rasse-Itemtyp gegen die bestehende Item-Sheet-Architektur, damit ich dir genau sagen kann, welche Registrierung, Vorlage und Datenaufbereitung noch fehlt.
+>
+> <details><summary>Ran a command</summary>
+>
+> - Ran `Get-Content dsa\module\data\item-rasse.mjs; Get-Content dsa\templates\item\item-rasse-sheet.hbs; Get-Content dsa\module\sheets\item-sheet.mjs; Get-Content dsa\templates\item\item-sheet.hbs; Get-Content dsa\module\helpers\templates.mjs; Get-Content dsa\module\data\_module.mjs; Get-Content dsa\module\dsa.mjs | Select-String -Pattern "Item.dataModels" -Context 0,8; rg -n '"rasse"|Rasse|rasse' dsa\lang dsa\module dsa\templates -g "*.json" -g "*.mjs" -g "*.hbs"`
+>
+> </details>
+</details>
+
+Die Registrierung ist bereits vollständig: Export, `CONFIG.Item.dataModels.rasse`, Typ in `de.json` und die Datei `item-rasse-sheet.hbs` sind vorhanden. Der Sheet wird durch diese Zeile automatisch gefunden:
+
+```js
+return `${path}/item-${this.item.type}-sheet.hbs`;
+```
+
+Es fehlen aber noch drei wichtige Korrekturen:
+
+1. **`prepareDerivedData()` in `item-rasse.mjs` entfernen.**
+   Der Code verwendet `this.roll`, aber eine Rasse hat kein Feld `roll`. Dadurch kann das Item beim Laden abstürzen.
+
+2. **Alle vier HTML-Texte separat aufbereiten.**
+   In [item-sheet.mjs](./dsa/module/sheets/item-sheet.mjs) wird aktuell dies aufgerufen:
+
+   ```js
+   TextEditor.enrichHTML(this.item.system.description, ...)
+   ```
+
+   Bei der Rasse ist `description` jetzt ein Objekt mit vier Feldern. `enrichHTML` erwartet aber einen einzelnen Text. Du brauchst je Feld einen Wert, z. B.:
+
+   ```js
+   context.enrichedDescription = {
+     general: await TextEditor.enrichHTML(this.item.system.description.general, options),
+     originDistribution: await TextEditor.enrichHTML(
+       this.item.system.description.originDistribution, options
+     ),
+     appearance: await TextEditor.enrichHTML(
+       this.item.system.description.appearance, options
+     ),
+     reproductionAging: await TextEditor.enrichHTML(
+       this.item.system.description.reproductionAging, options
+     ),
+   };
+   ```
+
+   Im HBS verwendest du dann jeweils:
+
+   ```hbs
+   {{editor enrichedDescription.general
+     target="system.description.general"
+     engine="prosemirror"
+     button=true
+     editable=editable}}
+   ```
+
+   Derzeit zeigen alle vier Editoren denselben Wert `enrichedDescription` an.
+
+3. **Start-Tab korrigieren.**
+   In [item-sheet.mjs](./dsa/module/sheets/item-sheet.mjs:21) steht noch:
+
+   ```js
+   initial: "description"
+   ```
+
+   Dein Rasse-Sheet nennt den Tab aber `beschreibung`. Einheitlich wäre entweder überall `description` oder:
+
+   ```js
+   initial: "beschreibung"
+   ```
+
+Du musst `item-rasse-sheet.hbs` nicht in `preloadHandlebarsTemplates()` eintragen. Diese Funktion brauchst du nur für Partials, die mit `{{> ...}}` eingebunden werden.
+
+> also so?
+
+<details><summary>1 previous message</summary>
+
+> <details><summary>Ran a command</summary>
+>
+> - Ran `Get-Content dsa\module\sheets\item-sheet.mjs; Get-Content dsa\templates\item\item-rasse-sheet.hbs; Get-Content dsa\module\data\item-rasse.mjs`
+>
+> </details>
+</details>
+
+Fast, aber zwei Dinge sind noch wichtig:
+
+1. `options` braucht `const`, sonst entsteht eine globale Variable bzw. ein Fehler im Strict Mode:
+
+```js
+const options = {
+  secrets: this.document.isOwner,
+  async: true,
+  rollData: this.item.getRollData(),
+  relativeTo: this.item,
+};
+```
+
+2. Der Code läuft für **jedes** Item, nicht nur für `rasse`. Bei Zaubern und normalen Items ist `description` weiterhin ein Text, kein Objekt. Dann ist `this.item.system.description.general` `undefined`.
+
+Baue deshalb eine Fallunterscheidung ein:
+
+```js
+const options = {
+  secrets: this.document.isOwner,
+  async: true,
+  rollData: this.item.getRollData(),
+  relativeTo: this.item,
+};
+
+if (this.item.type === "rasse") {
+  const description = this.item.system.description;
+
+  context.enrichedDescription = {
+    general: await TextEditor.enrichHTML(description.general, options),
+    originDistribution: await TextEditor.enrichHTML(
+      description.originDistribution, options
+    ),
+    appearance: await TextEditor.enrichHTML(description.appearance, options),
+    reproductionAging: await TextEditor.enrichHTML(
+      description.reproductionAging, options
+    ),
+  };
+} else {
+  context.enrichedDescription = await TextEditor.enrichHTML(
+    this.item.system.description,
+    options
+  );
+}
+```
+
+Dein HBS mit `enrichedDescription.general`, `...originDistribution` usw. ist dann korrekt.
+
+Ein weiterer Punkt: Du hast global `initial: "beschreibung"` gesetzt. Dadurch startet jetzt auch ein Zauber- oder normales Item-Sheet mit einem Tab-Namen, den diese Sheets nicht haben. Besser: Benenne im Rasse-Sheet `beschreibung` zu `description` um. Dann können alle Item-Sheets denselben Start-Tab `description` verwenden.
+
+> Bisher kann ich aber bei den Items keine Rasse neu anlegen
+
+<details><summary>4 previous messages</summary>
+
+> Ich prüfe, wie dein System die erlaubten Itemtypen an Foundry meldet. Die Datenmodell-Registrierung allein reicht nicht immer aus, damit der Typ im Erstellen-Dialog erscheint.
+>
+> <details><summary>Ran a command, searched the web</summary>
+>
+> - Ran `Get-Content dsa\system.json; Get-Content dsa\lang\de.json; Get-Content dsa\lang\en.json; rg -n "documentTypes|typeLabels|TYPES|rasse|Item.create" dsa -g "*.json" -g "*.mjs" -g "*.hbs"`
+>
+> <details><summary>Searched the web</summary>
+>
+> - Searched the web for `Foundry VTT v14 system manifest documentTypes item types official API`
+>
+> </details>
+>
+> </details>
+>
+> Die Ursache liegt im Manifest: `system.json` meldet Foundry derzeit keine erlaubten Actor- und Item-Untertypen. Ich ergänze dort alle bestehenden Typen einschließlich `rasse`; damit erscheint Rasse im Erstellen-Dialog und ist nicht nur als Datenmodell im Code registriert.
+>
+> <details><summary>Edited 2 files, ran a command</summary>
+>
+> - Wrote `./dsa/lang/en.json` (+6 -5)
+> - Wrote `./dsa/system.json` (+15 -3)
+> - Ran `node -e "JSON.parse(require('fs').readFileSync('dsa/system.json', 'utf8')); JSON.parse(require('fs').readFileSync('dsa/lang/de.json', 'utf8')); JSON.parse(require('fs').readFileSync('dsa/lang/en.json', 'utf8'));"; node --check dsa\module\data\item-rasse.mjs; node --check dsa\module\sheets\item-sheet.mjs`
+>
+> </details>
+</details>
+
+Die Ursache war `system.json`: Dort fehlte `documentTypes`. Ohne diese Liste kennt Foundry den Typ `rasse` im Erstellen-Dialog nicht, obwohl das Datenmodell registriert ist.
+
+Ich habe alle bestehenden Typen ergänzt, einschließlich `Item.rasse`, und die englische Bezeichnung `Race` ergänzt. JSON und JavaScript bestehen die Prüfung.
+
+Foundry einmal vollständig neu laden. Falls `Strg+F5` den neuen Typ nicht zeigt, den Server bzw. die Welt einmal neu starten. Danach sollte beim Erstellen eines Items `Rasse` auswählbar sein. [Foundry-Dokumentation zu Document Subtypes](https://foundryvtt.com/api/v14/modules/foundry.documents.html)
+
+> Kannst du mir beim CSS helfen?
+
+Ja. Beschreibe kurz, welches Sheet und wie es aussehen soll, zum Beispiel:
+
+- Rasse-Sheet: vier Beschreibungstexte als übersichtliche Tabs oder Abschnitte
+- Character-Sheet: Abilities und Proficiencies kompakter ausrichten
+- bestimmte Felder, Abstände, Farben oder Größen korrigieren
+
+Ein Screenshot oder eine konkrete Beschreibung des aktuellen und gewünschten Zustands reicht.
+
+> Genau dass, im Rasse-Sheet sollen die vier Texte als übersichtliche Abschnitte gehandhabt werden
+
+<details><summary>5 previous messages</summary>
+
+> Ich gestalte den Beschreibungs-Tab als zweispaltiges Raster aus vier klar abgegrenzten Bereichen, jeweils mit lokalisierter Überschrift und eigenem Editor. Die Bereiche erhalten eine feste Mindesthöhe; bei längerem Text scrollt der Tab, statt dass die Editoren ineinanderlaufen.
+>
+> Die Vorlage wurde seit der letzten Ansicht verändert; der Patch passt deshalb nicht mehr automatisch. Ich lese die aktuellen Abschnitte erneut und passe die Gestaltung auf den tatsächlich vorhandenen Aufbau an.
+>
+> <details><summary>Ran a command</summary>
+>
+> - Ran `Get-Content dsa\templates\item\item-rasse-sheet.hbs; Get-Content dsa\css\dsa.css | Select-Object -Last 100; Get-Content dsa\lang\de.json; Get-Content dsa\lang\en.json`
+>
+> </details>
+>
+> Der Tabname ist inzwischen wieder einheitlich `description`, das passt zur gemeinsamen Sheet-Klasse. Ich ergänze jetzt nur die Abschnittsstruktur und die dazu isolierten CSS-Regeln für das Rasse-Sheet.
+>
+> <details><summary>Edited 4 files, ran a command</summary>
+>
+> - Wrote `./dsa/css/dsa.css` (+42 -3)
+> - Wrote `./dsa/lang/de.json` (+1 -1)
+> - Wrote `./dsa/lang/en.json` (+11 -4)
+> - Wrote `./dsa/templates/item/item-rasse-sheet.hbs` (+45 -32)
+> - Ran `node -e "JSON.parse(require('fs').readFileSync('dsa/lang/de.json', 'utf8')); JSON.parse(require('fs').readFileSync('dsa/lang/en.json', 'utf8'));"; node --check dsa\module\sheets\item-sheet.mjs; rg -n "rasse-sheet|description-grid|description-section" dsa\templates\item\item-rasse-sheet.hbs dsa\css\dsa.css`
+>
+> </details>
+</details>
+
+Das Rasse-Sheet zeigt die vier Texte jetzt als vier klar abgegrenzte Bereiche:
+
+- zweispaltig auf normaler Sheet-Breite
+- mit Überschriften für Allgemein, Herkunft, Aussehen sowie Vermehrung/Alterung
+- bei schmalem Sheet automatisch einspaltig
+- langer Inhalt scrollt im Sheet, statt die Editoren zu überlagern
+
+Geändert in [item-rasse-sheet.hbs](./dsa/templates/item/item-rasse-sheet.hbs:1), [dsa.css](./dsa/css/dsa.css:387) und den Sprachdateien. JSON und `item-sheet.mjs` bestehen die Prüfung.
+
+> Änder bitte nicht dsa.css sondern mache sowas alles in src
+
+<details><summary>6 previous messages</summary>
+
+> Ich prüfe die vorhandene `src`-Struktur und den Build-Prozess. Danach verschiebe ich die neuen Rasse-Sheet-Stile aus der kompilierten `dsa.css` in die passende Quelldatei, statt weitere Regeln direkt in die Ausgabe-CSS zu schreiben.
+>
+> <details><summary>Ran 2 commands</summary>
+>
+> - Ran `Get-ChildItem dsa -Force; rg --files dsa | rg "(^|/|\\)(src|scss|sass|styles)(/|\\)|package\.json$|gulpfile|vite|webpack"; Get-ChildItem dsa\src -Recurse -Force -ErrorAction SilentlyContinue; Get-Content dsa\package.json -ErrorAction SilentlyContinue`
+> - Ran `Get-Content dsa\src\scss\dsa.scss; Get-Content dsa\src\scss\components\_forms.scss; Get-Content dsa\src\scss\components\_resource.scss; Get-Content dsa\src\scss\components\_items.scss; Get-ChildItem dsa\node_modules\.bin\sass -ErrorAction SilentlyContinue; rg -n "proficiencies|rasse-sheet" dsa\css\dsa.css dsa\src\scss -g "*.css" -g "*.scss"`
+>
+> </details>
+>
+> Die Styles liegen tatsächlich in SCSS-Quellen unter `src/scss`; `css/dsa.css` ist die Build-Ausgabe. Ich lege die Rasse- und Proficiency-Regeln dort als Komponenten ab und binde sie in die zentrale SCSS-Datei ein. Anschließend kompiliere ich nur über das vorhandene Build-Skript, falls Sass installiert ist.
+>
+> <details><summary>Created 2 files, edited a file, ran a command</summary>
+>
+> - Wrote `./dsa/src/scss/components/_proficiencies.scss` (+24 -0)
+> - Wrote `./dsa/src/scss/components/_rasse.scss` (+48 -0)
+> - Wrote `./dsa/src/scss/dsa.scss` (+7 -5)
+> - Ran `npm run build`
+>
+> </details>
+>
+> Die SCSS-Quellen sind angelegt und eingebunden. PowerShell blockiert nur das Skript `npm.ps1`; ich starte daher dieselbe lokale Build-Aufgabe über `npm.cmd`, ohne die Ausführungsrichtlinie zu verändern.
+>
+> <details><summary>Ran 3 commands</summary>
+>
+> - Ran `npm.cmd run build`
+> - Ran `npm.cmd install`
+> - Ran `npm.cmd run build; rg -n "rasse-sheet|proficiencies" css\dsa.css; git status --short`
+>
+> </details>
+</details>
+
+Erledigt. Neue Sheet-Stile liegen jetzt in den SCSS-Quellen:
+
+- [\_rasse.scss](./dsa/src/scss/components/_rasse.scss)
+- [\_proficiencies.scss](./dsa/src/scss/components/_proficiencies.scss)
+
+Beide sind in [dsa.scss](./dsa/src/scss/dsa.scss) eingebunden. `css/dsa.css` wurde anschließend ausschließlich über `npm run build` daraus erzeugt.
+
+Für künftige CSS-Änderungen arbeitest du in `src/scss/...` und führst danach im Ordner `dsa` aus:
+
+```powershell
+npm.cmd run build
+```
+
+Sass gibt nur Hinweise aus, dass das bestehende `@import`-Verfahren künftig veraltet sein wird; der Build ist erfolgreich.
+
+> Man kann in DSA die Haarfarbe und die Augenfarbe erwürfeln, dafür würfelt man einen W20 und vergleicht es mit einer Tabelle, die so aussehen kann:
+> 1–3 4–7 8–12 13–16 17–18 19–20
+> schwarz braun dunkelblond blond weißblond rot
+>
+> Was denkst du ist die Beste Art das zu implementieren?
+> Ich fänds cool wenn man später wenn man seinen Actor zusammen zieht auch eine Option hat, diese dort im Actor auszuwürfeln.
+
+Ich würde das in drei getrennte Teile aufteilen:
+
+1. **Die Tabelle gehört zur Rasse.**
+   Jede Rasse kann eigene Haar- und Augenfarben haben.
+
+2. **Das Ergebnis gehört zum Actor.**
+   Ein Charakter hat nach dem Würfeln konkret z. B. `blond` und `grün`. Das Ergebnis soll auch manuell änderbar bleiben.
+
+3. **Ein zentraler Würfel-Handler verbindet beides.**
+   Der Actor sucht seine angelegte Rasse, würfelt `1d20`, liest das passende Tabellenfeld und speichert das Ergebnis im Actor.
+
+Für die Rasse würde ich keine einfache Zeichenkette wie `"1-3 schwarz"` speichern, sondern strukturierte Daten:
+
+```js
+schema.appearanceTables = new fields.SchemaField({
+  hairColors: new fields.ArrayField(
+    new fields.SchemaField({
+      min: new fields.NumberField({ required: true, integer: true }),
+      max: new fields.NumberField({ required: true, integer: true }),
+      result: new fields.StringField({ required: true, blank: false }),
+    })
+  ),
+  eyeColors: new fields.ArrayField(
+    new fields.SchemaField({
+      min: new fields.NumberField({ required: true, integer: true }),
+      max: new fields.NumberField({ required: true, integer: true }),
+      result: new fields.StringField({ required: true, blank: false }),
+    })
+  ),
+});
+```
+
+Die Haarfarbentabelle wäre dann Daten wie:
+
+```js
+[
+  { min: 1, max: 3, result: "schwarz" },
+  { min: 4, max: 7, result: "braun" },
+  { min: 8, max: 12, result: "dunkelblond" },
+  { min: 13, max: 16, result: "blond" },
+  { min: 17, max: 18, result: "weißblond" },
+  { min: 19, max: 20, result: "rot" }
+]
+```
+
+Im Character-Datenmodell kommen die finalen Ergebnisse hin:
+
+```js
+schema.appearance = new fields.SchemaField({
+  hairColor: new fields.StringField({ required: true, blank: true }),
+  eyeColor: new fields.StringField({ required: true, blank: true }),
+});
+```
+
+Beim Klick auf „Haarfarbe würfeln“:
+
+```js
+const roll = await new Roll("1d20").evaluate();
+const entry = table.find(
+  (entry) => roll.total >= entry.min && roll.total <= entry.max
+);
+
+await actor.update({
+  "system.appearance.hairColor": entry.result,
+});
+```
+
+Im Character-Sheet zeigst du die gespeicherte Haarfarbe als normales Textfeld plus Würfel-Button. Der Button würfelt neu, das Textfeld erlaubt danach Korrekturen durch die Spielleitung.
+
+Das ist besser als die Tabellen direkt im Actor zu kopieren: Die Regeln bleiben bei der Rasse, die persönliche Ausprägung bleibt beim Charakter.
+
+> überlegt dir dann wie man das im Rasse Sheet schön darstellen kann. Vllt als tabelle?
+
+Ja, eine Tabelle ist dafür die passende Darstellung. Sie macht die Würfelbereiche sofort nachvollziehbar und lässt sich später direkt bearbeiten.
+
+Ich würde im Rasse-Sheet einen eigenen Tab **„Erscheinungsbild“** anlegen. Darin zwei Bereiche untereinander:
+
+**Haarfarbe**
+
+| Wurf von | bis | Ergebnis | |
+|---:|---:|---|---|
+| 1 | 3 | schwarz | Papierkorb |
+| 4 | 7 | braun | Papierkorb |
+| 8 | 12 | dunkelblond | Papierkorb |
+
+Rechts in der Überschrift ein `+`-Button zum Hinzufügen einer Tabellenzeile.
+
+**Augenfarbe**
+
+Gleicher Aufbau, eigene Tabelle und eigene Datenquelle.
+
+Die Spalten sollten direkt editierbar sein:
+
+```hbs
+<input type="number" value="{{entry.min}}">
+<input type="number" value="{{entry.max}}">
+<input type="text" value="{{entry.result}}">
+```
+
+Der Rasse-Sheet ist dann für die Regelpflege zuständig: Wertebereiche ändern, Farben umbenennen, Zeilen anlegen oder löschen.
+
+Im Actor-Sheet wäre die Darstellung bewusst einfacher:
+
+| Haarfarbe | Augenfarbe |
+|---|---|
+| blond, Würfel-Button | grün, Würfel-Button |
+
+Der Würfel-Button verwendet die Tabelle der angelegten Rasse. So trennt sich klar:
+
+- **Rasse-Sheet:** Regel- und Ergebnistabellen verwalten
+- **Actor-Sheet:** persönliche Werte würfeln oder manuell überschreiben
+
+Für das Layout würde ich die Tabellen volle Breite verwenden, mit schmalen Zahlenspalten (`von`, `bis`), breiter Ergebnis-Spalte und einer kleinen Icon-Spalte für Aktionen. Das bleibt auch bei vielen Einträgen übersichtlich.
+
+> Dann mach das bitte
+
+<details><summary>7 previous messages</summary>
+
+> Ich implementiere zunächst die vollständige Pflege der Haar- und Augenfarbtabellen im Rasse-Sheet: strukturierte Daten im Rasse-Modell, einen eigenen Erscheinungsbild-Tab, Zeilen hinzufügen/löschen sowie direkte Speicherung der Eingaben. Die spätere Actor-Würfelfunktion kann diese Tabellen dann unverändert verwenden.
+>
+> <details><summary>Ran a command</summary>
+>
+> - Ran `Get-Content dsa\module\data\item-rasse.mjs; Get-Content dsa\module\sheets\item-sheet.mjs; Get-Content dsa\templates\item\item-rasse-sheet.hbs; Get-Content dsa\src\scss\components\_rasse.scss; Get-Content dsa\lang\de.json; Get-Content dsa\lang\en.json; Get-Content dsa\module\data\base-model.mjs`
+>
+> </details>
+>
+> Das Datenmodell hat bereits den Anfang für Haarfarben. Ich ergänze die zweite Tabelle, die Bearbeitungsaktionen im Item-Sheet und den neuen Erscheinungsbild-Tab. Die Tabellenwerte werden als echte Felder gespeichert, nicht als Text wie `1-3 schwarz`, damit die spätere Würfelfunktion zuverlässig Bereiche auswerten kann.
+>
+> Die Sprachdatei liegt in einer anderen Zeichenkodierung vor als die Konsolenausgabe, daher wurde der Gesamt-Patch nicht angewendet. Ich teile die Änderung jetzt in kleinere Patches auf und lasse die vorhandenen deutschen Texte unverändert.
+>
+> <details><summary>Edited 6 files</summary>
+>
+> - Wrote `./dsa/module/data/item-rasse.mjs` (+16 -9)
+> - Wrote `./dsa/module/sheets/item-sheet.mjs` (+37 -5)
+> - Wrote `./dsa/templates/item/item-rasse-sheet.hbs` (+65 -8)
+> - Wrote `./dsa/src/scss/components/_rasse.scss` (+57 -0)
+> - Wrote `./dsa/lang/de.json` (+9 -1)
+> - Wrote `./dsa/lang/en.json` (+9 -1)
+>
+> </details>
+>
+> Die Tabellenoberfläche ist eingebaut. Ich kompiliere jetzt die SCSS-Quelle und prüfe das Datenmodell, die Sheet-Klasse sowie die Sprachdateien auf Syntaxfehler.
+>
+> <details><summary>Ran a command</summary>
+>
+> - Ran `npm.cmd run build; node --check module\data\item-rasse.mjs; node --check module\sheets\item-sheet.mjs; node -e "JSON.parse(require('fs').readFileSync('lang/de.json', 'utf8')); JSON.parse(require('fs').readFileSync('lang/en.json', 'utf8'));"; rg -n "appearanceTables|appearance-table|AppearanceTables" module\data\item-rasse.mjs module\sheets\item-sheet.mjs templates\item\item-rasse-sheet.hbs src\scss\components\_rasse.scss`
+>
+> </details>
+</details>
+
+Die Rasse hat jetzt einen Tab **„Erscheinungsbild“** mit getrennten Tabellen für Haar- und Augenfarben.
+
+Dort kannst du für jede Zeile `Von`, `Bis` und `Ergebnis` eintragen. `+` fügt eine Zeile hinzu, der Papierkorb entfernt sie. Änderungen werden sofort am Rasse-Item gespeichert.
+
+Um deine Haarfarbentabelle einzutragen, fügst du sechs Zeilen hinzu:
+
+| Von | Bis | Ergebnis |
+|---:|---:|---|
+| 1 | 3 | schwarz |
+| 4 | 7 | braun |
+| 8 | 12 | dunkelblond |
+| 13 | 16 | blond |
+| 17 | 18 | weißblond |
+| 19 | 20 | rot |
+
+Die Daten liegen strukturiert unter `system.appearanceTables.hairColors` bzw. `eyeColors`. Damit ist die Grundlage für den späteren Würfel-Button im Actor-Sheet vorhanden.
+
+Geändert wurden [item-rasse.mjs](./dsa/module/data/item-rasse.mjs:19), [item-rasse-sheet.hbs](./dsa/templates/item/item-rasse-sheet.hbs:92), [item-sheet.mjs](./dsa/module/sheets/item-sheet.mjs:91) und die SCSS-Quelle [\_rasse.scss](./dsa/src/scss/components/_rasse.scss:43). Der CSS-Build sowie JavaScript- und JSON-Prüfungen sind erfolgreich.
+
+> Nun möchte ich die Körpergtöße implementieren, diese soll ebenfalls erwürfelt werden können.
+> Dabei haben die Formeln aber diesen aufbau: 1,60+2W20
+> Dabei kann die startgröße, die würfelanzahl und welche würfel gewürfelt werden varrieren.
+> Ebenso wird in Klammern dahinter angegeben welche Größen man erreichen kann: Körpergröße: 1,68 + 2W20 (1,70-2,08 Schritt).
+>
+> Sollte ich da ein schemafield mit diesen Feldern implementieren:
+> - formel
+> - - würfelart
+> - wieviele würfel
+> - String für Klammern
+
+Ja, ein `SchemaField` ist richtig. Ich würde aber **Formel und Klammertext nicht speichern**, weil sie sich vollständig aus den echten Regelwerten berechnen lassen.
+
+Speichere die Größe am besten in **Zentimetern als ganze Zahl**. Das vermeidet Probleme mit Dezimalzahlen wie `1,68`.
+
+```js
+schema.height = new fields.SchemaField({
+  baseCm: new fields.NumberField({
+    required: true,
+    integer: true,
+    initial: 168,
+    min: 0,
+  }),
+  diceCount: new fields.NumberField({
+    required: true,
+    integer: true,
+    initial: 2,
+    min: 0,
+  }),
+  dieFaces: new fields.NumberField({
+    required: true,
+    integer: true,
+    initial: 20,
+    min: 1,
+  }),
+});
+```
+
+Damit bedeutet:
+
+```js
+{
+  baseCm: 168,
+  diceCount: 2,
+  dieFaces: 20
+}
+```
+
+automatisch:
+
+```text
+Körpergröße: 1,68 + 2W20 (1,70-2,08 Schritt)
+```
+
+Die Werte werden berechnet:
+
+```js
+const { baseCm, diceCount, dieFaces } = this.height;
+
+const formula = `${baseCm / 100} + ${diceCount}W${dieFaces}`;
+const minimumCm = baseCm + diceCount;
+const maximumCm = baseCm + diceCount * dieFaces;
+```
+
+Warum nicht diese Felder speichern?
+
+- `formel`: wäre eine Kopie der drei Zahlen und könnte widersprüchlich werden.
+- `String für Klammern`: ebenso eine Kopie von Minimum und Maximum.
+- `würfelart`: für normale Würfel genügt `dieFaces: 20`; daraus entsteht `W20`.
+
+Später im Actor speicherst du dann nur das konkrete Ergebnis, ebenfalls in Zentimetern:
+
+```js
+schema.appearance = new fields.SchemaField({
+  heightCm: new fields.NumberField({
+    required: true,
+    integer: true,
+    initial: 0,
+    min: 0,
+  }),
+});
+```
+
+Der Actor würfelt dann beispielsweise `2d20`, addiert das Ergebnis zu `168` und speichert etwa `191` als `heightCm`. Im Sheet zeigst du es als `1,91 Schritt` an.
+
+> Berechne ich die Werte dann in item-sheet?
+
+Nein, die Regelberechnung gehört nicht in `item-sheet.mjs`.
+
+`item-sheet.mjs` ist nur für die Darstellung zuständig: Es bereitet Daten für das HTML vor und reagiert auf Klicks. Die Größenregel soll auch später vom Actor verwendet werden können, ohne dass ein Sheet geöffnet ist.
+
+Die Berechnung gehört deshalb in [item-rasse.mjs](./dsa/module/data/item-rasse.mjs), am besten in eine eigene Methode:
+
+```js
+getHeightRollData() {
+  const { baseCm, diceCount, dieFaces } = this.height;
+
+  return {
+    formula: `${diceCount}d${dieFaces}`,
+    minimumCm: baseCm + diceCount,
+    maximumCm: baseCm + diceCount * dieFaces,
+  };
+}
+```
+
+Dann kann das Rasse-Sheet sie anzeigen:
+
+```js
+const height = this.item.system.getHeightRollData();
+context.heightFormula = `${this.item.system.height.baseCm / 100} + ${
+  this.item.system.height.diceCount
+}W${this.item.system.height.dieFaces}`;
+context.heightRange = `${height.minimumCm}-${height.maximumCm} cm`;
+```
+
+Und später kann der Actor exakt dieselbe Methode verwenden:
+
+```js
+const race = actor.items.find((item) => item.type === "rasse");
+const heightData = race.system.getHeightRollData();
+
+const roll = await new Roll(heightData.formula).evaluate();
+const heightCm = race.system.height.baseCm + roll.total;
+```
+
+Kurz:
+
+- `item-rasse.mjs`: Regeln und wiederverwendbare Berechnungen
+- `item-sheet.mjs`: Daten für Anzeige und Buttons
+- `item-rasse-sheet.hbs`: HTML-Ausgabe
+- `actor-sheet.mjs`: später Würfel-Button für den Charakter
+
+> Aber dann kommt in item-sheet jetzt das const height = this.item.system.getHeightRollData();
+> context.heightFormula = `${this.item.system.height.baseCm / 100} + ${
+>   this.item.system.height.diceCount
+> }W${this.item.system.height.dieFaces}`;
+> context.heightRange = `${height.minimumCm}-${height.maximumCm} cm`; oder?
+
+Ja, genau. Das gehört in `getData()` von [item-sheet.mjs](./dsa/module/sheets/item-sheet.mjs), weil es nur die Werte für das HBS vorbereitet.
+
+Aber nur innerhalb der Rasse-Abfrage, damit andere Itemtypen nicht auf ein nicht vorhandenes `height` zugreifen:
+
+```js
+if (this.item.type === "rasse") {
+  const height = this.item.system.getHeightRollData();
+  const { baseCm, diceCount, dieFaces } = this.item.system.height;
+
+  context.heightFormula = `${baseCm / 100} + ${diceCount}W${dieFaces}`;
+  context.heightRange = `${height.minimumCm}-${height.maximumCm} cm`;
+}
+```
+
+Im HBS könntest du dann einfach schreiben:
+
+```hbs
+<p>Körpergröße: {{heightFormula}} ({{heightRange}})</p>
+```
+
+Die Zahlenberechnung bleibt dabei in `item-rasse.mjs` in `getHeightRollData()`. `item-sheet.mjs` setzt nur die bereits berechneten Werte in `context`, damit das Sheet sie anzeigen kann.
+
+> Dann füg das bitte mit schönem Design auf das sheet bei den anderen appearence Werten
+
+<details><summary>6 previous messages</summary>
+
+> Ich prüfe den aktuellen Stand der Größenfelder und ergänze sie im bestehenden Erscheinungsbild-Tab als kompakte Regelkarte oberhalb der Farbtabellen. Sie zeigt Formel und möglichen Bereich und bietet darunter die drei editierbaren Regelwerte.
+>
+> <details><summary>Ran a command</summary>
+>
+> - Ran `Get-Content dsa\module\data\item-rasse.mjs; Get-Content dsa\module\sheets\item-sheet.mjs; Get-Content dsa\templates\item\item-rasse-sheet.hbs; Get-Content dsa\src\scss\components\_rasse.scss; Get-Content dsa\lang\de.json; Get-Content dsa\lang\en.json`
+>
+> </details>
+>
+> Die Größenregel ist bereits im Datenmodell angelegt, aber die Aufbereitung ruft die Methode momentan am Item statt am Rasse-Datenmodell auf. Ich korrigiere das und ersetze die einfache Textzeile durch eine kompakte, editierbare Größenkarte im Erscheinungsbild-Tab.
+>
+> Der Patch wurde erneut nur durch die unterschiedlich dargestellte Umlaut-Zeile in der Vorlage blockiert. Ich wende die technischen und Stil-Änderungen getrennt an und ersetze anschließend den betroffenen Vorlagenabschnitt gezielt.
+>
+> <details><summary>Edited 6 files, ran a command</summary>
+>
+> - Wrote `./dsa/module/data/item-rasse.mjs` (+6 -6)
+> - Wrote `./dsa/module/sheets/item-sheet.mjs` (+8 -4)
+> - Wrote `./dsa/src/scss/components/_rasse.scss` (+58 -0)
+> - Ran `$lines = Get-Content dsa\templates\item\item-rasse-sheet.hbs; $lines[88..150]`
+> - Wrote `./dsa/templates/item/item-rasse-sheet.hbs` (+24 -2)
+> - Wrote `./dsa/templates/item/item-rasse-sheet.hbs` (+0 -1)
+> - Wrote `./dsa/lang/de.json` (+7 -1)
+> - Wrote `./dsa/lang/en.json` (+7 -1)
+> - Wrote `./dsa/lang/de.json` (+4 -4)
+>
+> </details>
+>
+> System error
+>
+> You've hit your usage limit. Upgrade to Plus to continue using Codex (https://chatgpt.com/explore/plus), or try again at Aug 12th, 2026 12:46 PM.
+</details>

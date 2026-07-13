@@ -1,0 +1,171 @@
+<form class='{{cssClass}} rasse-sheet flexcol' autocomplete='off'>
+  <header class='sheet-header'>
+    <img
+      class='profile-img'
+      src='{{item.img}}'
+      data-edit='img'
+      title='{{item.name}}'
+    />
+    <div class='header-fields'>
+      <h1 class='charname'><input
+          name='name'
+          type='text'
+          value='{{item.name}}'
+          placeholder='Name'
+        /></h1>
+      <h4 class='charname'>
+        Rasse
+      </h4>
+    </div>
+  </header>
+
+  {{! Sheet Tab Navigation }}
+  <nav class='sheet-tabs tabs' data-group='primary'>
+    <a class='item' data-tab='description'>Beschreibung</a>
+    <a class='item' data-tab='werte'>Werte</a>
+    <a class='item' data-tab='appearance-tables'>{{localize 'DSA.Item.Rasse.AppearanceTables'}}</a>
+  </nav>
+
+  {{! Sheet Body }}
+  <section class='sheet-body'>
+
+    {{! Description Tab }}
+    <div class='tab rasse-description' data-group='primary' data-tab='description'>
+      <div class='description-grid'>
+        <section class='description-section'>
+          <h3>{{localize 'DSA.Item.Rasse.General'}}</h3>
+          {{editor
+            enrichedDescription.general
+            target='system.description.general'
+            engine='prosemirror'
+            button=true
+            editable=editable
+          }}
+        </section>
+        <section class='description-section'>
+          <h3>{{localize 'DSA.Item.Rasse.OriginDistribution'}}</h3>
+          {{editor
+            enrichedDescription.originDistribution
+            target='system.description.originDistribution'
+            engine='prosemirror'
+            button=true
+            editable=editable
+          }}
+        </section>
+        <section class='description-section'>
+          <h3>{{localize 'DSA.Item.Rasse.Appearance'}}</h3>
+          {{editor
+            enrichedDescription.appearance
+            target='system.description.appearance'
+            engine='prosemirror'
+            button=true
+            editable=editable
+          }}
+        </section>
+        <section class='description-section'>
+          <h3>{{localize 'DSA.Item.Rasse.ReproductionAging'}}</h3>
+          {{editor
+            enrichedDescription.reproductionAging
+            target='system.description.reproductionAging'
+            engine='prosemirror'
+            button=true
+            editable=editable
+          }}
+        </section>
+      </div>
+    </div>
+
+    {{! Attributes Tab }}
+    <div class='tab attributes' data-group='primary' data-tab='werte'>
+      {{! As you add new fields, add them in here! }}
+      <div class='resource'>
+        <label class='resource-label'>Generierungspunkte</label>
+        <input
+          type='text'
+          name='system.gp'
+          value='{{system.gp}}'
+          data-dtype='Number'
+        />
+      </div>
+    </div>
+
+    <div class='tab appearance-tables' data-group='primary' data-tab='appearance-tables'>
+      <section class='height-rule'>
+        <header class='height-rule-header'>
+          <h3>{{localize 'DSA.Item.Rasse.Height'}}</h3>
+          <p>{{heightFormula}} <span>({{heightRange}})</span></p>
+        </header>
+        <div class='height-rule-fields'>
+          <label>
+            <span>{{localize 'DSA.Item.Rasse.BaseHeight'}}</span>
+            <input type='number' name='system.height.baseCm' value='{{system.height.baseCm}}' min='0' data-dtype='Number'/>
+            <small>{{localize 'DSA.Item.Rasse.Centimeters'}}</small>
+          </label>
+          <label>
+            <span>{{localize 'DSA.Item.Rasse.DiceCount'}}</span>
+            <input type='number' name='system.height.diceCount' value='{{system.height.diceCount}}' min='0' data-dtype='Number'/>
+          </label>
+          <label>
+            <span>{{localize 'DSA.Item.Rasse.DieFaces'}}</span>
+            <input type='number' name='system.height.dieFaces' value='{{system.height.dieFaces}}' min='1' data-dtype='Number'/>
+          </label>
+        </div>
+      </section>
+
+      <section class='appearance-table-section'>
+        <header class='appearance-table-header flexrow'>
+          <h3>{{localize 'DSA.Item.Rasse.HairColors'}}</h3>
+          <a class='appearance-table-add' data-table='hairColors' title="{{localize 'DSA.Item.Rasse.AddRow'}}"><i class='fas fa-plus'></i></a>
+        </header>
+        <table class='appearance-table'>
+          <thead>
+            <tr>
+              <th>{{localize 'DSA.Item.Rasse.RollMin'}}</th>
+              <th>{{localize 'DSA.Item.Rasse.RollMax'}}</th>
+              <th>{{localize 'DSA.Item.Rasse.Result'}}</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each system.appearanceTables.hairColors as |entry index|}}
+            <tr>
+              <td><input class='appearance-table-input' type='number' min='1' max='20' value='{{entry.min}}' data-table='hairColors' data-index='{{index}}' data-field='min'/></td>
+              <td><input class='appearance-table-input' type='number' min='1' max='20' value='{{entry.max}}' data-table='hairColors' data-index='{{index}}' data-field='max'/></td>
+              <td><input class='appearance-table-input' type='text' value='{{entry.result}}' data-table='hairColors' data-index='{{index}}' data-field='result'/></td>
+              <td><a class='appearance-table-delete' data-table='hairColors' data-index='{{index}}' title="{{localize 'DSA.Item.Rasse.DeleteRow'}}"><i class='fas fa-trash'></i></a></td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </section>
+
+      <section class='appearance-table-section'>
+        <header class='appearance-table-header flexrow'>
+          <h3>{{localize 'DSA.Item.Rasse.EyeColors'}}</h3>
+          <a class='appearance-table-add' data-table='eyeColors' title="{{localize 'DSA.Item.Rasse.AddRow'}}"><i class='fas fa-plus'></i></a>
+        </header>
+        <table class='appearance-table'>
+          <thead>
+            <tr>
+              <th>{{localize 'DSA.Item.Rasse.RollMin'}}</th>
+              <th>{{localize 'DSA.Item.Rasse.RollMax'}}</th>
+              <th>{{localize 'DSA.Item.Rasse.Result'}}</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each system.appearanceTables.eyeColors as |entry index|}}
+            <tr>
+              <td><input class='appearance-table-input' type='number' min='1' max='20' value='{{entry.min}}' data-table='eyeColors' data-index='{{index}}' data-field='min'/></td>
+              <td><input class='appearance-table-input' type='number' min='1' max='20' value='{{entry.max}}' data-table='eyeColors' data-index='{{index}}' data-field='max'/></td>
+              <td><input class='appearance-table-input' type='text' value='{{entry.result}}' data-table='eyeColors' data-index='{{index}}' data-field='result'/></td>
+              <td><a class='appearance-table-delete' data-table='eyeColors' data-index='{{index}}' title="{{localize 'DSA.Item.Rasse.DeleteRow'}}"><i class='fas fa-trash'></i></a></td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </section>
+
+    </div>
+  </section>
+</form>

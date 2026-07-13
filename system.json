@@ -1,0 +1,63 @@
+{
+  "id": "dsa",
+  "title": "Das schwarze Auge 4.1",
+  "description": "Eine unoffizielle Version des DSA 4.1 Systems für Foundry VTT.",
+  "version": "0.0.1",
+  "authors": [
+    {
+      "name": "SirMeloon"
+    }
+  ],
+  "compatibility": {
+    "minimum": 14,
+    "verified": "14.364"
+  },
+  "url": "Replace this with a link to your public repository",
+  "license": "LICENSE.txt",
+  "readme": "README.md",
+  "bugs": "Replace this with a link to file issues or tickets",
+  "changelog": "CHANGELOG.md",
+  "media": [
+    {
+      "type": "setup",
+      "url": "systems/dsa/assets/anvil-impact.png",
+      "thumbnail": "systems/dsa/assets/anvil-impact.png"
+    }
+  ],
+  "esmodules": ["module/dsa.mjs"],
+  "styles": ["css/dsa.css"],
+  "documentTypes": {
+    "Actor": {
+      "character": {},
+      "npc": {}
+    },
+    "Item": {
+      "item": {},
+      "feature": {},
+      "spell": {},
+      "rasse": {}
+    }
+  },
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    },
+    {
+      "lang":"de",
+      "name": "Deutsch",
+      "path": "lang/de.json"
+    }
+  ],
+  "packs": [],
+  "packFolders": [],
+  "socket": false,
+  "manifest": "Replace this with a link to the /latest release system.json so people can receive updates after they've installed the system",
+  "download": "This must link to a .zip file of the current version",
+  "background": "systems/dsa/assets/anvil-impact.png",
+  "gridDistance": 1,
+  "gridUnits": "Schritt",
+  "primaryTokenAttribute": "lebensenergie",
+  "secondaryTokenAttribute": "power"
+}

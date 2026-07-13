@@ -1,0 +1,24 @@
+.proficiencies {
+  gap: 6px;
+  margin-top: 10px;
+
+  h3 {
+    margin: 0;
+    font-size: 14px;
+  }
+}
+
+.proficiency-header,
+.proficiency {
+  gap: 6px;
+}
+
+.proficiency-input {
+  flex: 1;
+}
+
+.proficiency-create,
+.proficiency-delete {
+  flex: 0 0 18px;
+  text-align: center;
+}

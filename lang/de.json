@@ -1,0 +1,73 @@
+{
+  "DSA": {
+    "Ability": {
+      "Mu": { "long": "Mut", "abbr": "MU" },
+      "Kl": { "long": "Klugheit", "abbr": "KL" },
+      "In": { "long": "Intuition", "abbr": "IN" },
+      "Ch": { "long": "Charisma", "abbr": "CH" },
+      "Ff": { "long": "Fingerfertigkeit", "abbr": "FF" },
+      "Ge": { "long": "Gewandtheit", "abbr": "GE" },
+      "Ko": { "long": "Konstitution", "abbr": "KO" },
+      "Kk": { "long": "Körperkraft", "abbr": "KK" }
+    },
+    "SheetLabels": {
+      "Actor": "dsa Actor Sheet",
+      "Item": "dsa Item Sheet"
+    },
+    "Proficiencies": {
+      "Label": "Fertigkeiten",
+      "Weapons": "Waffen",
+      "Skills": "Talente",
+      "AddWeapon": "Waffe hinzuf\u00fcgen",
+      "AddSkill": "Talent hinzuf\u00fcgen",
+      "Remove": "Entfernen"
+    },
+    "Item": {
+      "Spell": {
+        "SpellLVL": "Level {level} Spells",
+        "AddLVL": "Add LVL {level}"
+      },
+      "Rasse": {
+        "Description": "Beschreibung",
+        "General": "Allgemein",
+        "OriginDistribution": "Herkunft und Verbreitung",
+        "Appearance": "Körperbau und Aussehen",
+        "ReproductionAging": "Vermehrung und Alterung",
+        "AppearanceTables": "Erscheinungsbild",
+        "HairColors": "Haarfarben",
+        "EyeColors": "Augenfarben",
+        "RollMin": "Von",
+        "RollMax": "Bis",
+        "Result": "Ergebnis",
+        "AddRow": "Zeile hinzufügen",
+        "DeleteRow": "Zeile entfernen",
+        "Height": "Körpergröße",
+        "BaseHeight": "Startgröße",
+        "Centimeters": "cm",
+        "DiceCount": "Würfelanzahl",
+        "DieFaces": "Würfelseiten",
+        "Step": "Schritt"
+      }
+    },
+    "Effect": {
+      "Source": "Source",
+      "Toggle": "Toggle Effect",
+      "Temporary": "Temporary Effects",
+      "Passive": "Passive Effects",
+      "Inactive": "Inactive Effects"
+    }
+  },
+
+  "TYPES": {
+    "Actor": {
+      "character": "Character",
+      "npc": "NPC"
+    },
+    "Item": {
+      "item": "Item",
+      "feature": "Feature",
+      "spell": "Spell",
+      "rasse": "Rasse"
+    }
+  }
+}

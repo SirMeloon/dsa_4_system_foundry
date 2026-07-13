@@ -1,0 +1,73 @@
+{
+  "DSA": {
+    "Ability": {
+      "Mu": { "long": "Mut", "abbr": "MU" },
+      "Kl": { "long": "Klugheit", "abbr": "KL" },
+      "In": { "long": "Intuition", "abbr": "IN" },
+      "Ch": { "long": "Charisma", "abbr": "CH" },
+      "Ff": { "long": "Fingerfertigkeit", "abbr": "FF" },
+      "Ge": { "long": "Gewandtheit", "abbr": "GE" },
+      "Ko": { "long": "Konstitution", "abbr": "KO" },
+      "Kk": { "long": "Körperkraft", "abbr": "KK" }
+    },
+    "SheetLabels": {
+      "Actor": "dsa Actor Sheet",
+      "Item": "dsa Item Sheet"
+    },
+    "Proficiencies": {
+      "Label": "Proficiencies",
+      "Weapons": "Weapons",
+      "Skills": "Skills",
+      "AddWeapon": "Add weapon",
+      "AddSkill": "Add skill",
+      "Remove": "Remove"
+    },
+    "Item": {
+      "Spell": {
+        "SpellLVL": "Level {level} Spells",
+        "AddLVL": "Add LVL {level}"
+      },
+      "Rasse": {
+        "Description": "Description",
+        "General": "General",
+        "OriginDistribution": "Origin and distribution",
+        "Appearance": "Build and appearance",
+        "ReproductionAging": "Reproduction and aging",
+        "AppearanceTables": "Appearance",
+        "HairColors": "Hair colors",
+        "EyeColors": "Eye colors",
+        "RollMin": "From",
+        "RollMax": "To",
+        "Result": "Result",
+        "AddRow": "Add row",
+        "DeleteRow": "Delete row",
+        "Height": "Height",
+        "BaseHeight": "Base height",
+        "Centimeters": "cm",
+        "DiceCount": "Dice count",
+        "DieFaces": "Die faces",
+        "Step": "step"
+      }
+    },
+    "Effect": {
+      "Source": "Source",
+      "Toggle": "Toggle Effect",
+      "Temporary": "Temporary Effects",
+      "Passive": "Passive Effects",
+      "Inactive": "Inactive Effects"
+    }
+  },
+
+  "TYPES": {
+    "Actor": {
+      "character": "Character",
+      "npc": "NPC"
+    },
+    "Item": {
+      "item": "Item",
+      "feature": "Feature",
+      "spell": "Spell",
+      "rasse": "Race"
+    }
+  }
+}

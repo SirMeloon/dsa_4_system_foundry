@@ -1,0 +1,163 @@
+.rasse-sheet {
+  .sheet-body {
+    overflow-y: auto;
+  }
+
+  .rasse-description {
+    height: auto;
+  }
+
+  .description-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    padding: 2px;
+  }
+
+  .description-section {
+    display: flex;
+    flex-direction: column;
+    min-height: 210px;
+    border: 1px solid $c-faint;
+    background: rgba(0, 0, 0, 0.03);
+
+    h3 {
+      margin: 0;
+      padding: 6px 8px;
+      border-bottom: 1px solid $c-faint;
+      font-size: 13px;
+    }
+
+    .editor {
+      flex: 1;
+      min-height: 160px;
+      height: auto;
+    }
+
+    .editor-content {
+      min-height: 160px;
+      padding: 6px 8px;
+    }
+  }
+
+  .appearance-tables {
+    height: auto;
+  }
+
+  .height-rule {
+    margin-bottom: 16px;
+    border: 1px solid $c-faint;
+    background: rgba(0, 0, 0, 0.03);
+  }
+
+  .height-rule-header {
+    padding: 8px;
+    border-bottom: 1px solid $c-faint;
+    background: rgba(0, 0, 0, 0.05);
+
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h3 {
+      font-size: 14px;
+    }
+
+    p {
+      margin-top: 3px;
+    }
+
+    span {
+      color: $c-tan;
+    }
+  }
+
+  .height-rule-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    padding: 8px;
+
+    label {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+    }
+
+    input {
+      width: 58px;
+      text-align: right;
+    }
+
+    small {
+      grid-column: 2;
+      color: $c-tan;
+    }
+  }
+
+  .appearance-table-section + .appearance-table-section {
+    margin-top: 16px;
+  }
+
+  .appearance-table-header {
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 8px;
+    border: 1px solid $c-faint;
+    background: rgba(0, 0, 0, 0.05);
+
+    h3 {
+      margin: 0;
+      font-size: 14px;
+    }
+  }
+
+  .appearance-table-add,
+  .appearance-table-delete {
+    flex: 0 0 24px;
+    text-align: center;
+  }
+
+  .appearance-table {
+    width: 100%;
+    margin: 0;
+    border: 1px solid $c-faint;
+    border-top: 0;
+
+    th,
+    td {
+      padding: 4px;
+      text-align: left;
+    }
+
+    th:nth-child(1),
+    th:nth-child(2),
+    td:nth-child(1),
+    td:nth-child(2) {
+      width: 64px;
+    }
+
+    th:last-child,
+    td:last-child {
+      width: 32px;
+      text-align: center;
+    }
+
+    input {
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .rasse-sheet .description-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .rasse-sheet .height-rule-fields {
+    grid-template-columns: 1fr;
+  }
+}
