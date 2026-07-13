@@ -24,16 +24,13 @@ export class dsaItemSheet extends ItemSheet {
     });
   }
 
-  /** @override */
-  get options() {
-    const options = super.options;
+  constructor(...args) {
+    super(...args);
 
     if (this.item?.type === 'rasse') {
-      options.width = 720;
-      options.height = 620;
+      this.options.width = 720;
+      this.options.height = 620;
     }
-
-    return options;
   }
 
   /** @override */
