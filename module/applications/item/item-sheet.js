@@ -202,9 +202,20 @@ export default class ItemSheetDSA41 extends DocumentSheetDSA41 {
 
     #prepareSpeciesContext() {
         const grantedTalents = this.#normalizeTalentEntries(this.item.system.grantedTalents);
+        const characteristicModifiers = this.#formatCharacteristicModifiers(this.item.system.modifiers?.characteristics);
+        const fallbackIdentifier = String(this.item.name ?? "").toLowerCase().replace(/[^a-z0-9]+/g, "");
         return {
+            identifier: this.item.system.identifier ?? fallbackIdentifier,
+            reproductionAndAging: this.item.system.reproductionAndAging ?? "",
+            hasReproductionAndAging: Boolean(this.item.system.reproductionAndAging),
             hairColorsText: this.#formatRangeEntries(this.item.system.hairColors),
             eyeColorsText: this.#formatRangeEntries(this.item.system.eyeColors),
+            hairColors: this.item.system.hairColors ?? [],
+            eyeColors: this.item.system.eyeColors ?? [],
+            height: this.item.system.height ?? {},
+            weight: this.item.system.weight ?? {},
+            heightText: this.#formatHeight(this.item.system.height),
+            weightText: this.#formatWeight(this.item.system.weight),
             automaticAdvantagesText: this.#formatList(this.item.system.automaticAdvantages),
             automaticDisadvantagesText: this.#formatList(this.item.system.automaticDisadvantages),
             recommendedAdvantagesText: this.#formatList(this.item.system.recommendedAdvantages),
@@ -212,9 +223,18 @@ export default class ItemSheetDSA41 extends DocumentSheetDSA41 {
             unsuitableAdvantagesText: this.#formatList(this.item.system.unsuitableAdvantages),
             unsuitableDisadvantagesText: this.#formatList(this.item.system.unsuitableDisadvantages),
             allowedCulturesText: this.#formatList(this.item.system.allowedCultures),
+            automaticAdvantages: this.item.system.automaticAdvantages ?? [],
+            automaticDisadvantages: this.item.system.automaticDisadvantages ?? [],
+            recommendedAdvantages: this.item.system.recommendedAdvantages ?? [],
+            recommendedDisadvantages: this.item.system.recommendedDisadvantages ?? [],
+            unsuitableAdvantages: this.item.system.unsuitableAdvantages ?? [],
+            unsuitableDisadvantages: this.item.system.unsuitableDisadvantages ?? [],
+            allowedCultures: this.item.system.allowedCultures ?? [],
             grantedTalentsText: this.#formatTalentList(grantedTalents),
             grantedTalents,
-            characteristicModifiers: this.#formatCharacteristicModifiers(this.item.system.modifiers?.characteristics),
+            talentGroups: this.#groupSpeciesTalents(grantedTalents),
+            characteristicModifiers,
+            characteristicModifierBoxes: characteristicModifiers,
             scalarModifiers: this.#formatScalarModifiers([
                 [game.i18n.localize("DSA41.Species.lifePointsModifier"), this.item.system.modifiers?.lifePoints],
                 [game.i18n.localize("DSA41.Species.enduranceModifier"), this.item.system.modifiers?.endurance],
@@ -291,7 +311,7 @@ export default class ItemSheetDSA41 extends DocumentSheetDSA41 {
     }
 
     #formatRangeEntries(entries = []) {
-        return entries.map((entry) => `${entry.min}-${entry.max}: ${entry.label}`).join("\n");
+        return (entries ?? []).map((entry) => `${entry.min}-${entry.max}: ${entry.label}`).join("\n");
     }
 
     #formatList(entries = []) {
@@ -336,6 +356,8 @@ export default class ItemSheetDSA41 extends DocumentSheetDSA41 {
         return Object.entries(modifiers ?? {})
             .filter(([, value]) => Number(value) !== 0)
             .map(([key, value]) => ({
+                key,
+                abbr: String(key).toUpperCase(),
                 label: game.i18n.localize(CONFIG.DSA41.characteristics[key]),
                 value: Number(value) > 0 ? `+${value}` : `${value}`
             }));
@@ -348,6 +370,56 @@ export default class ItemSheetDSA41 extends DocumentSheetDSA41 {
                 label,
                 value: Number(value) > 0 ? `+${value}` : `${value}`
             }));
+    }
+
+    #formatHeight(height = {}) {
+        if (!height) return "";
+        const parts = [];
+        if (height.formula) parts.push(height.formula);
+        if (height.unit) parts.push(height.unit);
+        return parts.join(" ");
+    }
+
+    #formatWeight(weight = {}) {
+        if (!weight) return "";
+        const parts = [];
+        if (weight.formula) parts.push(weight.formula);
+        if (weight.unit) parts.push(weight.unit);
+        return parts.join(" ");
+    }
+
+    #groupSpeciesTalents(entries = []) {
+        const groups = new Map([
+            ["combat", { key: "combat", label: "DSA41.Culture.combatTalents", entries: [] }],
+            ["body", { key: "body", label: "DSA41.Culture.bodyTalents", entries: [] }],
+            ["social", { key: "social", label: "DSA41.Culture.socialTalents", entries: [] }],
+            ["nature", { key: "nature", label: "DSA41.Culture.natureTalents", entries: [] }],
+            ["knowledge", { key: "knowledge", label: "DSA41.Culture.knowledgeTalents", entries: [] }],
+            ["scriptsLanguages", { key: "scriptsLanguages", label: "DSA41.Culture.scriptsLanguagesTalents", entries: [] }],
+            ["craft", { key: "craft", label: "DSA41.Culture.craftTalents", entries: [] }]
+        ]);
+
+        for (const entry of entries) {
+            const groupKey = this.#speciesTalentGroupFor(entry.name);
+            const group = groups.get(groupKey) ?? groups.get("knowledge");
+            group.entries.push(entry);
+        }
+
+        return [...groups.values()].filter((group) => group.entries.length);
+    }
+
+    #speciesTalentGroupFor(name = "") {
+        const normalized = String(name).toLowerCase();
+
+        if (/(ringen|raufen|dolche|armbrust|bogen|wurfmesser|hiebwaffen|staebe|stäbe|säbel|sabel|infanteriewaffen|schwerter|säbel|axt|äxt|ringe)/u.test(normalized)) return "combat";
+        if (/(akrobatik|körperbeherrschung|koerperbeherrschung|klettern|reiten|schwimmen|selbstbeherrschung|zechen|schleichen|singen|sinnenschärfe|sinneschaerfe|tanzen|athletik)/u.test(normalized)) return "body";
+        if (/(etikette|gassenwissen|menschenkenntnis|überreden|ueberreden|betören|betaeren|betören)/u.test(normalized)) return "social";
+        if (/(fährtensuchen|faehrtensuchen|orientierung|wildnisleben|tierkunde|pflanzenkunde|gesteinskunde|wettervorhersage)/u.test(normalized)) return "nature";
+        if (/(götter\/kulte|goetter\/kulte|heraldik|rechnen|rechtskunde|sagen|legenden|magiekunde|geographie|geschichtswissen|mechanik|sternkunde|schätzen|schaetzen|anatomie|alchimie|alchemie)/u.test(normalized)) return "knowledge";
+        if (/(muttersprache|lesen\/schreiben|sprachen kennen|sprach(en)? kennen|schrift)/u.test(normalized)) return "scriptsLanguages";
+        if (/(ackerbau|boote fahren|feinmechanik|heilkunde gift|heilkunde wunden|kartographie|malen\/zeichnen|schlösser knacken|schloesser knacken)/u.test(normalized)) return "craft";
+
+        return "knowledge";
     }
 
     #parseRangeEntries(text) {

@@ -16,7 +16,10 @@
             <div class="dsa41-sheet-title dsa41-sheet-title--static">{{item.name}}</div>
             {{/if}}
         {{/if}}
-        <span class="dsa41-subtitle">{{typeLabel}}</span>
+        {{#if isSpecies}}
+        <div class="dsa41-species-gp">{{system.gpCost}} GP</div>
+        {{/if}}
+        <span class="dsa41-subtitle">{{#if isSpecies}}Species{{else}}{{typeLabel}}{{/if}}</span>
     </div>
     {{#if canToggleEditMode}}
     <button type="button" class="dsa41-mode-button" data-sheet-mode="{{#if isEditMode}}view{{else}}edit{{/if}}">

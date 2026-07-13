@@ -157,8 +157,10 @@
                 "described"
             ],
             "gpCost": 0,
+            "identifier": "",
             "originDistribution": "",
             "appearance": "",
+            "reproductionAndAging": "",
             "hairColors": [
                 {
                     "min": 1,
