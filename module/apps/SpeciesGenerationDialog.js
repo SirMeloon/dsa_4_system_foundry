@@ -16,6 +16,13 @@ function inferHeightInCentimeters(heightValue, unit) {
     return numericHeight;
 }
 
+function normalizeRollFormula(formula) {
+    return String(formula ?? "")
+        .replace(",", ".")
+        .replace(/(^|[^0-9])W(\d+)/gi, "$11d$2")
+        .replace(/(\d+)W(\d+)/gi, "$1d$2");
+}
+
 export default class SpeciesGenerationDialog extends FormApplication {
     constructor(actor, species, options = {}) {
         super({}, options);
@@ -80,6 +87,16 @@ export default class SpeciesGenerationDialog extends FormApplication {
 
     async #rollHeight() {
         const height = this.species.system.height ?? {};
+        if (height.formula) {
+            const formula = normalizeRollFormula(height.formula);
+            try {
+                const roll = await (new Roll(formula)).evaluate();
+                return `${roll.total.toFixed(2)} ${height.unit ?? ""}`.trim();
+            } catch {
+                // Fall back to the structured formula fields if the free-text formula cannot be rolled.
+            }
+        }
+
         const base = normalizeNumber(height.base) ?? 0;
         const step = normalizeNumber(height.step) ?? 1;
         const diceCount = Number.parseInt(height.diceCount ?? 0, 10) || 0;

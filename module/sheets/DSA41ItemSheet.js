@@ -51,6 +51,7 @@ export default class DSA41ItemSheet extends ItemSheet {
                 scalarModifiers: this.#formatScalarModifiers([
                     [game.i18n.localize("DSA41.Species.lifePointsModifier"), this.item.system.modifiers?.lifePoints],
                     [game.i18n.localize("DSA41.Species.enduranceModifier"), this.item.system.modifiers?.endurance],
+                    [game.i18n.localize("DSA41.Species.astralPointsModifier"), this.item.system.modifiers?.astralPoints],
                     [game.i18n.localize("DSA41.Species.magicResistanceModifier"), this.item.system.modifiers?.magicResistance]
                 ])
             };

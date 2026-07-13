@@ -198,6 +198,7 @@
                 },
                 "lifePoints": 0,
                 "endurance": 0,
+                "astralPoints": 0,
                 "magicResistance": 0
             },
             "automaticAdvantages": [],

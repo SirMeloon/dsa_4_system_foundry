@@ -348,5 +348,227 @@ export const DSA41_SPECIES = [
                 "Gesteinskunde: 1"
             ]
         }
+    },
+    {
+        name: "Auelfen",
+        type: "species",
+        img: "icons/svg/mystery-man.svg",
+        system: {
+            description: "Die Herkunft der Elfen ist ein Mysterium; wahrscheinlich liegt ihr Ursprung in der sogenannten Lichtwelt außerhalb des bekannten Kosmos. Jeder Elf kann zaubern und ist in der Lage, eine besondere Form des zweistimmigen Gesangs hervorzubringen. Ihre Sinne sind meist besser ausgeprägt als die der Menschen, doch manche Nahrungs- und Genussmittel sind ihnen unverträglich.",
+            notes: "Die allgemeinen Elfenangaben wurden hier mit den konkreten Werten der Auelfen kombiniert.",
+            gpCost: 20,
+            originDistribution: "Als aventurische Heimat der Elfen gelten die verwunschenen Wälder der Salamandersteine. Bedeutende Völker sind Waldelfen in den Salamandersteinen, Auelfen an Seen und Flussläufen in Nord- und Mittelaventurien, Firnelfen in den kalten Regionen des Nordens und Steppenelfen in den nördlichen Steppen. Auelfen leben selten in den Städten der Menschen.",
+            appearance: "Der elfische Wuchs ist schlank und hoch gewachsen, ihre Bewegungen wirken auffallend elegant. Spitz zulaufende Ohren, große leicht schräg gestellte Augen in ungewöhnlichen Farben, hohe Wangenknochen und lange Hälse verstärken den exotischen Eindruck. Elfen haben keine Körperbehaarung, Elfenmänner tragen keinen Bart, und beide Geschlechter wirken oft androgyn. Frauen wie Männer tragen ihr Haar gern lang und offen.",
+            hairColors: [
+                { min: 1, max: 1, label: "blauschwarz" },
+                { min: 2, max: 3, label: "schwarz" },
+                { min: 4, max: 5, label: "silbern" },
+                { min: 6, max: 7, label: "weißblond" },
+                { min: 8, max: 11, label: "hellblond" },
+                { min: 12, max: 17, label: "mittelblond" },
+                { min: 18, max: 20, label: "dunkelblond" }
+            ],
+            eyeColors: [
+                { min: 1, max: 2, label: "schwarzbraun" },
+                { min: 3, max: 4, label: "graublau" },
+                { min: 5, max: 8, label: "saphirblau" },
+                { min: 9, max: 12, label: "smaragdgrün" },
+                { min: 13, max: 16, label: "dunkelviolett" },
+                { min: 17, max: 18, label: "Bernstein" },
+                { min: 19, max: 19, label: "goldgesprenkelt" },
+                { min: 20, max: 20, label: "Amethyst" }
+            ],
+            height: {
+                base: 1.68,
+                diceCount: 2,
+                diceFaces: 20,
+                step: 0.01,
+                unit: "Schritt",
+                formula: "1.68 + 2W20 * 0.01"
+            },
+            weight: {
+                formula: "GroesseCm - 120",
+                unit: "Stein"
+            },
+            modifiers: {
+                characteristics: {
+                    mu: 0,
+                    kl: -1,
+                    in: 1,
+                    ch: 0,
+                    ff: 0,
+                    ge: 2,
+                    ko: 0,
+                    kk: -1
+                },
+                lifePoints: 6,
+                endurance: 12,
+                astralPoints: 12,
+                magicResistance: -2
+            },
+            automaticAdvantages: [
+                "Altersresistenz",
+                "Dämmerungssicht",
+                "Gut Aussehend",
+                "Herausragender Sinn (Gehör, Geruch oder Sicht)",
+                "Resistenz gegen Krankheiten",
+                "Vollzauberer",
+                "Wohlklang",
+                "Zweistimmiger Gesang"
+            ],
+            automaticDisadvantages: [
+                "Sensibler Geruchssinn 6",
+                "Unfähigkeit Zechen"
+            ],
+            recommendedAdvantages: [
+                "Balance",
+                "Feenfreund",
+                "Flink",
+                "Herausragende Balance",
+                "Herausragendes Aussehen",
+                "Nachtsicht",
+                "Richtungssinn",
+                "Schlangenmensch"
+            ],
+            recommendedDisadvantages: [
+                "Nahrungsrestriktion",
+                "Raumangst"
+            ],
+            unsuitableAdvantages: [
+                "Hitzeresistenz",
+                "Kampfrausch",
+                "Schwer zu verzaubern",
+                "Zwergennase"
+            ],
+            unsuitableDisadvantages: [
+                "Blutrausch",
+                "Eingeschränkter Sinn",
+                "Farbenblind",
+                "Fettleibig",
+                "Krankheitsanfällig",
+                "Lichtscheu",
+                "Nachtblind",
+                "Unangenehme Stimme"
+            ],
+            allowedCultures: [
+                "Auelfen"
+            ],
+            grantedTalents: [
+                "Körperbeherrschung: 3",
+                "Schleichen: 2",
+                "Singen: 2",
+                "Sinnenschärfe: 5",
+                "Tanzen: 1",
+                "Zechen: -2"
+            ]
+        }
+    },
+    {
+        name: "Halbelfen",
+        type: "species",
+        img: "icons/svg/mystery-man.svg",
+        system: {
+            description: "Halbelfen sind elfische Mischlinge mit deutlichem Anteil menschlichen Blutes. Je nachdem, in welcher Familie sie groß geworden sind, fühlen sie sich dem menschlichen oder elfischen Erbe stärker verpflichtet, gehören aber oft in keiner der beiden Welten ganz dazu. Vielen Halbelfen fehlt der zweistimmige Gesang der Elfen, und auch die alte Elfensprache Asdharia können sie meist nicht so sprechen, dass Elfen sie als schön empfinden würden.",
+            notes: "Halbelfen haben von Geburt an die magische Gabe. Ohne besondere Förderung werden sie meist zu Magiedilettanten und starten mit (MU+IN+CH)/2 - 6 AsP. In menschlichen Kulturen ist die Profession Magier für Halbelfen grundsätzlich 2 GP billiger. Ein bei Auelfen großgezogener Halbelf zahlt zusätzlich 8 GP und erhält statt Viertelzauberer den Vorteil Vollzauberer, +12 AsP statt -6 AsP, MR -2 statt MR -4 sowie Zweistimmiger Gesang.",
+            gpCost: 3,
+            originDistribution: "Halbelfen gibt es überall dort, wo es auch Elfen gibt. Vom Norden Aventuriens nach Süden werden sie immer seltener.",
+            appearance: "Je nachdem, aus welcher Menschenrasse das menschliche Elternteil stammt, können Halbelfen sehr unterschiedlich aussehen. Gemeinsam sind ihnen große Augen in klaren Farben, ein recht schlanker Wuchs und leicht spitze Ohren. Allgemein werden Halbelfen von Menschen als sehr schön empfunden. Sie werden meist etwas älter als Menschen, ohne jedoch die Alterslosigkeit der Elfen zu besitzen.",
+            hairColors: [
+                { min: 1, max: 3, label: "rot" },
+                { min: 4, max: 6, label: "braun" },
+                { min: 7, max: 10, label: "dunkelblond" },
+                { min: 11, max: 15, label: "hellblond" },
+                { min: 16, max: 17, label: "weißblond" },
+                { min: 18, max: 19, label: "schwarz" },
+                { min: 20, max: 20, label: "blauschwarz" }
+            ],
+            eyeColors: [
+                { min: 1, max: 3, label: "schwarz" },
+                { min: 4, max: 6, label: "grau" },
+                { min: 7, max: 10, label: "blau" },
+                { min: 11, max: 14, label: "grün" },
+                { min: 15, max: 16, label: "dunkelbraun" },
+                { min: 17, max: 18, label: "hellbraun" },
+                { min: 19, max: 19, label: "bernsteinfarben" },
+                { min: 20, max: 20, label: "goldgesprenkelt" }
+            ],
+            height: {
+                base: 1.58,
+                diceCount: 0,
+                diceFaces: 0,
+                step: 0.01,
+                unit: "Schritt",
+                formula: "1.58 + 1W20 * 0.01 + 4W6 * 0.01"
+            },
+            weight: {
+                formula: "GroesseCm - 120",
+                unit: "Stein"
+            },
+            modifiers: {
+                characteristics: {
+                    mu: 0,
+                    kl: 0,
+                    in: 0,
+                    ch: 0,
+                    ff: 0,
+                    ge: 1,
+                    ko: 0,
+                    kk: -1
+                },
+                lifePoints: 8,
+                endurance: 10,
+                astralPoints: -6,
+                magicResistance: -4
+            },
+            automaticAdvantages: [
+                "Gut Aussehend",
+                "Viertelzauberer"
+            ],
+            automaticDisadvantages: [],
+            recommendedAdvantages: [
+                "Balance",
+                "Dämmerungssicht",
+                "Feenfreund",
+                "Flink",
+                "Herausragender Sinn",
+                "Herausragendes Aussehen",
+                "Magiegespür",
+                "Schlangenmensch",
+                "Wohlklang",
+                "Zweistimmiger Gesang"
+            ],
+            recommendedDisadvantages: [
+                "Nahrungsrestriktion (wie Elfen)",
+                "Sensibler Geruchssinn"
+            ],
+            unsuitableAdvantages: [
+                "Kampfrausch",
+                "Zwergennase"
+            ],
+            unsuitableDisadvantages: [
+                "Blutrausch",
+                "Fettleibig",
+                "Krankheitsanfällig",
+                "Lichtscheu",
+                "Nachtblind",
+                "Schwer zu verzaubern",
+                "Unangenehme Stimme"
+            ],
+            allowedCultures: [
+                "Auelfen",
+                "Andergast/Nostria",
+                "Bornland",
+                "Mittelländische Städte",
+                "Horasreich"
+            ],
+            grantedTalents: [
+                "Körperbeherrschung: 2",
+                "Schleichen: 1",
+                "Singen: 1",
+                "Sinnenschärfe: 2",
+                "Tanzen: 1",
+                "Zechen: -1"
+            ]
+        }
     }
 ];
