@@ -11,7 +11,7 @@
     "url": "https://github.com/SirMeloon/dsa_4_system_foundry",
     "manifest": "https://raw.githubusercontent.com/SirMeloon/dsa_4_system_foundry/main/system.json",
     "download": "https://github.com/SirMeloon/dsa_4_system_foundry/archive/refs/heads/main.zip",
-    "version": "0.8.6",
+    "version": "0.8.7",
     "compatibility": {
         "minimum": "13",
         "verified": "13",

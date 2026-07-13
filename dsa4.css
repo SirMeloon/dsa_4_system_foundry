@@ -173,10 +173,11 @@
 }
 
 .dsa41-species-content {
-    border: 0;
-    background: transparent;
-    box-shadow: none;
-    padding: 0;
+    border: 1px solid var(--dsa41-border);
+    border-radius: 18px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(250, 244, 233, 0.92));
+    box-shadow: var(--dsa41-shadow);
+    padding: 1rem;
     min-width: 0;
 }
 

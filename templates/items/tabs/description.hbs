@@ -1,5 +1,5 @@
 {{#if isSpecies}}
-<section class="dsa41-tab-panel dsa41-description-scroll dsa41-species-content">
+<section class="dsa41-tab-panel dsa41-description-scroll dsa41-species-content {{#unless (eq activeTab 'description')}}is-hidden{{/unless}}">
     {{#if isEditMode}}
     <div class="dsa41-species-flow">
         <section class="dsa41-species-block"><h3>{{localize "DSA41.Sheet.description"}}</h3><textarea name="system.description">{{system.description}}</textarea></section>
