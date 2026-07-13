@@ -27,8 +27,12 @@
 .dsa41-sheet form,
 .dsa41-sheet textarea,
 .dsa41-sheet input,
-.dsa41-sheet select,
-.dsa41-sheet button {
+.dsa41-sheet select {
+    font: inherit;
+}
+
+.dsa41-mode-button,
+.dsa41-tab {
     font: inherit;
 }
 
@@ -166,6 +170,35 @@
 
 .dsa41-tab-panel.is-hidden {
     display: none;
+}
+
+.dsa41-species-content {
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+    min-width: 0;
+}
+
+.dsa41-species-content .dsa41-species-block {
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+    gap: 0.5rem;
+}
+
+.dsa41-species-content .dsa41-species-block h3 {
+    color: var(--dsa41-text);
+    font-size: 0.98rem;
+}
+
+.dsa41-species-content .dsa41-species-block p,
+.dsa41-species-content .dsa41-species-block textarea,
+.dsa41-species-content .dsa41-species-block input,
+.dsa41-species-content .dsa41-species-block select {
+    width: 100%;
 }
 
 .dsa41-panel {
@@ -386,22 +419,6 @@
     font-size: 0.9rem;
 }
 
-.dsa41-species-overlay {
-    position: absolute;
-    top: 4.4rem;
-    left: 1rem;
-    right: 1rem;
-    width: auto;
-    z-index: 5;
-    pointer-events: auto;
-}
-
-.dsa41-species-overlay .dsa41-panel {
-    box-shadow: 0 14px 32px rgba(74, 50, 26, 0.2);
-    background: rgba(255, 253, 248, 0.98);
-    backdrop-filter: blur(2px);
-}
-
 .dsa41-stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -454,11 +471,6 @@
 
     .dsa41-sheet-title {
         font-size: 1.6rem;
-    }
-
-    .dsa41-species-overlay {
-        position: static;
-        width: 100%;
     }
 
     .dsa41-description-scroll {
