@@ -138,6 +138,25 @@
     gap: 1rem;
 }
 
+.dsa41-description-scroll {
+    max-height: calc(100vh - 12rem);
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-gutter: stable;
+    scrollbar-color: var(--dsa41-accent) transparent;
+    padding-right: 0.25rem;
+}
+
+.dsa41-description-scroll::-webkit-scrollbar-track {
+    box-shadow: none;
+}
+
+.dsa41-description-scroll::-webkit-scrollbar-thumb {
+    background: var(--dsa41-accent);
+    border: none;
+}
+
 .dsa41-tab-panel.is-hidden {
     display: none;
 }
@@ -402,27 +421,6 @@
     color: var(--dsa41-accent);
 }
 
-.dsa41-item-summary {
-    padding-block: 0.8rem;
-}
-
-.dsa41-pill-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.45rem;
-}
-
-.dsa41-pill {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.3rem 0.7rem;
-    border-radius: 999px;
-    background: var(--dsa41-accent-soft);
-    color: var(--dsa41-accent);
-    font-size: 0.85rem;
-    font-weight: 600;
-}
-
 @media (max-width: 900px) {
     .dsa41-sheet-layout {
         grid-template-columns: 1fr;
@@ -449,5 +447,11 @@
     .dsa41-notes-panel.dsa41-species-notes-overlay {
         position: static;
         width: 100%;
+    }
+
+    .dsa41-description-scroll {
+        max-height: none;
+        overflow: visible;
+        padding-right: 0;
     }
 }

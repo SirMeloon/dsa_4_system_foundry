@@ -30,7 +30,6 @@ Hooks.once("init", async function () {
         "systems/dsa_4_system_foundry/templates/actors/tabs/actor-biography.hbs",
         "systems/dsa_4_system_foundry/templates/actors/tabs/creature-details.hbs",
         "systems/dsa_4_system_foundry/templates/items/header.hbs",
-        "systems/dsa_4_system_foundry/templates/items/parts/item-summary.hbs",
         "systems/dsa_4_system_foundry/templates/items/tabs/description.hbs",
         "systems/dsa_4_system_foundry/templates/items/tabs/details.hbs",
         "systems/dsa_4_system_foundry/templates/items/tabs/notes.hbs"

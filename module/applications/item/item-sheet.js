@@ -40,7 +40,6 @@ export default class ItemSheetDSA41 extends DocumentSheetDSA41 {
         context.isEditMode = this.#mode === "edit";
         context.canToggleEditMode = this.isComplexSheet && this.isEditable;
         context.typeLabel = game.i18n.localize(CONFIG.Item.typeLabels?.[this.item.type] ?? CONFIG.DSA41.itemTypeLabels?.[this.item.type] ?? this.item.type);
-        context.summaryProperties = this.#prepareSummaryProperties();
         context.isWeapon = this.item.type === "weapon";
         context.isSkill = this.item.type === "skill";
         context.isSpecies = this.item.type === "species";
@@ -177,27 +176,6 @@ export default class ItemSheetDSA41 extends DocumentSheetDSA41 {
                 this.render(false);
             });
         });
-    }
-
-    #prepareSummaryProperties() {
-        const properties = [game.i18n.localize(CONFIG.Item.typeLabels?.[this.item.type] ?? this.item.type)];
-
-        if (this.item.type === "weapon") {
-            properties.push(game.i18n.localize(CONFIG.DSA41.weaponGroups[this.item.system.group] ?? CONFIG.DSA41.weaponGroups.none));
-            if (this.item.system.damage) properties.push(this.item.system.damage);
-        }
-
-        if (this.item.type === "skill") {
-            if (this.item.system.group) properties.push(this.item.system.group);
-            if (this.item.system.complexity) properties.push(this.item.system.complexity);
-            if (this.item.system.probe?.length) properties.push(this.#formatProbe(this.item.system.probe));
-        }
-
-        if (["species", "culture", "profession"].includes(this.item.type)) {
-            properties.push(`${this.item.system.gpCost ?? 0} GP`);
-        }
-
-        return properties.filter(Boolean);
     }
 
     #prepareSpeciesContext() {
