@@ -231,5 +231,122 @@ export const DSA41_SPECIES = [
                 "Wettervorhersage: 1"
             ]
         }
+    },
+    {
+        name: "Die Zwerge",
+        type: "species",
+        img: "icons/svg/mystery-man.svg",
+        system: {
+            description: "Die Zwerge, die sich selbst Angroschim nennen, wurden angeblich von Ingerimm geschaffen, um die Schätze der Welt gegen die habgierigen Drachen zu verteidigen. Sie haben großartige Handwerker und gefürchtete Krieger hervorgebracht und gelten als geradlinig und stur.",
+            notes: "Besonderheiten: Zwerginnen, die ihre Sippe verlassen, müssen ausgesprochen stur sein (MU mindestens 12). Zwerge haben Probleme mit Waffen und Rüstungen in menschlichen Größen und umgekehrt.",
+            gpCost: 16,
+            originDistribution: "Die Zwerge gehören zu den ältesten Völkern Aventuriens. Heutzutage findet man sie hauptsächlich im Eisenwald, in den Ingrakuppen, den Koschbergen, im Amboss, dem Hügelland am Angbarer See und im Raschtulswall. Kleinere Völker finden sich auch in den Goldfelsen, im Finsterkamm und in den Drachensteinen. Einzelne Zwerge oder kleine Sippen leben über ganz Aventurien verteilt.",
+            appearance: "Zwerge erreichen nur etwa 1,40 Schritt Körpergröße, sind jedoch überaus kompakt gebaut, meist etwas dunkelhäutiger als Mittelländer und mit festen Muskeln und starken Knochen gesegnet. Die Zierde jedes Zwergenmannes ist sein Bart. Zwerginnen sind von ähnlichem Körperbau und gleicher Robustheit wie die Männer, tragen jedoch keine Bärte. Zwerge werden meist 300 bis 400 Jahre alt.",
+            hairColors: [
+                { min: 1, max: 5, label: "blond" },
+                { min: 6, max: 9, label: "schwarz" },
+                { min: 10, max: 11, label: "dunkelgrau" },
+                { min: 12, max: 13, label: "hellgrau" },
+                { min: 14, max: 14, label: "salzweiß" },
+                { min: 15, max: 15, label: "silberweiß" },
+                { min: 16, max: 17, label: "feuerrot" },
+                { min: 18, max: 20, label: "kupferrot" }
+            ],
+            eyeColors: [
+                { min: 1, max: 2, label: "dunkelbraun" },
+                { min: 3, max: 5, label: "braun" },
+                { min: 6, max: 9, label: "grün" },
+                { min: 10, max: 10, label: "blau" },
+                { min: 11, max: 14, label: "grau" },
+                { min: 15, max: 20, label: "schwarz" }
+            ],
+            height: {
+                base: 1.28,
+                diceCount: 2,
+                diceFaces: 6,
+                step: 0.01,
+                unit: "Schritt",
+                formula: "1.28 + 2W6 * 0.01"
+            },
+            weight: {
+                formula: "GroesseCm - 80",
+                unit: "Stein"
+            },
+            modifiers: {
+                characteristics: {
+                    mu: 0,
+                    kl: 0,
+                    in: 0,
+                    ch: 0,
+                    ff: 1,
+                    ge: -1,
+                    ko: 2,
+                    kk: 2
+                },
+                lifePoints: 12,
+                endurance: 18,
+                magicResistance: -4
+            },
+            automaticAdvantages: [
+                "Dämmerungssicht",
+                "Resistenz gegen mineralische Gifte",
+                "Resistenz gegen Krankheiten",
+                "Schwer zu verzaubern"
+            ],
+            automaticDisadvantages: [
+                "Goldgier 5",
+                "Unfähigkeit Schwimmen",
+                "Zwergenwuchs"
+            ],
+            recommendedAdvantages: [
+                "Ausdauernd",
+                "Eisern",
+                "Gutes Gedächtnis",
+                "Hitzeresistenz",
+                "Hohe Lebenskraft",
+                "Hohe Magieresistenz",
+                "Kampfrausch",
+                "Richtungssinn",
+                "Zäher Hund",
+                "Zwergennase"
+            ],
+            recommendedDisadvantages: [
+                "Blutrausch",
+                "Jähzorn",
+                "Lichtscheu",
+                "Platzangst",
+                "Unansehnlich"
+            ],
+            unsuitableAdvantages: [
+                "Feenfreund",
+                "Flink",
+                "Herausragende Balance",
+                "Herausragendes Aussehen",
+                "Koboldfreund",
+                "Magiegespür",
+                "Schlangenmensch",
+                "Wohlklang"
+            ],
+            unsuitableDisadvantages: [
+                "Dunkelangst",
+                "Glasknochen",
+                "Krankheitsanfällig",
+                "Nachtblind",
+                "Raumangst"
+            ],
+            allowedCultures: [
+                "Ambosszwerge"
+            ],
+            grantedTalents: [
+                "Ringen: 1",
+                "Akrobatik: -3",
+                "Reiten: -1",
+                "Schwimmen: -3",
+                "Selbstbeherrschung: 2",
+                "Zechen: 1",
+                "Orientierung: 1",
+                "Gesteinskunde: 1"
+            ]
+        }
     }
 ];

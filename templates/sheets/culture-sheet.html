@@ -1,15 +1,26 @@
 <form class="{{cssClass}}" autocomplete="off">
     <header class="sheet-header">
-        <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="64" width="64" />
+        <img src="{{item.img}}" {{#if isEditMode}}data-edit="img"{{/if}} title="{{item.name}}" height="64" width="64" />
         <div class="dsa41-header-fields">
+            {{#if isEditMode}}
             <h1><input name="name" type="text" value="{{item.name}}" placeholder="Name" /></h1>
             <label>
                 {{localize "DSA41.Culture.gpCost"}}
                 <input name="system.gpCost" type="number" value="{{system.gpCost}}" />
             </label>
+            {{else}}
+            <h1>{{item.name}}</h1>
+            <p><strong>{{localize "DSA41.Culture.gpCost"}}:</strong> {{system.gpCost}}</p>
+            {{/if}}
         </div>
+        {{#if canToggleEditMode}}
+        <button type="button" data-sheet-mode="{{#if isEditMode}}view{{else}}edit{{/if}}">
+            {{#if isEditMode}}{{localize "DSA41.Sheet.backToView"}}{{else}}{{localize "DSA41.Sheet.edit"}}{{/if}}
+        </button>
+        {{/if}}
     </header>
 
+    {{#if isEditMode}}
     <section class="dsa41-grid">
         <label class="dsa41-stack">
             {{localize "DSA41.Sheet.description"}}
@@ -135,4 +146,43 @@
         <label>{{localize "DSA41.Sheet.notes"}}</label>
         <textarea name="system.notes">{{system.notes}}</textarea>
     </section>
+    {{else}}
+    <section class="dsa41-display-grid">
+        <div class="dsa41-card dsa41-display-block"><h3>{{localize "DSA41.Sheet.description"}}</h3><p>{{system.description}}</p></div>
+        <div class="dsa41-card dsa41-display-block"><h3>{{localize "DSA41.Culture.livingArea"}}</h3><p>{{system.livingArea}}</p></div>
+        <div class="dsa41-card dsa41-display-block"><h3>{{localize "DSA41.Culture.lifestyle"}}</h3><p>{{system.lifestyle}}</p></div>
+        <div class="dsa41-card dsa41-display-block"><h3>{{localize "DSA41.Culture.worldviewFaith"}}</h3><p>{{system.worldviewFaith}}</p></div>
+        <div class="dsa41-card dsa41-display-block"><h3>{{localize "DSA41.Culture.customs"}}</h3><p>{{system.customs}}</p></div>
+        <div class="dsa41-card dsa41-display-block"><h3>{{localize "DSA41.Culture.clothingWeapons"}}</h3><p>{{system.clothingWeapons}}</p></div>
+        <div class="dsa41-card dsa41-display-block"><h3>{{localize "DSA41.Culture.selfImage"}}</h3><p>{{system.selfImage}}</p></div>
+        <div class="dsa41-card dsa41-display-block"><h3>{{localize "DSA41.Culture.languageNames"}}</h3><p>{{system.languageNames}}</p></div>
+    </section>
+
+    <section class="dsa41-display-grid">
+        <div class="dsa41-card"><h3>{{localize "DSA41.Culture.modifications"}}</h3><ul class="dsa41-plain-list">{{#each system.modifications}}<li>{{this}}</li>{{/each}}</ul></div>
+        <div class="dsa41-card"><h3>{{localize "DSA41.Culture.allowedProfessions"}}</h3><ul class="dsa41-plain-list">{{#each system.allowedProfessions}}<li>{{this}}</li>{{/each}}</ul></div>
+        <div class="dsa41-card"><h3>{{localize "DSA41.Culture.specialAbilities"}}</h3><ul class="dsa41-plain-list">{{#each system.specialAbilities}}<li>{{this}}</li>{{/each}}</ul></div>
+    </section>
+
+    <section class="dsa41-display-grid">
+        <div class="dsa41-card"><h3>{{localize "DSA41.Culture.automaticAdvantages"}}</h3><ul class="dsa41-plain-list">{{#each system.automaticAdvantages}}<li>{{this}}</li>{{/each}}</ul><h3>{{localize "DSA41.Culture.automaticDisadvantages"}}</h3><ul class="dsa41-plain-list">{{#each system.automaticDisadvantages}}<li>{{this}}</li>{{/each}}</ul></div>
+        <div class="dsa41-card"><h3>{{localize "DSA41.Culture.recommendedAdvantages"}}</h3><ul class="dsa41-plain-list">{{#each system.recommendedAdvantages}}<li>{{this}}</li>{{/each}}</ul><h3>{{localize "DSA41.Culture.recommendedDisadvantages"}}</h3><ul class="dsa41-plain-list">{{#each system.recommendedDisadvantages}}<li>{{this}}</li>{{/each}}</ul></div>
+        <div class="dsa41-card"><h3>{{localize "DSA41.Culture.unsuitableAdvantages"}}</h3><ul class="dsa41-plain-list">{{#each system.unsuitableAdvantages}}<li>{{this}}</li>{{/each}}</ul><h3>{{localize "DSA41.Culture.unsuitableDisadvantages"}}</h3><ul class="dsa41-plain-list">{{#each system.unsuitableDisadvantages}}<li>{{this}}</li>{{/each}}</ul></div>
+    </section>
+
+    <section class="dsa41-display-grid">
+        <div class="dsa41-card"><h3>{{localize "DSA41.Culture.combatTalents"}}</h3><ul class="dsa41-plain-list">{{#each culture.combatTalents}}<li>{{name}}: {{value}}</li>{{/each}}</ul></div>
+        <div class="dsa41-card"><h3>{{localize "DSA41.Culture.bodyTalents"}}</h3><ul class="dsa41-plain-list">{{#each culture.bodyTalents}}<li>{{name}}: {{value}}</li>{{/each}}</ul></div>
+        <div class="dsa41-card"><h3>{{localize "DSA41.Culture.socialTalents"}}</h3><ul class="dsa41-plain-list">{{#each culture.socialTalents}}<li>{{name}}: {{value}}</li>{{/each}}</ul></div>
+        <div class="dsa41-card"><h3>{{localize "DSA41.Culture.natureTalents"}}</h3><ul class="dsa41-plain-list">{{#each culture.natureTalents}}<li>{{name}}: {{value}}</li>{{/each}}</ul></div>
+        <div class="dsa41-card"><h3>{{localize "DSA41.Culture.knowledgeTalents"}}</h3><ul class="dsa41-plain-list">{{#each culture.knowledgeTalents}}<li>{{name}}: {{value}}</li>{{/each}}</ul></div>
+        <div class="dsa41-card"><h3>{{localize "DSA41.Culture.scriptsLanguagesTalents"}}</h3><ul class="dsa41-plain-list">{{#each culture.scriptsLanguagesTalents}}<li>{{name}}: {{value}}</li>{{/each}}</ul></div>
+        <div class="dsa41-card"><h3>{{localize "DSA41.Culture.craftTalents"}}</h3><ul class="dsa41-plain-list">{{#each culture.craftTalents}}<li>{{name}}: {{value}}</li>{{/each}}</ul></div>
+    </section>
+
+    <section class="dsa41-card dsa41-display-block">
+        <h3>{{localize "DSA41.Sheet.notes"}}</h3>
+        <p>{{system.notes}}</p>
+    </section>
+    {{/if}}
 </form>

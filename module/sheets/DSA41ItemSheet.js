@@ -1,4 +1,6 @@
 export default class DSA41ItemSheet extends ItemSheet {
+    #mode = "view";
+
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ["dsa41", "sheet", "item"],
@@ -7,17 +9,32 @@ export default class DSA41ItemSheet extends ItemSheet {
         });
     }
 
+    get isComplexSheet() {
+        return ["species", "culture", "profession"].includes(this.item.type);
+    }
+
     get template() {
         const specialized = ["weapon", "species", "culture", "profession"];
         const sheet = specialized.includes(this.item.type) ? this.item.type : "item";
         return `systems/dsa_4_system_foundry/templates/sheets/${sheet}-sheet.html`;
     }
 
+    render(force, options) {
+        if (!this.rendered) {
+            this.#mode = "view";
+        }
+        return super.render(force, options);
+    }
+
     getData() {
         const data = super.getData();
         data.config = CONFIG.DSA41;
         data.system = this.item.system;
+        data.isComplexSheet = this.isComplexSheet;
+        data.isEditMode = this.#mode === "edit";
+        data.canToggleEditMode = this.isComplexSheet && this.isEditable;
         if (this.item.type === "species") {
+            const grantedTalents = this.#normalizeTalentEntries(this.item.system.grantedTalents);
             data.species = {
                 hairColorsText: this.#formatRangeEntries(this.item.system.hairColors),
                 eyeColorsText: this.#formatRangeEntries(this.item.system.eyeColors),
@@ -28,10 +45,18 @@ export default class DSA41ItemSheet extends ItemSheet {
                 unsuitableAdvantagesText: this.#formatList(this.item.system.unsuitableAdvantages),
                 unsuitableDisadvantagesText: this.#formatList(this.item.system.unsuitableDisadvantages),
                 allowedCulturesText: this.#formatList(this.item.system.allowedCultures),
-                grantedTalentsText: this.#formatTalentList(this.item.system.grantedTalents)
+                grantedTalentsText: this.#formatTalentList(grantedTalents),
+                grantedTalents,
+                characteristicModifiers: this.#formatCharacteristicModifiers(this.item.system.modifiers?.characteristics),
+                scalarModifiers: this.#formatScalarModifiers([
+                    [game.i18n.localize("DSA41.Species.lifePointsModifier"), this.item.system.modifiers?.lifePoints],
+                    [game.i18n.localize("DSA41.Species.enduranceModifier"), this.item.system.modifiers?.endurance],
+                    [game.i18n.localize("DSA41.Species.magicResistanceModifier"), this.item.system.modifiers?.magicResistance]
+                ])
             };
         }
         if (this.item.type === "culture") {
+            const talents = this.#normalizeTalentMap(this.item.system.talents);
             data.culture = {
                 modificationsText: this.#formatList(this.item.system.modifications),
                 automaticAdvantagesText: this.#formatList(this.item.system.automaticAdvantages),
@@ -41,17 +66,25 @@ export default class DSA41ItemSheet extends ItemSheet {
                 unsuitableAdvantagesText: this.#formatList(this.item.system.unsuitableAdvantages),
                 unsuitableDisadvantagesText: this.#formatList(this.item.system.unsuitableDisadvantages),
                 allowedProfessionsText: this.#formatList(this.item.system.allowedProfessions),
-                combatTalentsText: this.#formatTalentList(this.item.system.talents?.combat),
-                bodyTalentsText: this.#formatTalentList(this.item.system.talents?.body),
-                socialTalentsText: this.#formatTalentList(this.item.system.talents?.social),
-                natureTalentsText: this.#formatTalentList(this.item.system.talents?.nature),
-                knowledgeTalentsText: this.#formatTalentList(this.item.system.talents?.knowledge),
-                scriptsLanguagesTalentsText: this.#formatTalentList(this.item.system.talents?.scriptsLanguages),
-                craftTalentsText: this.#formatTalentList(this.item.system.talents?.craft),
-                specialAbilitiesText: this.#formatList(this.item.system.specialAbilities)
+                combatTalentsText: this.#formatTalentList(talents.combat),
+                bodyTalentsText: this.#formatTalentList(talents.body),
+                socialTalentsText: this.#formatTalentList(talents.social),
+                natureTalentsText: this.#formatTalentList(talents.nature),
+                knowledgeTalentsText: this.#formatTalentList(talents.knowledge),
+                scriptsLanguagesTalentsText: this.#formatTalentList(talents.scriptsLanguages),
+                craftTalentsText: this.#formatTalentList(talents.craft),
+                specialAbilitiesText: this.#formatList(this.item.system.specialAbilities),
+                combatTalents: talents.combat,
+                bodyTalents: talents.body,
+                socialTalents: talents.social,
+                natureTalents: talents.nature,
+                knowledgeTalents: talents.knowledge,
+                scriptsLanguagesTalents: talents.scriptsLanguages,
+                craftTalents: talents.craft
             };
         }
         if (this.item.type === "profession") {
+            const talents = this.#normalizeTalentMap(this.item.system.talents);
             data.profession = {
                 requirementsText: this.#formatList(this.item.system.requirements),
                 modificationsText: this.#formatList(this.item.system.modifications),
@@ -64,13 +97,20 @@ export default class DSA41ItemSheet extends ItemSheet {
                 equipmentText: this.#formatList(this.item.system.equipment),
                 specialPossessionsText: this.#formatList(this.item.system.specialPossessions),
                 discountedSpecialAbilitiesText: this.#formatList(this.item.system.discountedSpecialAbilities),
-                combatTalentsText: this.#formatTalentList(this.item.system.talents?.combat),
-                bodyTalentsText: this.#formatTalentList(this.item.system.talents?.body),
-                socialTalentsText: this.#formatTalentList(this.item.system.talents?.social),
-                natureTalentsText: this.#formatTalentList(this.item.system.talents?.nature),
-                knowledgeTalentsText: this.#formatTalentList(this.item.system.talents?.knowledge),
-                scriptsLanguagesTalentsText: this.#formatTalentList(this.item.system.talents?.scriptsLanguages),
-                craftTalentsText: this.#formatTalentList(this.item.system.talents?.craft)
+                combatTalentsText: this.#formatTalentList(talents.combat),
+                bodyTalentsText: this.#formatTalentList(talents.body),
+                socialTalentsText: this.#formatTalentList(talents.social),
+                natureTalentsText: this.#formatTalentList(talents.nature),
+                knowledgeTalentsText: this.#formatTalentList(talents.knowledge),
+                scriptsLanguagesTalentsText: this.#formatTalentList(talents.scriptsLanguages),
+                craftTalentsText: this.#formatTalentList(talents.craft),
+                combatTalents: talents.combat,
+                bodyTalents: talents.body,
+                socialTalents: talents.social,
+                natureTalents: talents.nature,
+                knowledgeTalents: talents.knowledge,
+                scriptsLanguagesTalents: talents.scriptsLanguages,
+                craftTalents: talents.craft
             };
         }
         return data;
@@ -78,7 +118,7 @@ export default class DSA41ItemSheet extends ItemSheet {
 
     _getSubmitData(updateData = {}) {
         const data = super._getSubmitData(updateData);
-        if (!["species", "culture"].includes(this.item.type)) return data;
+        if (!["species", "culture", "profession"].includes(this.item.type)) return data;
 
         if (this.item.type === "species") {
             const rangeFields = [
@@ -183,6 +223,20 @@ export default class DSA41ItemSheet extends ItemSheet {
         return data;
     }
 
+    activateListeners(html) {
+        super.activateListeners(html);
+        if (!this.isComplexSheet || !this.isEditable) return;
+        html.find("[data-sheet-mode]").on("click", this.#onToggleMode.bind(this));
+    }
+
+    #onToggleMode(event) {
+        event.preventDefault();
+        const mode = event.currentTarget.dataset.sheetMode;
+        if (!["view", "edit"].includes(mode)) return;
+        this.#mode = mode;
+        this.render(false);
+    }
+
     #formatRangeEntries(entries = []) {
         return entries.map((entry) => `${entry.min}-${entry.max}: ${entry.label}`).join("\n");
     }
@@ -193,6 +247,54 @@ export default class DSA41ItemSheet extends ItemSheet {
 
     #formatTalentList(entries = []) {
         return entries.map((entry) => `${entry.name}: ${entry.value}`).join("\n");
+    }
+
+    #normalizeTalentEntries(entries = []) {
+        return (entries ?? [])
+            .map((entry) => {
+                if (typeof entry === "string") {
+                    const [name, ...valueParts] = entry.split(":");
+                    return {
+                        name: name.trim(),
+                        value: valueParts.join(":").trim()
+                    };
+                }
+                return {
+                    name: String(entry?.name ?? "").trim(),
+                    value: String(entry?.value ?? "").trim()
+                };
+            })
+            .filter((entry) => entry.name);
+    }
+
+    #normalizeTalentMap(talents = {}) {
+        return {
+            combat: this.#normalizeTalentEntries(talents?.combat),
+            body: this.#normalizeTalentEntries(talents?.body),
+            social: this.#normalizeTalentEntries(talents?.social),
+            nature: this.#normalizeTalentEntries(talents?.nature),
+            knowledge: this.#normalizeTalentEntries(talents?.knowledge),
+            scriptsLanguages: this.#normalizeTalentEntries(talents?.scriptsLanguages),
+            craft: this.#normalizeTalentEntries(talents?.craft)
+        };
+    }
+
+    #formatCharacteristicModifiers(modifiers = {}) {
+        return Object.entries(modifiers)
+            .filter(([, value]) => Number(value) !== 0)
+            .map(([key, value]) => ({
+                label: game.i18n.localize(CONFIG.DSA41.characteristics[key]),
+                value: Number(value) > 0 ? `+${value}` : `${value}`
+            }));
+    }
+
+    #formatScalarModifiers(entries = []) {
+        return entries
+            .filter(([, value]) => Number(value) !== 0)
+            .map(([label, value]) => ({
+                label,
+                value: Number(value) > 0 ? `+${value}` : `${value}`
+            }));
     }
 
     #parseRangeEntries(text) {

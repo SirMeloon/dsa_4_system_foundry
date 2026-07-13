@@ -19,7 +19,9 @@
             "notes": "Notizen",
             "characterSummary": "Charakterelemente",
             "advantages": "Vorteile",
-            "disadvantages": "Nachteile"
+            "disadvantages": "Nachteile",
+            "edit": "Bearbeiten",
+            "backToView": "Zurück"
         },
         "Character": {
             "title": "Heldenbogen",

@@ -1,15 +1,26 @@
 <form class="{{cssClass}}" autocomplete="off">
     <header class="sheet-header">
-        <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="64" width="64" />
+        <img src="{{item.img}}" {{#if isEditMode}}data-edit="img"{{/if}} title="{{item.name}}" height="64" width="64" />
         <div class="dsa41-header-fields">
+            {{#if isEditMode}}
             <h1><input name="name" type="text" value="{{item.name}}" placeholder="Name" /></h1>
             <label>
                 {{localize "DSA41.Profession.gpCost"}}
                 <input name="system.gpCost" type="number" value="{{system.gpCost}}" />
             </label>
+            {{else}}
+            <h1>{{item.name}}</h1>
+            <p><strong>{{localize "DSA41.Profession.gpCost"}}:</strong> {{system.gpCost}}</p>
+            {{/if}}
         </div>
+        {{#if canToggleEditMode}}
+        <button type="button" data-sheet-mode="{{#if isEditMode}}view{{else}}edit{{/if}}">
+            {{#if isEditMode}}{{localize "DSA41.Sheet.backToView"}}{{else}}{{localize "DSA41.Sheet.edit"}}{{/if}}
+        </button>
+        {{/if}}
     </header>
 
+    {{#if isEditMode}}
     <section class="dsa41-grid">
         <label class="dsa41-stack">
             {{localize "DSA41.Sheet.description"}}
@@ -120,4 +131,38 @@
         <label>{{localize "DSA41.Sheet.notes"}}</label>
         <textarea name="system.notes">{{system.notes}}</textarea>
     </section>
+    {{else}}
+    <section class="dsa41-display-grid">
+        <div class="dsa41-card dsa41-display-block"><h3>{{localize "DSA41.Sheet.description"}}</h3><p>{{system.description}}</p></div>
+        <div class="dsa41-card"><h3>{{localize "DSA41.Profession.requirements"}}</h3><ul class="dsa41-plain-list">{{#each system.requirements}}<li>{{this}}</li>{{/each}}</ul></div>
+        <div class="dsa41-card"><h3>{{localize "DSA41.Profession.modifications"}}</h3><ul class="dsa41-plain-list">{{#each system.modifications}}<li>{{this}}</li>{{/each}}</ul></div>
+        <div class="dsa41-card"><h3>{{localize "DSA41.Profession.discountedSpecialAbilities"}}</h3><ul class="dsa41-plain-list">{{#each system.discountedSpecialAbilities}}<li>{{this}}</li>{{/each}}</ul></div>
+    </section>
+
+    <section class="dsa41-display-grid">
+        <div class="dsa41-card"><h3>{{localize "DSA41.Profession.automaticAdvantages"}}</h3><ul class="dsa41-plain-list">{{#each system.automaticAdvantages}}<li>{{this}}</li>{{/each}}</ul><h3>{{localize "DSA41.Profession.automaticDisadvantages"}}</h3><ul class="dsa41-plain-list">{{#each system.automaticDisadvantages}}<li>{{this}}</li>{{/each}}</ul></div>
+        <div class="dsa41-card"><h3>{{localize "DSA41.Profession.recommendedAdvantages"}}</h3><ul class="dsa41-plain-list">{{#each system.recommendedAdvantages}}<li>{{this}}</li>{{/each}}</ul><h3>{{localize "DSA41.Profession.recommendedDisadvantages"}}</h3><ul class="dsa41-plain-list">{{#each system.recommendedDisadvantages}}<li>{{this}}</li>{{/each}}</ul></div>
+        <div class="dsa41-card"><h3>{{localize "DSA41.Profession.unsuitableAdvantages"}}</h3><ul class="dsa41-plain-list">{{#each system.unsuitableAdvantages}}<li>{{this}}</li>{{/each}}</ul><h3>{{localize "DSA41.Profession.unsuitableDisadvantages"}}</h3><ul class="dsa41-plain-list">{{#each system.unsuitableDisadvantages}}<li>{{this}}</li>{{/each}}</ul></div>
+    </section>
+
+    <section class="dsa41-display-grid">
+        <div class="dsa41-card"><h3>{{localize "DSA41.Profession.combatTalents"}}</h3><ul class="dsa41-plain-list">{{#each profession.combatTalents}}<li>{{name}}: {{value}}</li>{{/each}}</ul></div>
+        <div class="dsa41-card"><h3>{{localize "DSA41.Profession.bodyTalents"}}</h3><ul class="dsa41-plain-list">{{#each profession.bodyTalents}}<li>{{name}}: {{value}}</li>{{/each}}</ul></div>
+        <div class="dsa41-card"><h3>{{localize "DSA41.Profession.socialTalents"}}</h3><ul class="dsa41-plain-list">{{#each profession.socialTalents}}<li>{{name}}: {{value}}</li>{{/each}}</ul></div>
+        <div class="dsa41-card"><h3>{{localize "DSA41.Profession.natureTalents"}}</h3><ul class="dsa41-plain-list">{{#each profession.natureTalents}}<li>{{name}}: {{value}}</li>{{/each}}</ul></div>
+        <div class="dsa41-card"><h3>{{localize "DSA41.Profession.knowledgeTalents"}}</h3><ul class="dsa41-plain-list">{{#each profession.knowledgeTalents}}<li>{{name}}: {{value}}</li>{{/each}}</ul></div>
+        <div class="dsa41-card"><h3>{{localize "DSA41.Profession.scriptsLanguagesTalents"}}</h3><ul class="dsa41-plain-list">{{#each profession.scriptsLanguagesTalents}}<li>{{name}}: {{value}}</li>{{/each}}</ul></div>
+        <div class="dsa41-card"><h3>{{localize "DSA41.Profession.craftTalents"}}</h3><ul class="dsa41-plain-list">{{#each profession.craftTalents}}<li>{{name}}: {{value}}</li>{{/each}}</ul></div>
+    </section>
+
+    <section class="dsa41-display-grid">
+        <div class="dsa41-card"><h3>{{localize "DSA41.Profession.equipment"}}</h3><ul class="dsa41-plain-list">{{#each system.equipment}}<li>{{this}}</li>{{/each}}</ul></div>
+        <div class="dsa41-card"><h3>{{localize "DSA41.Profession.specialPossessions"}}</h3><ul class="dsa41-plain-list">{{#each system.specialPossessions}}<li>{{this}}</li>{{/each}}</ul></div>
+    </section>
+
+    <section class="dsa41-card dsa41-display-block">
+        <h3>{{localize "DSA41.Sheet.notes"}}</h3>
+        <p>{{system.notes}}</p>
+    </section>
+    {{/if}}
 </form>
