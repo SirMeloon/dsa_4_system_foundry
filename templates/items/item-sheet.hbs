@@ -1,7 +1,9 @@
 <form class="{{cssClass}} {{#if isSpecies}}dsa41-species-sheet{{/if}}" autocomplete="off">
     {{> "systems/dsa_4_system_foundry/templates/items/header.hbs"}}
-    {{> "systems/dsa_4_system_foundry/templates/shared/horizontal-tabs.hbs"}}
-    {{> "systems/dsa_4_system_foundry/templates/items/tabs/description.hbs"}}
-    {{> "systems/dsa_4_system_foundry/templates/items/tabs/details.hbs"}}
-    {{> "systems/dsa_4_system_foundry/templates/items/tabs/notes.hbs"}}
+    <div class="dsa41-sheet-body">
+        {{> "systems/dsa_4_system_foundry/templates/shared/horizontal-tabs.hbs"}}
+        {{> "systems/dsa_4_system_foundry/templates/items/tabs/description.hbs"}}
+        {{> "systems/dsa_4_system_foundry/templates/items/tabs/details.hbs"}}
+        {{> "systems/dsa_4_system_foundry/templates/items/tabs/notes.hbs"}}
+    </div>
 </form>

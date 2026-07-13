@@ -44,6 +44,13 @@
     box-shadow: var(--dsa41-shadow);
 }
 
+.dsa41-sheet-body {
+    position: relative;
+    display: grid;
+    gap: 1rem;
+    min-height: 0;
+}
+
 .dsa41-sheet-header__media img {
     width: 112px;
     height: 112px;
@@ -381,7 +388,7 @@
 
 .dsa41-species-overlay {
     position: absolute;
-    top: 8.75rem;
+    top: 4.4rem;
     left: 1rem;
     right: 1rem;
     width: auto;
@@ -429,6 +436,10 @@
 
     .dsa41-sheet-header {
         grid-template-columns: 88px 1fr;
+    }
+
+    .dsa41-sheet-body {
+        gap: 0.85rem;
     }
 
     .dsa41-mode-button {
