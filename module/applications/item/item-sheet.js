@@ -331,14 +331,16 @@ export default class ItemSheetDSA41 extends DocumentSheetDSA41 {
     }
 
     #formatCharacteristicModifiers(modifiers = {}) {
-        return Object.entries(modifiers ?? {})
-            .filter(([, value]) => Number(value) !== 0)
-            .map(([key, value]) => ({
+        const characteristicKeys = Object.keys(CONFIG.DSA41.characteristics ?? {});
+        return characteristicKeys.map((key) => {
+            const value = Number(modifiers?.[key] ?? 0);
+            return {
                 key,
                 abbr: String(key).toUpperCase(),
-                label: game.i18n.localize(CONFIG.DSA41.characteristics[key]),
-                value: Number(value) > 0 ? `+${value}` : `${value}`
-            }));
+                label: game.i18n.localize(CONFIG.DSA41.characteristics[key] ?? key),
+                value: value > 0 ? `+${value}` : `${value}`
+            };
+        });
     }
 
     #formatScalarModifiers(entries = []) {

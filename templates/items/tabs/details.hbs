@@ -1,4 +1,4 @@
-<section class="dsa41-tab-panel {{#unless (eq activeTab 'details')}}is-hidden{{/unless}}">
+<section class="dsa41-tab-panel {{#unless (eq activeTab 'details')}}is-hidden{{/unless}} {{#if isSpecies}}dsa41-species-overlay dsa41-species-details-overlay{{/if}}">
     {{#if isSpecies}}
     <section class="dsa41-panel">
         <h3>{{localize "DSA41.Species.identifier"}}</h3>

@@ -379,16 +379,17 @@
     font-size: 0.9rem;
 }
 
-.dsa41-notes-panel.dsa41-species-notes-overlay {
+.dsa41-species-overlay {
     position: absolute;
-    top: 9rem;
+    top: 8.75rem;
+    left: 1rem;
     right: 1rem;
-    width: min(26rem, calc(100% - 2rem));
+    width: auto;
     z-index: 5;
     pointer-events: auto;
 }
 
-.dsa41-notes-panel.dsa41-species-notes-overlay .dsa41-panel {
+.dsa41-species-overlay .dsa41-panel {
     box-shadow: 0 14px 32px rgba(74, 50, 26, 0.2);
     background: rgba(255, 253, 248, 0.98);
     backdrop-filter: blur(2px);
@@ -444,7 +445,7 @@
         font-size: 1.6rem;
     }
 
-    .dsa41-notes-panel.dsa41-species-notes-overlay {
+    .dsa41-species-overlay {
         position: static;
         width: 100%;
     }
