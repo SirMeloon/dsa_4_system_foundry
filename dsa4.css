@@ -1,80 +1,273 @@
-.dsa41.sheet form {
+:root {
+    --dsa41-bg: #f3ede2;
+    --dsa41-panel: #fffdf8;
+    --dsa41-border: #cab798;
+    --dsa41-border-strong: #7d6245;
+    --dsa41-text: #2c2218;
+    --dsa41-muted: #766553;
+    --dsa41-accent: #a13f2c;
+    --dsa41-accent-soft: #e9d6bf;
+    --dsa41-shadow: 0 10px 30px rgba(74, 50, 26, 0.12);
+}
+
+.dsa41-v2 {
+    color: var(--dsa41-text);
+}
+
+.dsa41-sheet {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
-    padding: 0.75rem;
-}
-
-.dsa41 .sheet-header {
-    display: flex;
     gap: 1rem;
-    align-items: flex-start;
+    padding: 1rem;
+    background:
+        radial-gradient(circle at top right, rgba(161, 63, 44, 0.08), transparent 25%),
+        linear-gradient(180deg, #f8f2e8 0%, var(--dsa41-bg) 100%);
 }
 
-.dsa41 .sheet-header button {
-    align-self: flex-start;
+.dsa41-sheet form,
+.dsa41-sheet textarea,
+.dsa41-sheet input,
+.dsa41-sheet select,
+.dsa41-sheet button {
+    font: inherit;
 }
 
-.dsa41-header-fields {
+.dsa41-sheet-header {
     display: grid;
-    gap: 0.5rem;
-    flex: 1;
+    grid-template-columns: 112px 1fr auto;
+    gap: 1rem;
+    align-items: start;
+    padding: 1rem;
+    border: 1px solid var(--dsa41-border);
+    border-radius: 18px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(250, 244, 233, 0.92));
+    box-shadow: var(--dsa41-shadow);
 }
 
-.dsa41-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 0.75rem;
+.dsa41-sheet-header__media img {
+    width: 112px;
+    height: 112px;
+    object-fit: cover;
+    border-radius: 14px;
+    border: 1px solid var(--dsa41-border-strong);
+    background: #efe2ca;
 }
 
-.dsa41-summary-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 0.75rem;
-}
-
-.dsa41-stack {
+.dsa41-sheet-header__identity {
     display: grid;
     gap: 0.35rem;
 }
 
-.dsa41-display-grid {
+.dsa41-sheet-title {
+    width: 100%;
+    padding: 0;
+    border: 0;
+    border-bottom: 2px solid var(--dsa41-accent-soft);
+    background: transparent;
+    color: var(--dsa41-text);
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.dsa41-sheet-title--static {
+    border-bottom: 2px solid transparent;
+}
+
+.dsa41-subtitle {
+    color: var(--dsa41-muted);
+    font-size: 0.95rem;
+}
+
+.dsa41-mode-button,
+.dsa41-tab {
+    border: 1px solid var(--dsa41-border-strong);
+    border-radius: 999px;
+    background: var(--dsa41-panel);
+    color: var(--dsa41-text);
+    cursor: pointer;
+    transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
+}
+
+.dsa41-mode-button {
+    padding: 0.55rem 0.95rem;
+}
+
+.dsa41-mode-button:hover,
+.dsa41-tab:hover,
+.dsa41-tab.is-active {
+    background: var(--dsa41-accent);
+    border-color: var(--dsa41-accent);
+    color: #fff7ef;
+}
+
+.dsa41-sheet-layout {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: 280px 1fr;
+    gap: 1rem;
+    min-height: 0;
+}
+
+.dsa41-sheet-main {
+    display: grid;
+    gap: 1rem;
+    min-height: 0;
+}
+
+.dsa41-sheet-main--full {
+    min-width: 0;
+}
+
+.dsa41-sidebar {
+    display: grid;
+    gap: 1rem;
+    align-content: start;
+}
+
+.dsa41-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.dsa41-tab {
+    padding: 0.5rem 0.9rem;
+}
+
+.dsa41-tab-panel {
+    display: grid;
+    gap: 1rem;
+}
+
+.dsa41-tab-panel.is-hidden {
+    display: none;
+}
+
+.dsa41-panel {
+    display: grid;
     gap: 0.75rem;
+    padding: 1rem;
+    border: 1px solid var(--dsa41-border);
+    border-radius: 18px;
+    background: var(--dsa41-panel);
+    box-shadow: var(--dsa41-shadow);
 }
 
-.dsa41 label {
+.dsa41-panel h3 {
+    margin: 0;
+    color: var(--dsa41-accent);
+    font-size: 1rem;
+}
+
+.dsa41-panel p {
+    margin: 0;
+    white-space: pre-wrap;
+    line-height: 1.45;
+}
+
+.dsa41-two-column,
+.dsa41-three-column {
     display: grid;
-    gap: 0.25rem;
+    gap: 1rem;
 }
 
-.dsa41 textarea {
-    min-height: 6rem;
+.dsa41-two-column {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.dsa41-three-column {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.dsa41-stack,
+.dsa41-sheet label {
+    display: grid;
+    gap: 0.35rem;
+}
+
+.dsa41-sheet input,
+.dsa41-sheet select,
+.dsa41-sheet textarea {
+    width: 100%;
+    padding: 0.55rem 0.7rem;
+    border: 1px solid var(--dsa41-border);
+    border-radius: 12px;
+    background: #fffdfa;
+    color: var(--dsa41-text);
+}
+
+.dsa41-sheet textarea {
+    min-height: 8rem;
     resize: vertical;
 }
 
-.dsa41-card {
-    border: 1px solid #999;
-    border-radius: 6px;
-    padding: 0.75rem;
+.dsa41-stats-grid {
     display: grid;
-    gap: 0.5rem;
-    background: rgba(255, 255, 255, 0.5);
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.8rem;
 }
 
-.dsa41-plain-list {
+.dsa41-stat {
+    padding: 0.75rem;
+    border: 1px solid var(--dsa41-accent-soft);
+    border-radius: 14px;
+    background: linear-gradient(180deg, #fffdfa, #f7efe1);
+}
+
+.dsa41-list {
     margin: 0;
-    padding-left: 1.25rem;
+    padding-left: 1.2rem;
 }
 
-.dsa41 .sheet-footer {
+.dsa41-linked-row {
+    cursor: pointer;
+    color: var(--dsa41-text);
+}
+
+.dsa41-linked-row:hover {
+    color: var(--dsa41-accent);
+}
+
+.dsa41-item-summary {
+    padding-block: 0.8rem;
+}
+
+.dsa41-pill-row {
     display: flex;
-    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 0.45rem;
 }
 
-.dsa41-display-block p {
-    margin: 0;
-    line-height: 1.45;
-    white-space: pre-wrap;
+.dsa41-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.3rem 0.7rem;
+    border-radius: 999px;
+    background: var(--dsa41-accent-soft);
+    color: var(--dsa41-accent);
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+@media (max-width: 900px) {
+    .dsa41-sheet-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .dsa41-sheet-header {
+        grid-template-columns: 88px 1fr;
+    }
+
+    .dsa41-mode-button {
+        grid-column: 1 / -1;
+        justify-self: start;
+    }
+
+    .dsa41-sheet-header__media img {
+        width: 88px;
+        height: 88px;
+    }
+
+    .dsa41-sheet-title {
+        font-size: 1.6rem;
+    }
 }

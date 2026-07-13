@@ -23,6 +23,19 @@
             "edit": "Bearbeiten",
             "backToView": "Zurück"
         },
+        "Tab": {
+            "details": "Details",
+            "features": "Merkmale",
+            "inventory": "Inventar",
+            "biography": "Biografie",
+            "description": "Beschreibung",
+            "notes": "Notizen",
+            "resources": "Ressourcen",
+            "appearance": "Erscheinung",
+            "characteristics": "Eigenschaften",
+            "progress": "Fortschritt",
+            "combat": "Kampf"
+        },
         "Character": {
             "title": "Heldenbogen",
             "species": "Spezies",

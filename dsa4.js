@@ -1,24 +1,57 @@
 import { DSA41 } from "./module/config.js";
+import * as applications from "./module/applications/_module.js";
 import { DSA41_CULTURES } from "./module/data/cultures.js";
 import { DSA41_SPECIES } from "./module/data/species.js";
 import SpeciesGenerationDialog from "./module/apps/SpeciesGenerationDialog.js";
-import DSA41ActorSheet from "./module/sheets/DSA41ActorSheet.js";
-import DSA41ItemSheet from "./module/sheets/DSA41ItemSheet.js";
 
-Hooks.once("init", function () {
+globalThis.dsa41 = {
+    applications,
+    config: DSA41
+};
+
+Hooks.once("init", async function () {
     console.log("dsa_4_system_foundry | Initializing system");
 
+    globalThis.dsa41 = game.dsa41 = Object.assign(game.system, globalThis.dsa41);
     CONFIG.DSA41 = DSA41;
+    CONFIG.Item.typeLabels = {
+        ...CONFIG.Item.typeLabels,
+        ...DSA41.itemTypeLabels
+    };
 
-    Actors.unregisterSheet("core", ActorSheet);
-    Items.unregisterSheet("core", ItemSheet);
+    Handlebars.registerHelper("eq", (a, b) => a === b);
+    await loadTemplates([
+        "systems/dsa_4_system_foundry/templates/shared/horizontal-tabs.hbs",
+        "systems/dsa_4_system_foundry/templates/actors/parts/actor-header.hbs",
+        "systems/dsa_4_system_foundry/templates/actors/parts/actor-sidebar.hbs",
+        "systems/dsa_4_system_foundry/templates/actors/tabs/character-details.hbs",
+        "systems/dsa_4_system_foundry/templates/actors/tabs/character-features.hbs",
+        "systems/dsa_4_system_foundry/templates/actors/tabs/character-inventory.hbs",
+        "systems/dsa_4_system_foundry/templates/actors/tabs/actor-biography.hbs",
+        "systems/dsa_4_system_foundry/templates/actors/tabs/creature-details.hbs",
+        "systems/dsa_4_system_foundry/templates/items/header.hbs",
+        "systems/dsa_4_system_foundry/templates/items/parts/item-summary.hbs",
+        "systems/dsa_4_system_foundry/templates/items/tabs/description.hbs",
+        "systems/dsa_4_system_foundry/templates/items/tabs/details.hbs",
+        "systems/dsa_4_system_foundry/templates/items/tabs/notes.hbs"
+    ]);
 
-    Actors.registerSheet("dsa_4_system_foundry", DSA41ActorSheet, {
-        types: ["character", "creature"],
+    const DocumentSheetConfig = foundry.applications.apps.DocumentSheetConfig;
+
+    DocumentSheetConfig.unregisterSheet(Actor, "core", foundry.appv1.sheets.ActorSheet);
+    DocumentSheetConfig.unregisterSheet(Item, "core", foundry.appv1.sheets.ItemSheet);
+
+    DocumentSheetConfig.registerSheet(Actor, "dsa_4_system_foundry", applications.actor.CharacterActorSheetDSA41, {
+        types: ["character"],
         makeDefault: true
     });
 
-    Items.registerSheet("dsa_4_system_foundry", DSA41ItemSheet, {
+    DocumentSheetConfig.registerSheet(Actor, "dsa_4_system_foundry", applications.actor.CreatureActorSheetDSA41, {
+        types: ["creature"],
+        makeDefault: true
+    });
+
+    DocumentSheetConfig.registerSheet(Item, "dsa_4_system_foundry", applications.item.ItemSheetDSA41, {
         types: ["weapon", "skill", "specialAbility", "species", "culture", "profession", "advantage", "disadvantage"],
         makeDefault: true
     });

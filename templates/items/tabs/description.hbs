@@ -1,0 +1,42 @@
+<section class="dsa41-tab-panel {{#unless (eq activeTab 'description')}}is-hidden{{/unless}}">
+    {{#if isComplexSheet}}
+        {{#if isEditMode}}
+        <div class="dsa41-two-column">
+            <section class="dsa41-panel">
+                <h3>{{localize "DSA41.Sheet.description"}}</h3>
+                <textarea name="system.description">{{system.description}}</textarea>
+            </section>
+            {{#if isSpecies}}
+            <section class="dsa41-panel">
+                <h3>{{localize "DSA41.Species.originDistribution"}}</h3>
+                <textarea name="system.originDistribution">{{system.originDistribution}}</textarea>
+            </section>
+            {{/if}}
+            {{#if isCulture}}
+            <section class="dsa41-panel">
+                <h3>{{localize "DSA41.Culture.livingArea"}}</h3>
+                <textarea name="system.livingArea">{{system.livingArea}}</textarea>
+            </section>
+            {{/if}}
+            {{#if isProfession}}
+            <section class="dsa41-panel">
+                <h3>{{localize "DSA41.Profession.requirements"}}</h3>
+                <textarea name="profession.requirementsText">{{profession.requirementsText}}</textarea>
+            </section>
+            {{/if}}
+        </div>
+        {{else}}
+        <div class="dsa41-two-column">
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Sheet.description"}}</h3><p>{{system.description}}</p></section>
+            {{#if isSpecies}}<section class="dsa41-panel"><h3>{{localize "DSA41.Species.originDistribution"}}</h3><p>{{system.originDistribution}}</p></section>{{/if}}
+            {{#if isCulture}}<section class="dsa41-panel"><h3>{{localize "DSA41.Culture.livingArea"}}</h3><p>{{system.livingArea}}</p></section>{{/if}}
+            {{#if isProfession}}<section class="dsa41-panel"><h3>{{localize "DSA41.Profession.requirements"}}</h3><ul class="dsa41-list">{{#each system.requirements}}<li>{{this}}</li>{{/each}}</ul></section>{{/if}}
+        </div>
+        {{/if}}
+    {{else}}
+    <section class="dsa41-panel">
+        <h3>{{localize "DSA41.Sheet.description"}}</h3>
+        <textarea name="system.description">{{system.description}}</textarea>
+    </section>
+    {{/if}}
+</section>

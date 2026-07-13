@@ -1,0 +1,11 @@
+<header class="dsa41-sheet-header">
+    <div class="dsa41-sheet-header__media">
+        <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}" alt="{{actor.name}}" />
+    </div>
+    <div class="dsa41-sheet-header__identity">
+        <input class="dsa41-sheet-title" name="name" type="text" value="{{actor.name}}" placeholder="Name" />
+        {{#if speciesItem}}<span class="dsa41-subtitle">{{localize "DSA41.Character.species"}}: {{speciesItem.name}}</span>{{/if}}
+        {{#if cultureItem}}<span class="dsa41-subtitle">{{localize "DSA41.Character.culture"}}: {{cultureItem.name}}</span>{{/if}}
+        {{#if professionItem}}<span class="dsa41-subtitle">{{localize "DSA41.Character.profession"}}: {{professionItem.name}}</span>{{/if}}
+    </div>
+</header>

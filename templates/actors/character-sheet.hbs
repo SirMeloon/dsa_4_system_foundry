@@ -1,0 +1,15 @@
+<form class="{{cssClass}}" autocomplete="off">
+    {{> "systems/dsa_4_system_foundry/templates/actors/parts/actor-header.hbs"}}
+
+    <section class="dsa41-sheet-layout">
+        {{> "systems/dsa_4_system_foundry/templates/actors/parts/actor-sidebar.hbs"}}
+
+        <section class="dsa41-sheet-main">
+            {{> "systems/dsa_4_system_foundry/templates/shared/horizontal-tabs.hbs"}}
+            {{> "systems/dsa_4_system_foundry/templates/actors/tabs/character-details.hbs"}}
+            {{> "systems/dsa_4_system_foundry/templates/actors/tabs/character-features.hbs"}}
+            {{> "systems/dsa_4_system_foundry/templates/actors/tabs/character-inventory.hbs"}}
+            {{> "systems/dsa_4_system_foundry/templates/actors/tabs/actor-biography.hbs"}}
+        </section>
+    </section>
+</form>

@@ -1,0 +1,26 @@
+<header class="dsa41-sheet-header">
+    <div class="dsa41-sheet-header__media">
+        <img src="{{item.img}}" {{#if editable}}data-edit="img"{{/if}} title="{{item.name}}" alt="{{item.name}}" />
+    </div>
+    <div class="dsa41-sheet-header__identity">
+        {{#if isComplexSheet}}
+            {{#if isEditMode}}
+            <input class="dsa41-sheet-title" name="name" type="text" value="{{item.name}}" placeholder="Name" />
+            {{else}}
+            <div class="dsa41-sheet-title dsa41-sheet-title--static">{{item.name}}</div>
+            {{/if}}
+        {{else}}
+            {{#if editable}}
+            <input class="dsa41-sheet-title" name="name" type="text" value="{{item.name}}" placeholder="Name" />
+            {{else}}
+            <div class="dsa41-sheet-title dsa41-sheet-title--static">{{item.name}}</div>
+            {{/if}}
+        {{/if}}
+        <span class="dsa41-subtitle">{{typeLabel}}</span>
+    </div>
+    {{#if canToggleEditMode}}
+    <button type="button" class="dsa41-mode-button" data-sheet-mode="{{#if isEditMode}}view{{else}}edit{{/if}}">
+        {{#if isEditMode}}{{localize "DSA41.Sheet.backToView"}}{{else}}{{localize "DSA41.Sheet.edit"}}{{/if}}
+    </button>
+    {{/if}}
+</header>

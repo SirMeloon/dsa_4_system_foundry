@@ -1,0 +1,191 @@
+<section class="dsa41-tab-panel {{#unless (eq activeTab 'details')}}is-hidden{{/unless}}">
+    {{#if isWeapon}}
+    <section class="dsa41-panel">
+        <div class="dsa41-stats-grid">
+            <label><span>{{localize "DSA41.Weapon.group"}}</span><select name="system.group">{{selectOptions config.weaponGroups selected=system.group localize=true}}</select></label>
+            <label><span>{{localize "DSA41.Weapon.damage"}}</span><input name="system.damage" type="text" value="{{system.damage}}" /></label>
+            <label><span>{{localize "DSA41.Weapon.attackModifier"}}</span><input name="system.attackModifier" type="number" value="{{system.attackModifier}}" /></label>
+            <label><span>{{localize "DSA41.Weapon.parryModifier"}}</span><input name="system.parryModifier" type="number" value="{{system.parryModifier}}" /></label>
+            <label><span>{{localize "DSA41.Weapon.initiativeModifier"}}</span><input name="system.initiativeModifier" type="number" value="{{system.initiativeModifier}}" /></label>
+            <label><span>{{localize "DSA41.Weapon.range"}}</span><input name="system.range" type="text" value="{{system.range}}" /></label>
+            <label><span>{{localize "DSA41.Weapon.weight"}}</span><input name="system.weight" type="text" value="{{system.weight}}" /></label>
+        </div>
+    </section>
+    {{/if}}
+
+    {{#if isSkill}}
+    <section class="dsa41-panel">
+        <div class="dsa41-stats-grid">
+            <label><span>{{localize "DSA41.Skill.group"}}</span><input name="system.group" type="text" value="{{system.group}}" /></label>
+            <label><span>{{localize "DSA41.Skill.complexity"}}</span><input name="system.complexity" type="text" value="{{system.complexity}}" /></label>
+            <label><span>{{localize "DSA41.Skill.probe"}} 1</span><select name="system.probe.0">{{selectOptions config.characteristics selected=system.probe.[0] localize=true}}</select></label>
+            <label><span>{{localize "DSA41.Skill.probe"}} 2</span><select name="system.probe.1">{{selectOptions config.characteristics selected=system.probe.[1] localize=true}}</select></label>
+            <label><span>{{localize "DSA41.Skill.probe"}} 3</span><select name="system.probe.2">{{selectOptions config.characteristics selected=system.probe.[2] localize=true}}</select></label>
+        </div>
+    </section>
+    {{/if}}
+
+    {{#if isSpecies}}
+        {{#if isEditMode}}
+        <div class="dsa41-two-column">
+            <section class="dsa41-panel">
+                <h3>{{localize "DSA41.Species.appearanceDescription"}}</h3>
+                <textarea name="system.appearance">{{system.appearance}}</textarea>
+            </section>
+            <section class="dsa41-panel">
+                <h3>{{localize "DSA41.Species.hairColor"}}</h3>
+                <textarea name="species.hairColorsText">{{species.hairColorsText}}</textarea>
+                <h3>{{localize "DSA41.Species.eyeColor"}}</h3>
+                <textarea name="species.eyeColorsText">{{species.eyeColorsText}}</textarea>
+            </section>
+        </div>
+        <section class="dsa41-panel">
+            <div class="dsa41-stats-grid">
+                <label><span>{{localize "DSA41.Species.base"}}</span><input name="system.height.base" type="text" value="{{system.height.base}}" /></label>
+                <label><span>{{localize "DSA41.Species.diceCount"}}</span><input name="system.height.diceCount" type="number" value="{{system.height.diceCount}}" /></label>
+                <label><span>{{localize "DSA41.Species.diceFaces"}}</span><input name="system.height.diceFaces" type="number" value="{{system.height.diceFaces}}" /></label>
+                <label><span>{{localize "DSA41.Species.step"}}</span><input name="system.height.step" type="text" value="{{system.height.step}}" /></label>
+                <label><span>{{localize "DSA41.Species.unit"}}</span><input name="system.height.unit" type="text" value="{{system.height.unit}}" /></label>
+                <label><span>{{localize "DSA41.Species.formula"}}</span><input name="system.height.formula" type="text" value="{{system.height.formula}}" /></label>
+                <label><span>{{localize "DSA41.Species.weight"}}</span><input name="system.weight.formula" type="text" value="{{system.weight.formula}}" /></label>
+                <label><span>{{localize "DSA41.Species.unit"}}</span><input name="system.weight.unit" type="text" value="{{system.weight.unit}}" /></label>
+            </div>
+        </section>
+        <section class="dsa41-panel">
+            <div class="dsa41-stats-grid">
+                {{#each system.modifiers.characteristics as |value key|}}
+                <label><span>{{localize (lookup ../config.characteristics key)}}</span><input name="system.modifiers.characteristics.{{key}}" type="number" value="{{value}}" /></label>
+                {{/each}}
+                <label><span>{{localize "DSA41.Species.lifePointsModifier"}}</span><input name="system.modifiers.lifePoints" type="number" value="{{system.modifiers.lifePoints}}" /></label>
+                <label><span>{{localize "DSA41.Species.enduranceModifier"}}</span><input name="system.modifiers.endurance" type="number" value="{{system.modifiers.endurance}}" /></label>
+                <label><span>{{localize "DSA41.Species.astralPointsModifier"}}</span><input name="system.modifiers.astralPoints" type="number" value="{{system.modifiers.astralPoints}}" /></label>
+                <label><span>{{localize "DSA41.Species.magicResistanceModifier"}}</span><input name="system.modifiers.magicResistance" type="number" value="{{system.modifiers.magicResistance}}" /></label>
+            </div>
+        </section>
+        <div class="dsa41-two-column">
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Species.allowedCultures"}}</h3><textarea name="species.allowedCulturesText">{{species.allowedCulturesText}}</textarea></section>
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Species.grantedTalents"}}</h3><textarea name="species.grantedTalentsText">{{species.grantedTalentsText}}</textarea></section>
+        </div>
+        <div class="dsa41-three-column">
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Species.automaticAdvantages"}}</h3><textarea name="species.automaticAdvantagesText">{{species.automaticAdvantagesText}}</textarea><h3>{{localize "DSA41.Species.automaticDisadvantages"}}</h3><textarea name="species.automaticDisadvantagesText">{{species.automaticDisadvantagesText}}</textarea></section>
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Species.recommendedAdvantages"}}</h3><textarea name="species.recommendedAdvantagesText">{{species.recommendedAdvantagesText}}</textarea><h3>{{localize "DSA41.Species.recommendedDisadvantages"}}</h3><textarea name="species.recommendedDisadvantagesText">{{species.recommendedDisadvantagesText}}</textarea></section>
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Species.unsuitableAdvantages"}}</h3><textarea name="species.unsuitableAdvantagesText">{{species.unsuitableAdvantagesText}}</textarea><h3>{{localize "DSA41.Species.unsuitableDisadvantages"}}</h3><textarea name="species.unsuitableDisadvantagesText">{{species.unsuitableDisadvantagesText}}</textarea></section>
+        </div>
+        {{else}}
+        <div class="dsa41-two-column">
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Species.appearanceDescription"}}</h3><p>{{system.appearance}}</p></section>
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Species.hairColor"}}</h3><ul class="dsa41-list">{{#each system.hairColors}}<li>{{min}}-{{max}}: {{label}}</li>{{/each}}</ul><h3>{{localize "DSA41.Species.eyeColor"}}</h3><ul class="dsa41-list">{{#each system.eyeColors}}<li>{{min}}-{{max}}: {{label}}</li>{{/each}}</ul></section>
+        </div>
+        <div class="dsa41-three-column">
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Species.height"}}</h3><p>{{system.height.formula}}</p></section>
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Species.weight"}}</h3><p>{{system.weight.formula}} {{system.weight.unit}}</p></section>
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Species.allowedCultures"}}</h3><ul class="dsa41-list">{{#each system.allowedCultures}}<li>{{this}}</li>{{/each}}</ul></section>
+        </div>
+        <div class="dsa41-two-column">
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Species.characteristicModifiers"}}</h3><ul class="dsa41-list">{{#each species.characteristicModifiers}}<li>{{label}}: {{value}}</li>{{/each}}{{#each species.scalarModifiers}}<li>{{label}}: {{value}}</li>{{/each}}</ul></section>
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Species.grantedTalents"}}</h3><ul class="dsa41-list">{{#each species.grantedTalents}}<li>{{name}}: {{value}}</li>{{/each}}</ul></section>
+        </div>
+        <div class="dsa41-three-column">
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Species.automaticAdvantages"}}</h3><ul class="dsa41-list">{{#each system.automaticAdvantages}}<li>{{this}}</li>{{/each}}</ul><h3>{{localize "DSA41.Species.automaticDisadvantages"}}</h3><ul class="dsa41-list">{{#each system.automaticDisadvantages}}<li>{{this}}</li>{{/each}}</ul></section>
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Species.recommendedAdvantages"}}</h3><ul class="dsa41-list">{{#each system.recommendedAdvantages}}<li>{{this}}</li>{{/each}}</ul><h3>{{localize "DSA41.Species.recommendedDisadvantages"}}</h3><ul class="dsa41-list">{{#each system.recommendedDisadvantages}}<li>{{this}}</li>{{/each}}</ul></section>
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Species.unsuitableAdvantages"}}</h3><ul class="dsa41-list">{{#each system.unsuitableAdvantages}}<li>{{this}}</li>{{/each}}</ul><h3>{{localize "DSA41.Species.unsuitableDisadvantages"}}</h3><ul class="dsa41-list">{{#each system.unsuitableDisadvantages}}<li>{{this}}</li>{{/each}}</ul></section>
+        </div>
+        {{/if}}
+    {{/if}}
+
+    {{#if isCulture}}
+        {{#if isEditMode}}
+        <div class="dsa41-two-column">
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Culture.lifestyle"}}</h3><textarea name="system.lifestyle">{{system.lifestyle}}</textarea></section>
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Culture.worldviewFaith"}}</h3><textarea name="system.worldviewFaith">{{system.worldviewFaith}}</textarea></section>
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Culture.customs"}}</h3><textarea name="system.customs">{{system.customs}}</textarea></section>
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Culture.clothingWeapons"}}</h3><textarea name="system.clothingWeapons">{{system.clothingWeapons}}</textarea></section>
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Culture.selfImage"}}</h3><textarea name="system.selfImage">{{system.selfImage}}</textarea></section>
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Culture.languageNames"}}</h3><textarea name="system.languageNames">{{system.languageNames}}</textarea></section>
+        </div>
+        <div class="dsa41-three-column">
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Culture.modifications"}}</h3><textarea name="culture.modificationsText">{{culture.modificationsText}}</textarea><h3>{{localize "DSA41.Culture.specialAbilities"}}</h3><textarea name="culture.specialAbilitiesText">{{culture.specialAbilitiesText}}</textarea></section>
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Culture.recommendedAdvantages"}}</h3><textarea name="culture.recommendedAdvantagesText">{{culture.recommendedAdvantagesText}}</textarea><h3>{{localize "DSA41.Culture.recommendedDisadvantages"}}</h3><textarea name="culture.recommendedDisadvantagesText">{{culture.recommendedDisadvantagesText}}</textarea></section>
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Culture.unsuitableAdvantages"}}</h3><textarea name="culture.unsuitableAdvantagesText">{{culture.unsuitableAdvantagesText}}</textarea><h3>{{localize "DSA41.Culture.unsuitableDisadvantages"}}</h3><textarea name="culture.unsuitableDisadvantagesText">{{culture.unsuitableDisadvantagesText}}</textarea></section>
+        </div>
+        <div class="dsa41-two-column">
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Culture.allowedProfessions"}}</h3><textarea name="culture.allowedProfessionsText">{{culture.allowedProfessionsText}}</textarea></section>
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Culture.automaticAdvantages"}}</h3><textarea name="culture.automaticAdvantagesText">{{culture.automaticAdvantagesText}}</textarea><h3>{{localize "DSA41.Culture.automaticDisadvantages"}}</h3><textarea name="culture.automaticDisadvantagesText">{{culture.automaticDisadvantagesText}}</textarea></section>
+        </div>
+        <div class="dsa41-three-column">
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Culture.combatTalents"}}</h3><textarea name="culture.combatTalentsText">{{culture.combatTalentsText}}</textarea><h3>{{localize "DSA41.Culture.bodyTalents"}}</h3><textarea name="culture.bodyTalentsText">{{culture.bodyTalentsText}}</textarea></section>
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Culture.socialTalents"}}</h3><textarea name="culture.socialTalentsText">{{culture.socialTalentsText}}</textarea><h3>{{localize "DSA41.Culture.natureTalents"}}</h3><textarea name="culture.natureTalentsText">{{culture.natureTalentsText}}</textarea></section>
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Culture.knowledgeTalents"}}</h3><textarea name="culture.knowledgeTalentsText">{{culture.knowledgeTalentsText}}</textarea><h3>{{localize "DSA41.Culture.scriptsLanguagesTalents"}}</h3><textarea name="culture.scriptsLanguagesTalentsText">{{culture.scriptsLanguagesTalentsText}}</textarea><h3>{{localize "DSA41.Culture.craftTalents"}}</h3><textarea name="culture.craftTalentsText">{{culture.craftTalentsText}}</textarea></section>
+        </div>
+        {{else}}
+        <div class="dsa41-two-column">
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Culture.lifestyle"}}</h3><p>{{system.lifestyle}}</p></section>
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Culture.worldviewFaith"}}</h3><p>{{system.worldviewFaith}}</p></section>
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Culture.customs"}}</h3><p>{{system.customs}}</p></section>
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Culture.clothingWeapons"}}</h3><p>{{system.clothingWeapons}}</p></section>
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Culture.selfImage"}}</h3><p>{{system.selfImage}}</p></section>
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Culture.languageNames"}}</h3><p>{{system.languageNames}}</p></section>
+        </div>
+        <div class="dsa41-three-column">
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Culture.modifications"}}</h3><ul class="dsa41-list">{{#each system.modifications}}<li>{{this}}</li>{{/each}}</ul><h3>{{localize "DSA41.Culture.specialAbilities"}}</h3><ul class="dsa41-list">{{#each system.specialAbilities}}<li>{{this}}</li>{{/each}}</ul></section>
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Culture.recommendedAdvantages"}}</h3><ul class="dsa41-list">{{#each system.recommendedAdvantages}}<li>{{this}}</li>{{/each}}</ul><h3>{{localize "DSA41.Culture.recommendedDisadvantages"}}</h3><ul class="dsa41-list">{{#each system.recommendedDisadvantages}}<li>{{this}}</li>{{/each}}</ul></section>
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Culture.unsuitableAdvantages"}}</h3><ul class="dsa41-list">{{#each system.unsuitableAdvantages}}<li>{{this}}</li>{{/each}}</ul><h3>{{localize "DSA41.Culture.unsuitableDisadvantages"}}</h3><ul class="dsa41-list">{{#each system.unsuitableDisadvantages}}<li>{{this}}</li>{{/each}}</ul></section>
+        </div>
+        <div class="dsa41-two-column">
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Culture.allowedProfessions"}}</h3><ul class="dsa41-list">{{#each system.allowedProfessions}}<li>{{this}}</li>{{/each}}</ul></section>
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Culture.automaticAdvantages"}}</h3><ul class="dsa41-list">{{#each system.automaticAdvantages}}<li>{{this}}</li>{{/each}}</ul><h3>{{localize "DSA41.Culture.automaticDisadvantages"}}</h3><ul class="dsa41-list">{{#each system.automaticDisadvantages}}<li>{{this}}</li>{{/each}}</ul></section>
+        </div>
+        <div class="dsa41-three-column">
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Culture.combatTalents"}}</h3><ul class="dsa41-list">{{#each culture.combatTalents}}<li>{{name}}: {{value}}</li>{{/each}}</ul><h3>{{localize "DSA41.Culture.bodyTalents"}}</h3><ul class="dsa41-list">{{#each culture.bodyTalents}}<li>{{name}}: {{value}}</li>{{/each}}</ul></section>
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Culture.socialTalents"}}</h3><ul class="dsa41-list">{{#each culture.socialTalents}}<li>{{name}}: {{value}}</li>{{/each}}</ul><h3>{{localize "DSA41.Culture.natureTalents"}}</h3><ul class="dsa41-list">{{#each culture.natureTalents}}<li>{{name}}: {{value}}</li>{{/each}}</ul></section>
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Culture.knowledgeTalents"}}</h3><ul class="dsa41-list">{{#each culture.knowledgeTalents}}<li>{{name}}: {{value}}</li>{{/each}}</ul><h3>{{localize "DSA41.Culture.scriptsLanguagesTalents"}}</h3><ul class="dsa41-list">{{#each culture.scriptsLanguagesTalents}}<li>{{name}}: {{value}}</li>{{/each}}</ul><h3>{{localize "DSA41.Culture.craftTalents"}}</h3><ul class="dsa41-list">{{#each culture.craftTalents}}<li>{{name}}: {{value}}</li>{{/each}}</ul></section>
+        </div>
+        {{/if}}
+    {{/if}}
+
+    {{#if isProfession}}
+        {{#if isEditMode}}
+        <div class="dsa41-three-column">
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Profession.modifications"}}</h3><textarea name="profession.modificationsText">{{profession.modificationsText}}</textarea><h3>{{localize "DSA41.Profession.discountedSpecialAbilities"}}</h3><textarea name="profession.discountedSpecialAbilitiesText">{{profession.discountedSpecialAbilitiesText}}</textarea></section>
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Profession.automaticAdvantages"}}</h3><textarea name="profession.automaticAdvantagesText">{{profession.automaticAdvantagesText}}</textarea><h3>{{localize "DSA41.Profession.automaticDisadvantages"}}</h3><textarea name="profession.automaticDisadvantagesText">{{profession.automaticDisadvantagesText}}</textarea></section>
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Profession.recommendedAdvantages"}}</h3><textarea name="profession.recommendedAdvantagesText">{{profession.recommendedAdvantagesText}}</textarea><h3>{{localize "DSA41.Profession.recommendedDisadvantages"}}</h3><textarea name="profession.recommendedDisadvantagesText">{{profession.recommendedDisadvantagesText}}</textarea><h3>{{localize "DSA41.Profession.unsuitableAdvantages"}}</h3><textarea name="profession.unsuitableAdvantagesText">{{profession.unsuitableAdvantagesText}}</textarea><h3>{{localize "DSA41.Profession.unsuitableDisadvantages"}}</h3><textarea name="profession.unsuitableDisadvantagesText">{{profession.unsuitableDisadvantagesText}}</textarea></section>
+        </div>
+        <div class="dsa41-three-column">
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Profession.combatTalents"}}</h3><textarea name="profession.combatTalentsText">{{profession.combatTalentsText}}</textarea><h3>{{localize "DSA41.Profession.bodyTalents"}}</h3><textarea name="profession.bodyTalentsText">{{profession.bodyTalentsText}}</textarea><h3>{{localize "DSA41.Profession.socialTalents"}}</h3><textarea name="profession.socialTalentsText">{{profession.socialTalentsText}}</textarea></section>
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Profession.natureTalents"}}</h3><textarea name="profession.natureTalentsText">{{profession.natureTalentsText}}</textarea><h3>{{localize "DSA41.Profession.knowledgeTalents"}}</h3><textarea name="profession.knowledgeTalentsText">{{profession.knowledgeTalentsText}}</textarea></section>
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Profession.scriptsLanguagesTalents"}}</h3><textarea name="profession.scriptsLanguagesTalentsText">{{profession.scriptsLanguagesTalentsText}}</textarea><h3>{{localize "DSA41.Profession.craftTalents"}}</h3><textarea name="profession.craftTalentsText">{{profession.craftTalentsText}}</textarea></section>
+        </div>
+        <div class="dsa41-two-column">
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Profession.equipment"}}</h3><textarea name="profession.equipmentText">{{profession.equipmentText}}</textarea></section>
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Profession.specialPossessions"}}</h3><textarea name="profession.specialPossessionsText">{{profession.specialPossessionsText}}</textarea></section>
+        </div>
+        {{else}}
+        <div class="dsa41-three-column">
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Profession.modifications"}}</h3><ul class="dsa41-list">{{#each system.modifications}}<li>{{this}}</li>{{/each}}</ul><h3>{{localize "DSA41.Profession.discountedSpecialAbilities"}}</h3><ul class="dsa41-list">{{#each system.discountedSpecialAbilities}}<li>{{this}}</li>{{/each}}</ul></section>
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Profession.automaticAdvantages"}}</h3><ul class="dsa41-list">{{#each system.automaticAdvantages}}<li>{{this}}</li>{{/each}}</ul><h3>{{localize "DSA41.Profession.automaticDisadvantages"}}</h3><ul class="dsa41-list">{{#each system.automaticDisadvantages}}<li>{{this}}</li>{{/each}}</ul></section>
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Profession.recommendedAdvantages"}}</h3><ul class="dsa41-list">{{#each system.recommendedAdvantages}}<li>{{this}}</li>{{/each}}</ul><h3>{{localize "DSA41.Profession.recommendedDisadvantages"}}</h3><ul class="dsa41-list">{{#each system.recommendedDisadvantages}}<li>{{this}}</li>{{/each}}</ul><h3>{{localize "DSA41.Profession.unsuitableAdvantages"}}</h3><ul class="dsa41-list">{{#each system.unsuitableAdvantages}}<li>{{this}}</li>{{/each}}</ul><h3>{{localize "DSA41.Profession.unsuitableDisadvantages"}}</h3><ul class="dsa41-list">{{#each system.unsuitableDisadvantages}}<li>{{this}}</li>{{/each}}</ul></section>
+        </div>
+        <div class="dsa41-three-column">
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Profession.combatTalents"}}</h3><ul class="dsa41-list">{{#each profession.combatTalents}}<li>{{name}}: {{value}}</li>{{/each}}</ul><h3>{{localize "DSA41.Profession.bodyTalents"}}</h3><ul class="dsa41-list">{{#each profession.bodyTalents}}<li>{{name}}: {{value}}</li>{{/each}}</ul><h3>{{localize "DSA41.Profession.socialTalents"}}</h3><ul class="dsa41-list">{{#each profession.socialTalents}}<li>{{name}}: {{value}}</li>{{/each}}</ul></section>
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Profession.natureTalents"}}</h3><ul class="dsa41-list">{{#each profession.natureTalents}}<li>{{name}}: {{value}}</li>{{/each}}</ul><h3>{{localize "DSA41.Profession.knowledgeTalents"}}</h3><ul class="dsa41-list">{{#each profession.knowledgeTalents}}<li>{{name}}: {{value}}</li>{{/each}}</ul></section>
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Profession.scriptsLanguagesTalents"}}</h3><ul class="dsa41-list">{{#each profession.scriptsLanguagesTalents}}<li>{{name}}: {{value}}</li>{{/each}}</ul><h3>{{localize "DSA41.Profession.craftTalents"}}</h3><ul class="dsa41-list">{{#each profession.craftTalents}}<li>{{name}}: {{value}}</li>{{/each}}</ul></section>
+        </div>
+        <div class="dsa41-two-column">
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Profession.equipment"}}</h3><ul class="dsa41-list">{{#each system.equipment}}<li>{{this}}</li>{{/each}}</ul></section>
+            <section class="dsa41-panel"><h3>{{localize "DSA41.Profession.specialPossessions"}}</h3><ul class="dsa41-list">{{#each system.specialPossessions}}<li>{{this}}</li>{{/each}}</ul></section>
+        </div>
+        {{/if}}
+    {{/if}}
+
+    {{#if isSpecialAbility}}
+    <section class="dsa41-panel"><p>{{system.description}}</p></section>
+    {{/if}}
+
+    {{#if isAdvantage}}
+    <section class="dsa41-panel"><p>{{system.description}}</p></section>
+    {{/if}}
+
+    {{#if isDisadvantage}}
+    <section class="dsa41-panel"><p>{{system.description}}</p></section>
+    {{/if}}
+</section>

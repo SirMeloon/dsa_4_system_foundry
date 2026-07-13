@@ -26,3 +26,14 @@ DSA41.speciesFields = {
     height: "DSA41.Species.height",
     weight: "DSA41.Species.weight"
 };
+
+DSA41.itemTypeLabels = {
+    weapon: "DSA41.Item.weapon",
+    skill: "DSA41.Item.skill",
+    specialAbility: "DSA41.Item.specialAbility",
+    species: "DSA41.Item.species",
+    culture: "DSA41.Item.culture",
+    profession: "DSA41.Item.profession",
+    advantage: "DSA41.Item.advantage",
+    disadvantage: "DSA41.Item.disadvantage"
+};
