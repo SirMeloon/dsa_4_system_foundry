@@ -52,8 +52,8 @@ export class dsaItemSheet extends ItemSheet {
       async: true,
       rollData: this.item.getRollData(),
       relativeTo: this.item,
-    }
-    if (this.item.type === "rasse") {
+    };
+    if (this.item.type === 'rasse') {
       context.enrichedDescription = {
         general: await TextEditor.enrichHTML(this.item.system.description.general, options),
         originDistribution: await TextEditor.enrichHTML(this.item.system.description.originDistribution, options),
@@ -62,13 +62,21 @@ export class dsaItemSheet extends ItemSheet {
       };
 
       const height = this.item.system.getHeightRollData();
+      const weight = this.item.system.getWeightRollData();
       const { baseCm, diceCount, dieFaces } = this.item.system.height;
+      const { subtract } = this.item.system.weight;
       const formatHeight = (centimeters) => (centimeters / 100).toLocaleString(game.i18n.lang, {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       });
+      const formatWeight = (value) => value.toLocaleString(game.i18n.lang, {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+      });
       context.heightFormula = `${formatHeight(baseCm)} + ${diceCount}W${dieFaces}`;
       context.heightRange = `${formatHeight(height.minimumCm)}-${formatHeight(height.maximumCm)} ${game.i18n.localize('DSA.Item.Rasse.Step')}`;
+      context.weightFormula = `${game.i18n.localize('DSA.Item.Rasse.HeightValue')} - ${formatWeight(subtract)}`;
+      context.weightRange = `${formatWeight(weight.minimumWeight)}-${formatWeight(weight.maximumWeight)} ${game.i18n.localize('DSA.Item.Rasse.WeightUnit')}`;
     } else {
       context.enrichedDescription = await TextEditor.enrichHTML(this.item.system.description, options); 
     }

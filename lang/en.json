@@ -46,7 +46,11 @@
         "Centimeters": "cm",
         "DiceCount": "Dice count",
         "DieFaces": "Die faces",
-        "Step": "step"
+        "Step": "step",
+        "HeightValue": "Height",
+        "Weight": "Weight",
+        "WeightSubtract": "Subtraction",
+        "WeightUnit": "stone"
       }
     },
     "Effect": {

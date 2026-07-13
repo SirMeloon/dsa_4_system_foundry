@@ -46,7 +46,11 @@
         "Centimeters": "cm",
         "DiceCount": "Würfelanzahl",
         "DieFaces": "Würfelseiten",
-        "Step": "Schritt"
+        "Step": "Schritt",
+        "HeightValue": "Körpergröße",
+        "Weight": "Gewicht",
+        "WeightSubtract": "Abzug",
+        "WeightUnit": "Stein"
       }
     },
     "Effect": {

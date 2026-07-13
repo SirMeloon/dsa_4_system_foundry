@@ -410,6 +410,61 @@
 .dsa .rasse-sheet .appearance-tables {
   height: auto;
 }
+.dsa .rasse-sheet .appearance-rules {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.dsa .rasse-sheet .height-rule {
+  border: 1px solid #c9c7b8;
+  background: rgba(0, 0, 0, 0.03);
+}
+.dsa .rasse-sheet .height-rule-header {
+  padding: 8px;
+  border-bottom: 1px solid #c9c7b8;
+  background: rgba(0, 0, 0, 0.05);
+}
+.dsa .rasse-sheet .height-rule-header h3,
+.dsa .rasse-sheet .height-rule-header p {
+  margin: 0;
+}
+.dsa .rasse-sheet .height-rule-header h3 {
+  font-size: 14px;
+}
+.dsa .rasse-sheet .height-rule-header p {
+  margin-top: 3px;
+}
+.dsa .rasse-sheet .height-rule-header span {
+  color: #444;
+}
+.dsa .rasse-sheet .height-rule-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  padding: 8px;
+}
+.dsa .rasse-sheet .height-rule-fields label {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+}
+.dsa .rasse-sheet .height-rule-fields input {
+  width: 58px;
+  text-align: right;
+}
+.dsa .rasse-sheet .height-rule-fields small {
+  grid-column: 2;
+  color: #444;
+}
+.dsa .rasse-sheet .weight-rule-fields {
+  grid-template-columns: 1fr;
+}
+.dsa .rasse-sheet .weight-rule-fields label {
+  grid-template-columns: 1fr auto;
+}
 .dsa .rasse-sheet .appearance-table-section + .appearance-table-section {
   margin-top: 16px;
 }
@@ -456,6 +511,12 @@
 }
 @media (max-width: 500px) {
   .dsa .rasse-sheet .description-grid {
+    grid-template-columns: 1fr;
+  }
+  .dsa .rasse-sheet .height-rule-fields {
+    grid-template-columns: 1fr;
+  }
+  .dsa .rasse-sheet .appearance-rules {
     grid-template-columns: 1fr;
   }
 }

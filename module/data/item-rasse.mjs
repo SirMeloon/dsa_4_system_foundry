@@ -37,6 +37,9 @@ export default class dsaRasse extends dsaItemBase {
       diceCount: new fields.NumberField({ required: true, integer: true, initial: 2, min: 0 }),
       dieFaces: new fields.NumberField({ required: true, integer: true, initial: 20, min: 1 }),
     });
+    schema.weight = new fields.SchemaField({
+      subtract: new fields.NumberField({ required: true, integer: true, initial: 105, min: 0 }),
+    });
 
     return schema;
   }
@@ -49,6 +52,16 @@ export default class dsaRasse extends dsaItemBase {
       minimumCm: baseCm + diceCount,
       maximumCm: baseCm + diceCount * dieFaces,
     };
+  }
 
+  getWeightRollData() {
+    const { subtract } = this.weight;
+    const height = this.getHeightRollData();
+
+    return {
+      formula: `height - ${subtract}`,
+      minimumWeight: Math.max(height.minimumCm - subtract, 0),
+      maximumWeight: Math.max(height.maximumCm - subtract, 0),
+    };
   }
 }

@@ -90,27 +90,43 @@
     </div>
 
     <div class='tab appearance-tables' data-group='primary' data-tab='appearance-tables'>
-      <section class='height-rule'>
-        <header class='height-rule-header'>
-          <h3>{{localize 'DSA.Item.Rasse.Height'}}</h3>
-          <p>{{heightFormula}} <span>({{heightRange}})</span></p>
-        </header>
-        <div class='height-rule-fields'>
-          <label>
-            <span>{{localize 'DSA.Item.Rasse.BaseHeight'}}</span>
-            <input type='number' name='system.height.baseCm' value='{{system.height.baseCm}}' min='0' data-dtype='Number'/>
-            <small>{{localize 'DSA.Item.Rasse.Centimeters'}}</small>
-          </label>
-          <label>
-            <span>{{localize 'DSA.Item.Rasse.DiceCount'}}</span>
-            <input type='number' name='system.height.diceCount' value='{{system.height.diceCount}}' min='0' data-dtype='Number'/>
-          </label>
-          <label>
-            <span>{{localize 'DSA.Item.Rasse.DieFaces'}}</span>
-            <input type='number' name='system.height.dieFaces' value='{{system.height.dieFaces}}' min='1' data-dtype='Number'/>
-          </label>
-        </div>
-      </section>
+      <div class='appearance-rules'>
+        <section class='height-rule'>
+          <header class='height-rule-header'>
+            <h3>{{localize 'DSA.Item.Rasse.Height'}}</h3>
+            <p>{{heightFormula}} <span>({{heightRange}})</span></p>
+          </header>
+          <div class='height-rule-fields'>
+            <label>
+              <span>{{localize 'DSA.Item.Rasse.BaseHeight'}}</span>
+              <input type='number' name='system.height.baseCm' value='{{system.height.baseCm}}' min='0' data-dtype='Number'/>
+              <small>{{localize 'DSA.Item.Rasse.Centimeters'}}</small>
+            </label>
+            <label>
+              <span>{{localize 'DSA.Item.Rasse.DiceCount'}}</span>
+              <input type='number' name='system.height.diceCount' value='{{system.height.diceCount}}' min='0' data-dtype='Number'/>
+            </label>
+            <label>
+              <span>{{localize 'DSA.Item.Rasse.DieFaces'}}</span>
+              <input type='number' name='system.height.dieFaces' value='{{system.height.dieFaces}}' min='1' data-dtype='Number'/>
+            </label>
+          </div>
+        </section>
+
+        <section class='height-rule weight-rule'>
+          <header class='height-rule-header'>
+            <h3>{{localize 'DSA.Item.Rasse.Weight'}}</h3>
+            <p>{{weightFormula}} <span>({{weightRange}})</span></p>
+          </header>
+          <div class='height-rule-fields weight-rule-fields'>
+            <label>
+              <span>{{localize 'DSA.Item.Rasse.WeightSubtract'}}</span>
+              <input type='number' name='system.weight.subtract' value='{{system.weight.subtract}}' min='0' data-dtype='Number'/>
+              <small>{{localize 'DSA.Item.Rasse.WeightUnit'}}</small>
+            </label>
+          </div>
+        </section>
+      </div>
 
       <section class='appearance-table-section'>
         <header class='appearance-table-header flexrow'>
