@@ -16,6 +16,16 @@ export default class dsaRasse extends dsaItemBase {
 
     // Werte der Rasse
     schema.gp = new fields.NumberField({ required: true, integer: true, initial: 0, min: 0 });
+    schema.modifiers = new fields.SchemaField({
+      abilities: new fields.SchemaField(Object.keys(CONFIG.DSA.abilities).reduce((obj, ability) => {
+        obj[ability] = new fields.NumberField({ required: true, integer: true, initial: 0 });
+        return obj;
+      }, {})),
+      lifePoints: new fields.NumberField({ required: true, integer: true, initial: 0 }),
+      astralPoints: new fields.NumberField({ required: true, integer: true, initial: 0 }),
+      stamina: new fields.NumberField({ required: true, integer: true, initial: 0 }),
+      magicResistance: new fields.NumberField({ required: true, integer: true, initial: 0 }),
+    });
     schema.appearanceTables = new fields.SchemaField({
       hairColors: new fields.ArrayField(
         new fields.SchemaField({

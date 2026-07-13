@@ -77,15 +77,68 @@
 
     {{! Attributes Tab }}
     <div class='tab attributes' data-group='primary' data-tab='werte'>
-      {{! As you add new fields, add them in here! }}
-      <div class='resource'>
-        <label class='resource-label'>Generierungspunkte</label>
-        <input
-          type='text'
-          name='system.gp'
-          value='{{system.gp}}'
-          data-dtype='Number'
-        />
+      <div class='race-values-grid'>
+        <section class='values-card'>
+          <header class='values-card-header'>
+            <h3>{{localize 'DSA.Item.Rasse.BasicValues'}}</h3>
+          </header>
+          <div class='values-card-body'>
+            <div class='rule-field'>
+              <label>{{localize 'DSA.Item.Rasse.GenerationPoints'}}</label>
+              <input
+                type='number'
+                name='system.gp'
+                value='{{system.gp}}'
+                step='1'
+                data-dtype='Number'
+              />
+            </div>
+          </div>
+        </section>
+
+        <section class='values-card'>
+          <header class='values-card-header'>
+            <h3>{{localize 'DSA.Item.Rasse.AbilityModifiers'}}</h3>
+          </header>
+          <div class='modifier-grid'>
+            {{#each system.modifiers.abilities as |value key|}}
+            <div class='rule-field modifier-field'>
+              <label>{{localize (lookup @root.config.abilityAbbreviations key)}}</label>
+              <input
+                type='number'
+                name='system.modifiers.abilities.{{key}}'
+                value='{{value}}'
+                step='1'
+                data-dtype='Number'
+              />
+            </div>
+            {{/each}}
+          </div>
+        </section>
+
+        <section class='values-card values-card-wide'>
+          <header class='values-card-header'>
+            <h3>{{localize 'DSA.Item.Rasse.DerivedModifiers'}}</h3>
+          </header>
+          <div class='modifier-grid derived-modifier-grid'>
+            <div class='rule-field modifier-field'>
+              <label>{{localize 'DSA.Item.Rasse.LifePointsModifier'}}</label>
+              <input type='number' name='system.modifiers.lifePoints' value='{{system.modifiers.lifePoints}}' step='1' data-dtype='Number'/>
+            </div>
+            <div class='rule-field modifier-field'>
+              <label>{{localize 'DSA.Item.Rasse.AstralPointsModifier'}}</label>
+              <input type='number' name='system.modifiers.astralPoints' value='{{system.modifiers.astralPoints}}' step='1' data-dtype='Number'/>
+            </div>
+            <div class='rule-field modifier-field'>
+              <label>{{localize 'DSA.Item.Rasse.StaminaModifier'}}</label>
+              <input type='number' name='system.modifiers.stamina' value='{{system.modifiers.stamina}}' step='1' data-dtype='Number'/>
+            </div>
+            <div class='rule-field modifier-field'>
+              <label>{{localize 'DSA.Item.Rasse.MagicResistanceModifier'}}</label>
+              <input type='number' name='system.modifiers.magicResistance' value='{{system.modifiers.magicResistance}}' step='1' data-dtype='Number'/>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
 

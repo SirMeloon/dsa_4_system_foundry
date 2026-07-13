@@ -44,6 +44,48 @@
     height: auto;
   }
 
+  .race-values-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    padding: 2px;
+  }
+
+  .values-card {
+    border: 1px solid $c-faint;
+    background: rgba(0, 0, 0, 0.03);
+  }
+
+  .values-card-wide {
+    grid-column: 1 / -1;
+  }
+
+  .values-card-header {
+    padding: 8px;
+    border-bottom: 1px solid $c-faint;
+    background: rgba(0, 0, 0, 0.05);
+
+    h3 {
+      margin: 0;
+      font-size: 14px;
+    }
+  }
+
+  .values-card-body {
+    padding: 8px;
+  }
+
+  .modifier-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+    padding: 8px;
+  }
+
+  .derived-modifier-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .appearance-rules {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -119,6 +161,10 @@
     grid-template-columns: 1fr;
   }
 
+  .modifier-field input {
+    text-align: center;
+  }
+
   .appearance-table-section + .appearance-table-section {
     margin-top: 16px;
   }
@@ -183,6 +229,12 @@
   }
 
   .rasse-sheet .appearance-rules {
+    grid-template-columns: 1fr;
+  }
+
+  .rasse-sheet .race-values-grid,
+  .rasse-sheet .modifier-grid,
+  .rasse-sheet .derived-modifier-grid {
     grid-template-columns: 1fr;
   }
 }

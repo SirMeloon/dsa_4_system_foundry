@@ -50,7 +50,15 @@
         "HeightValue": "Height",
         "Weight": "Weight",
         "WeightSubtract": "Subtraction",
-        "WeightUnit": "stone"
+        "WeightUnit": "stone",
+        "BasicValues": "Basic values",
+        "GenerationPoints": "Generation points",
+        "AbilityModifiers": "Ability modifiers",
+        "DerivedModifiers": "Derived modifiers",
+        "LifePointsModifier": "Life points",
+        "AstralPointsModifier": "Astral points",
+        "StaminaModifier": "Stamina",
+        "MagicResistanceModifier": "Magic resistance"
       }
     },
     "Effect": {

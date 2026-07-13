@@ -410,6 +410,40 @@
 .dsa .rasse-sheet .appearance-tables {
   height: auto;
 }
+.dsa .rasse-sheet .race-values-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  padding: 2px;
+}
+.dsa .rasse-sheet .values-card {
+  border: 1px solid #c9c7b8;
+  background: rgba(0, 0, 0, 0.03);
+}
+.dsa .rasse-sheet .values-card-wide {
+  grid-column: 1/-1;
+}
+.dsa .rasse-sheet .values-card-header {
+  padding: 8px;
+  border-bottom: 1px solid #c9c7b8;
+  background: rgba(0, 0, 0, 0.05);
+}
+.dsa .rasse-sheet .values-card-header h3 {
+  margin: 0;
+  font-size: 14px;
+}
+.dsa .rasse-sheet .values-card-body {
+  padding: 8px;
+}
+.dsa .rasse-sheet .modifier-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  padding: 8px;
+}
+.dsa .rasse-sheet .derived-modifier-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
 .dsa .rasse-sheet .appearance-rules {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -472,6 +506,9 @@
 .dsa .rasse-sheet .weight-rule-fields {
   grid-template-columns: 1fr;
 }
+.dsa .rasse-sheet .modifier-field input {
+  text-align: center;
+}
 .dsa .rasse-sheet .appearance-table-section + .appearance-table-section {
   margin-top: 16px;
 }
@@ -524,6 +561,11 @@
     grid-template-columns: 1fr;
   }
   .dsa .rasse-sheet .appearance-rules {
+    grid-template-columns: 1fr;
+  }
+  .dsa .rasse-sheet .race-values-grid,
+  .dsa .rasse-sheet .modifier-grid,
+  .dsa .rasse-sheet .derived-modifier-grid {
     grid-template-columns: 1fr;
   }
 }

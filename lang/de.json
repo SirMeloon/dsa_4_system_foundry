@@ -50,7 +50,15 @@
         "HeightValue": "Körpergröße",
         "Weight": "Gewicht",
         "WeightSubtract": "Abzug",
-        "WeightUnit": "Stein"
+        "WeightUnit": "Stein",
+        "BasicValues": "Grundwerte",
+        "GenerationPoints": "Generierungspunkte",
+        "AbilityModifiers": "Eigenschaftsmodifikatoren",
+        "DerivedModifiers": "Abgeleitete Modifikatoren",
+        "LifePointsModifier": "Lebenspunkte",
+        "AstralPointsModifier": "Astralpunkte",
+        "StaminaModifier": "Ausdauer",
+        "MagicResistanceModifier": "Magieresistenz"
       }
     },
     "Effect": {

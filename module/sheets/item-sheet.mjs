@@ -25,6 +25,18 @@ export class dsaItemSheet extends ItemSheet {
   }
 
   /** @override */
+  get options() {
+    const options = super.options;
+
+    if (this.item?.type === 'rasse') {
+      options.width = 720;
+      options.height = 620;
+    }
+
+    return options;
+  }
+
+  /** @override */
   get template() {
     const path = 'systems/dsa_4_system_foundry/templates/item';
     // Return a single sheet for all item types.
