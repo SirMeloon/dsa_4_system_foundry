@@ -1,4 +1,5 @@
 import { DSA41 } from "./module/config.js";
+import { DSA41_CULTURES } from "./module/data/cultures.js";
 import { DSA41_SPECIES } from "./module/data/species.js";
 import SpeciesGenerationDialog from "./module/apps/SpeciesGenerationDialog.js";
 import DSA41ActorSheet from "./module/sheets/DSA41ActorSheet.js";
@@ -61,16 +62,25 @@ Hooks.on("createItem", async (item, _options, userId) => {
 Hooks.once("ready", async () => {
     if (!game.user?.isGM) return;
     await seedSpeciesCompendium();
+    await seedCulturesCompendium();
 });
 
 async function seedSpeciesCompendium() {
-    const pack = game.packs.get("dsa_4_system_foundry.species");
+    await seedItemCompendium("species", DSA41_SPECIES);
+}
+
+async function seedCulturesCompendium() {
+    await seedItemCompendium("cultures", DSA41_CULTURES);
+}
+
+async function seedItemCompendium(packName, entries) {
+    const pack = game.packs.get(`dsa_4_system_foundry.${packName}`);
     if (!pack) return;
 
     const index = await pack.getIndex();
     const existingNames = new Set(index.map((entry) => entry.name));
-    const missingSpecies = DSA41_SPECIES.filter((entry) => !existingNames.has(entry.name));
-    if (!missingSpecies.length) return;
+    const missingEntries = entries.filter((entry) => !existingNames.has(entry.name));
+    if (!missingEntries.length) return;
 
     const wasLocked = pack.locked;
 
@@ -79,8 +89,8 @@ async function seedSpeciesCompendium() {
             await pack.configure({ locked: false });
         }
 
-        await Item.createDocuments(missingSpecies, { pack: pack.collection });
-        console.log(`dsa_4_system_foundry | Seeded ${missingSpecies.length} species entries`);
+        await Item.createDocuments(missingEntries, { pack: pack.collection });
+        console.log(`dsa_4_system_foundry | Seeded ${missingEntries.length} entries into ${packName}`);
     } finally {
         if (wasLocked) {
             await pack.configure({ locked: true });
