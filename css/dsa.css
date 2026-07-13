@@ -444,26 +444,33 @@
   gap: 8px;
   padding: 8px;
 }
-.dsa .rasse-sheet .height-rule-fields label {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
+.dsa .rasse-sheet .rule-field {
+  display: flex;
+  flex-direction: column;
   gap: 4px;
+  padding: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.45);
+  border-radius: 4px;
+}
+.dsa .rasse-sheet .rule-field label {
+  margin: 0;
   font-size: 12px;
+  font-weight: 600;
+  color: #191813;
 }
-.dsa .rasse-sheet .height-rule-fields input {
-  width: 58px;
-  text-align: right;
+.dsa .rasse-sheet .rule-field input {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  text-align: left;
 }
-.dsa .rasse-sheet .height-rule-fields small {
-  grid-column: 2;
+.dsa .rasse-sheet .rule-field small {
   color: #444;
+  font-size: 11px;
 }
 .dsa .rasse-sheet .weight-rule-fields {
   grid-template-columns: 1fr;
-}
-.dsa .rasse-sheet .weight-rule-fields label {
-  grid-template-columns: 1fr auto;
 }
 .dsa .rasse-sheet .appearance-table-section + .appearance-table-section {
   margin-top: 16px;

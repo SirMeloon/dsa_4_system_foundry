@@ -84,32 +84,39 @@
     grid-template-columns: 1fr 1fr 1fr;
     gap: 8px;
     padding: 8px;
+  }
+
+  .rule-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    background: rgba(255, 255, 255, 0.45);
+    border-radius: 4px;
 
     label {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      align-items: center;
-      gap: 4px;
+      margin: 0;
       font-size: 12px;
+      font-weight: 600;
+      color: $c-dark;
     }
 
     input {
-      width: 58px;
-      text-align: right;
+      width: 100%;
+      min-width: 0;
+      margin: 0;
+      text-align: left;
     }
 
     small {
-      grid-column: 2;
       color: $c-tan;
+      font-size: 11px;
     }
   }
 
   .weight-rule-fields {
     grid-template-columns: 1fr;
-
-    label {
-      grid-template-columns: 1fr auto;
-    }
   }
 
   .appearance-table-section + .appearance-table-section {

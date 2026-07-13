@@ -97,19 +97,19 @@
             <p>{{heightFormula}} <span>({{heightRange}})</span></p>
           </header>
           <div class='height-rule-fields'>
-            <label>
-              <span>{{localize 'DSA.Item.Rasse.BaseHeight'}}</span>
+            <div class='rule-field'>
+              <label>{{localize 'DSA.Item.Rasse.BaseHeight'}}</label>
               <input type='number' name='system.height.baseCm' value='{{system.height.baseCm}}' min='0' data-dtype='Number'/>
               <small>{{localize 'DSA.Item.Rasse.Centimeters'}}</small>
-            </label>
-            <label>
-              <span>{{localize 'DSA.Item.Rasse.DiceCount'}}</span>
+            </div>
+            <div class='rule-field'>
+              <label>{{localize 'DSA.Item.Rasse.DiceCount'}}</label>
               <input type='number' name='system.height.diceCount' value='{{system.height.diceCount}}' min='0' data-dtype='Number'/>
-            </label>
-            <label>
-              <span>{{localize 'DSA.Item.Rasse.DieFaces'}}</span>
+            </div>
+            <div class='rule-field'>
+              <label>{{localize 'DSA.Item.Rasse.DieFaces'}}</label>
               <input type='number' name='system.height.dieFaces' value='{{system.height.dieFaces}}' min='1' data-dtype='Number'/>
-            </label>
+            </div>
           </div>
         </section>
 
@@ -119,11 +119,11 @@
             <p>{{weightFormula}} <span>({{weightRange}})</span></p>
           </header>
           <div class='height-rule-fields weight-rule-fields'>
-            <label>
-              <span>{{localize 'DSA.Item.Rasse.WeightSubtract'}}</span>
+            <div class='rule-field'>
+              <label>{{localize 'DSA.Item.Rasse.WeightSubtract'}}</label>
               <input type='number' name='system.weight.subtract' value='{{system.weight.subtract}}' min='0' data-dtype='Number'/>
               <small>{{localize 'DSA.Item.Rasse.WeightUnit'}}</small>
-            </label>
+            </div>
           </div>
         </section>
       </div>
