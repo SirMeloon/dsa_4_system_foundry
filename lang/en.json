@@ -22,6 +22,119 @@
       "AddSkill": "Add skill",
       "Remove": "Remove"
     },
+    "Actor": {
+      "Tabs": {
+        "Features": "Advantages and features",
+        "Description": "Description",
+        "Items": "Items",
+        "Spells": "Spells",
+        "Effects": "Effects"
+      },
+      "Features": {
+        "Summary": "Applied rule effects",
+        "NoFeatures": "Drag advantages, disadvantages, or special abilities onto this actor.",
+        "NoRules": "No derived rule effects are active.",
+        "Advantage": "Advantages",
+        "Disadvantage": "Disadvantages",
+        "SpecialAbility": "Special abilities"
+      }
+    },
+    "Feature": {
+      "Tabs": {
+        "Description": "Description",
+        "Details": "Details",
+        "Rules": "Rules",
+        "ActiveEffects": "Effects"
+      },
+      "Sections": {
+        "Costs": "Costs",
+        "Levels": "Levels",
+        "Requirements": "Requirements",
+        "StructuredRequirements": "Structured requirements",
+        "Magic": "Magic",
+        "RuleEffects": "Rule effects"
+      },
+      "Fields": {
+        "Category": "Category",
+        "Magical": "Magical feature",
+        "GpBase": "GP cost",
+        "CostMode": "Cost mode",
+        "CostPer": "Per",
+        "CostMax": "Maximum",
+        "CostNote": "Cost note",
+        "LevelsEnabled": "Has levels",
+        "LevelMode": "Level mode",
+        "LevelCurrent": "Current level",
+        "LevelMin": "Minimum level",
+        "LevelMax": "Maximum level",
+        "RequirementsText": "Free-text requirements",
+        "RequirementType": "Type",
+        "Target": "Target",
+        "Operator": "Operator",
+        "Value": "Value",
+        "Note": "Note",
+        "FullCaster": "For full casters",
+        "QuarterCaster": "For quarter casters",
+        "EffectType": "Effect type",
+        "TargetType": "Target type",
+        "Mode": "Mode",
+        "Max": "Maximum"
+      },
+      "Actions": {
+        "AddRequirement": "Add requirement",
+        "AddRuleEffect": "Add rule effect",
+        "DeleteRow": "Delete row"
+      },
+      "Category": {
+        "Advantage": "Advantage",
+        "Disadvantage": "Disadvantage",
+        "SpecialAbility": "Special ability"
+      },
+      "CostMode": {
+        "Flat": "Flat value",
+        "PerLevel": "Per level",
+        "PerResource": "Per resource",
+        "Custom": "Custom"
+      },
+      "LevelMode": {
+        "Fixed": "Fixed level",
+        "TalentLike": "Talent-like",
+        "Range": "Level range"
+      },
+      "RequirementType": {
+        "Ability": "Ability",
+        "Feature": "Feature",
+        "Talent": "Talent",
+        "Resource": "Resource",
+        "Text": "Free text"
+      },
+      "Operator": {
+        "Gte": ">=",
+        "Lte": "<=",
+        "Eq": "=",
+        "Neq": "!="
+      },
+      "EffectType": {
+        "GrantFeature": "Grant feature",
+        "GrantItem": "Grant item",
+        "DiscountFeature": "Discount feature",
+        "ImproveFeature": "Improve feature",
+        "ForbidFeature": "Forbid feature",
+        "ModifyResource": "Modify resource",
+        "ModifyRegeneration": "Modify regeneration",
+        "ModifyRule": "Modify other rule",
+        "SkillCheckBonus": "Skill check bonus"
+      },
+      "TargetType": {
+        "Ability": "Ability",
+        "Feature": "Feature",
+        "Item": "Item",
+        "Talent": "Talent",
+        "Resource": "Resource",
+        "Rule": "Rule",
+        "Check": "Check"
+      }
+    },
     "Item": {
       "Spell": {
         "SpellLVL": "Level {level} Spells",

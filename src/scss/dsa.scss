@@ -16,8 +16,10 @@
 .dsa {
   @import 'components/forms';
   @import 'components/resource';
+  @import 'components/actor-features';
   @import 'components/proficiencies';
   @import 'components/items';
+  @import 'components/feature';
   @import 'components/rasse';
   @import 'components/effects';
 }

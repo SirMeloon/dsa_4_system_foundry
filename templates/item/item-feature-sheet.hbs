@@ -1,36 +1,226 @@
-<form class="{{cssClass}}" autocomplete="off">
-  <header class="sheet-header">
-    <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
-    <div class="header-fields">
-      <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
+<form class='{{cssClass}} feature-sheet flexcol' autocomplete='off'>
+  <header class='sheet-header'>
+    <img
+      class='profile-img'
+      src='{{item.img}}'
+      data-edit='img'
+      title='{{item.name}}'
+    />
+    <div class='header-fields'>
+      <h1 class='charname'><input
+          name='name'
+          type='text'
+          value='{{item.name}}'
+          placeholder='Name'
+        /></h1>
+      <div class='feature-header-grid'>
+        <div class='rule-field'>
+          <label>{{localize 'DSA.Feature.Fields.Category'}}</label>
+          <select name='system.category'>
+            {{selectOptions config.featureCategories selected=system.category localize=true}}
+          </select>
+        </div>
+      </div>
     </div>
   </header>
 
-  {{!-- Sheet Tab Navigation --}}
-  <nav class="sheet-tabs tabs" data-group="primary">
-    <a class="item" data-tab="description">Description</a>
-    <a class="item" data-tab="attributes">Attributes</a>
-    <a class="item" data-tab="effects">Effects</a>
+  <nav class='sheet-tabs tabs' data-group='primary'>
+    <a class='item' data-tab='description'>{{localize 'DSA.Feature.Tabs.Description'}}</a>
+    <a class='item' data-tab='details'>{{localize 'DSA.Feature.Tabs.Details'}}</a>
+    <a class='item' data-tab='rules'>{{localize 'DSA.Feature.Tabs.Rules'}}</a>
+    <a class='item' data-tab='effects'>{{localize 'DSA.Feature.Tabs.ActiveEffects'}}</a>
   </nav>
 
-  {{!-- Sheet Body --}}
-  <section class="sheet-body">
-
-    {{!-- Description Tab --}}
-    <div class="tab" data-group="primary" data-tab="description">
-      {{!-- Editors must receive enriched text data from getData to properly handle rolls --}}
-      {{editor enrichedDescription target="system.description" engine="prosemirror" button=true editable=editable}}
+  <section class='sheet-body'>
+    <div class='tab' data-group='primary' data-tab='description'>
+      {{editor enrichedDescription target='system.description' engine='prosemirror' button=true editable=editable}}
     </div>
 
-    {{!-- Attributes Tab --}}
-    <div class="tab attributes" data-group="primary" data-tab="attributes">
-      {{!-- As you add new fields, add them in here! --}}
+    <div class='tab feature-details' data-group='primary' data-tab='details'>
+      <div class='feature-grid'>
+        <section class='feature-card'>
+          <header class='feature-card-header'>
+            <h3>{{localize 'DSA.Feature.Sections.Costs'}}</h3>
+          </header>
+          <div class='feature-card-body feature-form-grid'>
+            <div class='rule-field'>
+              <label>{{localize 'DSA.Feature.Fields.GpBase'}}</label>
+              <input type='number' name='system.gpCost.base' value='{{system.gpCost.base}}' step='1' data-dtype='Number' />
+            </div>
+            <div class='rule-field'>
+              <label>{{localize 'DSA.Feature.Fields.CostMode'}}</label>
+              <select name='system.gpCost.mode'>
+                {{selectOptions config.featureCostModes selected=system.gpCost.mode localize=true}}
+              </select>
+            </div>
+            <div class='rule-field'>
+              <label>{{localize 'DSA.Feature.Fields.CostPer'}}</label>
+              <input type='text' name='system.gpCost.per' value='{{system.gpCost.per}}' />
+            </div>
+            <div class='rule-field'>
+              <label>{{localize 'DSA.Feature.Fields.CostMax'}}</label>
+              <input type='number' name='system.gpCost.max' value='{{system.gpCost.max}}' step='1' data-dtype='Number' />
+            </div>
+            <div class='rule-field feature-span-2'>
+              <label>{{localize 'DSA.Feature.Fields.CostNote'}}</label>
+              <input type='text' name='system.gpCost.note' value='{{system.gpCost.note}}' />
+            </div>
+          </div>
+        </section>
+
+        <section class='feature-card'>
+          <header class='feature-card-header'>
+            <h3>{{localize 'DSA.Feature.Sections.Levels'}}</h3>
+          </header>
+          <div class='feature-card-body feature-form-grid'>
+            <div class='rule-field checkbox-field'>
+              <label>{{localize 'DSA.Feature.Fields.LevelsEnabled'}}</label>
+              <input type='checkbox' name='system.levels.enabled' {{checked system.levels.enabled}} />
+            </div>
+            <div class='rule-field'>
+              <label>{{localize 'DSA.Feature.Fields.LevelMode'}}</label>
+              <select name='system.levels.mode'>
+                {{selectOptions config.featureLevelModes selected=system.levels.mode localize=true}}
+              </select>
+            </div>
+            <div class='rule-field'>
+              <label>{{localize 'DSA.Feature.Fields.LevelCurrent'}}</label>
+              <input type='number' name='system.levels.current' value='{{system.levels.current}}' min='1' step='1' data-dtype='Number' />
+            </div>
+            <div class='rule-field'>
+              <label>{{localize 'DSA.Feature.Fields.LevelMin'}}</label>
+              <input type='number' name='system.levels.min' value='{{system.levels.min}}' min='1' step='1' data-dtype='Number' />
+            </div>
+            <div class='rule-field'>
+              <label>{{localize 'DSA.Feature.Fields.LevelMax'}}</label>
+              <input type='number' name='system.levels.max' value='{{system.levels.max}}' min='1' step='1' data-dtype='Number' />
+            </div>
+          </div>
+        </section>
+
+        <section class='feature-card feature-card-wide'>
+          <header class='feature-card-header'>
+            <h3>{{localize 'DSA.Feature.Sections.Requirements'}}</h3>
+          </header>
+          <div class='feature-card-body'>
+            <div class='rule-field feature-text-field'>
+              <label>{{localize 'DSA.Feature.Fields.RequirementsText'}}</label>
+              <textarea name='system.requirementsText'>{{system.requirementsText}}</textarea>
+            </div>
+            <div class='feature-array-header'>
+              <h4>{{localize 'DSA.Feature.Sections.StructuredRequirements'}}</h4>
+              <a class='feature-array-add' data-array='requirements' title="{{localize 'DSA.Feature.Actions.AddRequirement'}}"><i class='fas fa-plus'></i></a>
+            </div>
+            <table class='feature-array-table'>
+              <thead>
+                <tr>
+                  <th>{{localize 'DSA.Feature.Fields.RequirementType'}}</th>
+                  <th>{{localize 'DSA.Feature.Fields.Target'}}</th>
+                  <th>{{localize 'DSA.Feature.Fields.Operator'}}</th>
+                  <th>{{localize 'DSA.Feature.Fields.Value'}}</th>
+                  <th>{{localize 'DSA.Feature.Fields.Note'}}</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each system.requirements as |requirement index|}}
+                <tr>
+                  <td>
+                    <select class='feature-array-input' data-array='requirements' data-index='{{index}}' data-field='type'>
+                      {{selectOptions @root.config.featureRequirementTypes selected=requirement.type localize=true}}
+                    </select>
+                  </td>
+                  <td><input class='feature-array-input' type='text' value='{{requirement.target}}' data-array='requirements' data-index='{{index}}' data-field='target' data-dtype='String' /></td>
+                  <td>
+                    <select class='feature-array-input' data-array='requirements' data-index='{{index}}' data-field='operator'>
+                      {{selectOptions @root.config.featureOperators selected=requirement.operator localize=true}}
+                    </select>
+                  </td>
+                  <td><input class='feature-array-input' type='text' value='{{requirement.value}}' data-array='requirements' data-index='{{index}}' data-field='value' data-dtype='String' /></td>
+                  <td><input class='feature-array-input' type='text' value='{{requirement.note}}' data-array='requirements' data-index='{{index}}' data-field='note' data-dtype='String' /></td>
+                  <td><a class='feature-array-delete' data-array='requirements' data-index='{{index}}' title="{{localize 'DSA.Feature.Actions.DeleteRow'}}"><i class='fas fa-trash'></i></a></td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class='feature-card feature-card-wide'>
+          <header class='feature-card-header'>
+            <h3>{{localize 'DSA.Feature.Sections.Magic'}}</h3>
+          </header>
+          <div class='feature-card-body feature-form-grid feature-form-grid-3'>
+            <div class='rule-field checkbox-field'>
+              <label>{{localize 'DSA.Feature.Fields.Magical'}}</label>
+              <input type='checkbox' name='system.magic.isMagical' {{checked system.magic.isMagical}} />
+            </div>
+            <div class='rule-field checkbox-field'>
+              <label>{{localize 'DSA.Feature.Fields.FullCaster'}}</label>
+              <input type='checkbox' name='system.magic.fullCaster' {{checked system.magic.fullCaster}} />
+            </div>
+            <div class='rule-field checkbox-field'>
+              <label>{{localize 'DSA.Feature.Fields.QuarterCaster'}}</label>
+              <input type='checkbox' name='system.magic.quarterCaster' {{checked system.magic.quarterCaster}} />
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
 
-    {{!-- Effects Tab --}}
-    <div class="tab effects" data-group="primary" data-tab="effects">
-      {{> "systems/dsa_4_system_foundry/templates/item/parts/item-effects.hbs"}}
+    <div class='tab feature-rules' data-group='primary' data-tab='rules'>
+      <section class='feature-card'>
+        <header class='feature-card-header'>
+          <h3>{{localize 'DSA.Feature.Sections.RuleEffects'}}</h3>
+        </header>
+        <div class='feature-card-body'>
+          <div class='feature-array-header'>
+            <h4>{{localize 'DSA.Feature.Actions.AddRuleEffect'}}</h4>
+            <a class='feature-array-add' data-array='effects' title="{{localize 'DSA.Feature.Actions.AddRuleEffect'}}"><i class='fas fa-plus'></i></a>
+          </div>
+          <table class='feature-array-table'>
+            <thead>
+              <tr>
+                <th>{{localize 'DSA.Feature.Fields.EffectType'}}</th>
+                <th>{{localize 'DSA.Feature.Fields.TargetType'}}</th>
+                <th>{{localize 'DSA.Feature.Fields.Target'}}</th>
+                <th>{{localize 'DSA.Feature.Fields.Mode'}}</th>
+                <th>{{localize 'DSA.Feature.Fields.Value'}}</th>
+                <th>{{localize 'DSA.Feature.Fields.Max'}}</th>
+                <th>{{localize 'DSA.Feature.Fields.Note'}}</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each system.effects as |effect index|}}
+              <tr>
+                <td>
+                  <select class='feature-array-input' data-array='effects' data-index='{{index}}' data-field='type'>
+                    {{selectOptions @root.config.featureEffectTypes selected=effect.type localize=true}}
+                  </select>
+                </td>
+                <td>
+                  <select class='feature-array-input' data-array='effects' data-index='{{index}}' data-field='targetType'>
+                    <option value=''></option>
+                    {{selectOptions @root.config.featureEffectTargetTypes selected=effect.targetType localize=true}}
+                  </select>
+                </td>
+                <td><input class='feature-array-input' type='text' value='{{effect.target}}' data-array='effects' data-index='{{index}}' data-field='target' data-dtype='String' /></td>
+                <td><input class='feature-array-input' type='text' value='{{effect.mode}}' data-array='effects' data-index='{{index}}' data-field='mode' data-dtype='String' /></td>
+                <td><input class='feature-array-input' type='number' value='{{effect.value}}' data-array='effects' data-index='{{index}}' data-field='value' data-dtype='Number' /></td>
+                <td><input class='feature-array-input' type='number' min='0' value='{{effect.max}}' data-array='effects' data-index='{{index}}' data-field='max' data-dtype='Number' /></td>
+                <td><input class='feature-array-input' type='text' value='{{effect.note}}' data-array='effects' data-index='{{index}}' data-field='note' data-dtype='String' /></td>
+                <td><a class='feature-array-delete' data-array='effects' data-index='{{index}}' title="{{localize 'DSA.Feature.Actions.DeleteRow'}}"><i class='fas fa-trash'></i></a></td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <div class='tab effects' data-group='primary' data-tab='effects'>
+      {{> 'systems/dsa_4_system_foundry/templates/item/parts/item-effects.hbs'}}
     </div>
   </section>
-
 </form>

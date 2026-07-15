@@ -22,6 +22,119 @@
       "AddSkill": "Talent hinzuf\u00fcgen",
       "Remove": "Entfernen"
     },
+    "Actor": {
+      "Tabs": {
+        "Features": "Vor- und Nachteile",
+        "Description": "Beschreibung",
+        "Items": "Gegenstände",
+        "Spells": "Zauber",
+        "Effects": "Effekte"
+      },
+      "Features": {
+        "Summary": "Angewandte Regelwirkungen",
+        "NoFeatures": "Ziehe Vorteile, Nachteile oder Sonderfertigkeiten hier auf den Actor.",
+        "NoRules": "Keine abgeleiteten Regelwirkungen aktiv.",
+        "Advantage": "Vorteile",
+        "Disadvantage": "Nachteile",
+        "SpecialAbility": "Sonderfertigkeiten"
+      }
+    },
+    "Feature": {
+      "Tabs": {
+        "Description": "Beschreibung",
+        "Details": "Details",
+        "Rules": "Regeln",
+        "ActiveEffects": "Effekte"
+      },
+      "Sections": {
+        "Costs": "Kosten",
+        "Levels": "Stufen",
+        "Requirements": "Voraussetzungen",
+        "StructuredRequirements": "Strukturierte Voraussetzungen",
+        "Magic": "Magie",
+        "RuleEffects": "Regelwirkungen"
+      },
+      "Fields": {
+        "Category": "Kategorie",
+        "Magical": "Magischer Vorteil",
+        "GpBase": "GP-Kosten",
+        "CostMode": "Kostenmodus",
+        "CostPer": "Je",
+        "CostMax": "Maximum",
+        "CostNote": "Kostenhinweis",
+        "LevelsEnabled": "Hat Stufen",
+        "LevelMode": "Stufenmodus",
+        "LevelCurrent": "Aktuelle Stufe",
+        "LevelMin": "Mindeststufe",
+        "LevelMax": "Maximalstufe",
+        "RequirementsText": "Freitext-Voraussetzungen",
+        "RequirementType": "Typ",
+        "Target": "Ziel",
+        "Operator": "Operator",
+        "Value": "Wert",
+        "Note": "Notiz",
+        "FullCaster": "Für Vollzauberer",
+        "QuarterCaster": "Für Viertelzauberer",
+        "EffectType": "Effekttyp",
+        "TargetType": "Zieltyp",
+        "Mode": "Modus",
+        "Max": "Maximum"
+      },
+      "Actions": {
+        "AddRequirement": "Voraussetzung hinzufügen",
+        "AddRuleEffect": "Regelwirkung hinzufügen",
+        "DeleteRow": "Zeile entfernen"
+      },
+      "Category": {
+        "Advantage": "Vorteil",
+        "Disadvantage": "Nachteil",
+        "SpecialAbility": "Sonderfertigkeit"
+      },
+      "CostMode": {
+        "Flat": "Fester Wert",
+        "PerLevel": "Pro Stufe",
+        "PerResource": "Pro Ressource",
+        "Custom": "Sonderfall"
+      },
+      "LevelMode": {
+        "Fixed": "Feste Stufe",
+        "TalentLike": "Talentartig",
+        "Range": "Stufenbereich"
+      },
+      "RequirementType": {
+        "Ability": "Eigenschaft",
+        "Feature": "Vor-/Nachteil",
+        "Talent": "Talent",
+        "Resource": "Ressource",
+        "Text": "Freitext"
+      },
+      "Operator": {
+        "Gte": ">=",
+        "Lte": "<=",
+        "Eq": "=",
+        "Neq": "!="
+      },
+      "EffectType": {
+        "GrantFeature": "Gewährt Vor-/Nachteil",
+        "GrantItem": "Gewährt Item",
+        "DiscountFeature": "Verbilligt Vor-/Nachteil",
+        "ImproveFeature": "Verbessert Vor-/Nachteil",
+        "ForbidFeature": "Verbietet Vor-/Nachteil",
+        "ModifyResource": "Ändert Ressource",
+        "ModifyRegeneration": "Ändert Regeneration",
+        "ModifyRule": "Ändert andere Regel",
+        "SkillCheckBonus": "Erleichtert Probe"
+      },
+      "TargetType": {
+        "Ability": "Eigenschaft",
+        "Feature": "Vor-/Nachteil",
+        "Item": "Item",
+        "Talent": "Talent",
+        "Resource": "Ressource",
+        "Rule": "Regel",
+        "Check": "Probe"
+      }
+    },
     "Item": {
       "Spell": {
         "SpellLVL": "Level {level} Spells",

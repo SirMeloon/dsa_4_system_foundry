@@ -1,0 +1,159 @@
+.feature-sheet {
+  .sheet-body {
+    overflow-y: auto;
+  }
+
+  .feature-header-grid {
+    display: grid;
+    grid-template-columns: minmax(220px, 320px);
+    gap: 8px;
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    padding: 2px;
+  }
+
+  .feature-card {
+    border: 1px solid $c-faint;
+    background: rgba(0, 0, 0, 0.03);
+  }
+
+  .feature-card-wide {
+    grid-column: 1 / -1;
+  }
+
+  .feature-card-header {
+    padding: 8px;
+    border-bottom: 1px solid $c-faint;
+    background: rgba(0, 0, 0, 0.05);
+
+    h3 {
+      margin: 0;
+      font-size: 14px;
+    }
+  }
+
+  .feature-card-body {
+    padding: 8px;
+  }
+
+  .feature-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .feature-form-grid-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .rule-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    background: rgba(255, 255, 255, 0.45);
+    border-radius: 4px;
+
+    label {
+      margin: 0;
+      font-size: 12px;
+      font-weight: 600;
+      color: $c-dark;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      min-width: 0;
+      margin: 0;
+    }
+
+    textarea {
+      min-height: 70px;
+      resize: vertical;
+    }
+  }
+
+  .feature-span-2 {
+    grid-column: span 2;
+  }
+
+  .feature-text-field {
+    margin-bottom: 10px;
+  }
+
+  .checkbox-field {
+    justify-content: center;
+
+    input[type='checkbox'] {
+      width: auto;
+      align-self: flex-start;
+      margin-top: 4px;
+    }
+  }
+
+  .feature-array-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+
+    h4 {
+      margin: 0;
+      font-size: 13px;
+    }
+  }
+
+  .feature-array-add,
+  .feature-array-delete {
+    flex: 0 0 24px;
+    text-align: center;
+  }
+
+  .feature-array-table {
+    width: 100%;
+    margin: 0;
+    border: 1px solid $c-faint;
+
+    th,
+    td {
+      padding: 4px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    input,
+    select {
+      width: 100%;
+    }
+
+    th:last-child,
+    td:last-child {
+      width: 32px;
+      text-align: center;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .feature-sheet .feature-grid,
+  .feature-sheet .feature-form-grid,
+  .feature-sheet .feature-form-grid-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .feature-sheet .feature-span-2,
+  .feature-sheet .feature-card-wide {
+    grid-column: auto;
+  }
+}

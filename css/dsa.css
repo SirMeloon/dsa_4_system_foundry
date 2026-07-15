@@ -252,6 +252,64 @@
 .dsa .resource-label {
   font-weight: bold;
 }
+.dsa .actor-feature-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.dsa .actor-feature-summary,
+.dsa .actor-feature-group,
+.dsa .actor-feature-dropzone {
+  border: 1px solid #c9c7b8;
+  background: rgba(0, 0, 0, 0.03);
+}
+.dsa .actor-feature-summary-body {
+  padding: 8px;
+}
+.dsa .actor-feature-groups {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.dsa .actor-feature-group-wide {
+  grid-column: 1/-1;
+}
+.dsa .actor-rule-list {
+  margin: 0;
+  padding-left: 18px;
+  color: #191813;
+}
+.dsa .actor-rule-list li {
+  margin: 0 0 4px;
+}
+.dsa .actor-rule-list strong {
+  margin-right: 6px;
+}
+.dsa .actor-rule-list span {
+  margin-right: 6px;
+  color: #444;
+}
+.dsa .actor-bonus-list + .actor-rule-list {
+  margin-top: 10px;
+}
+.dsa .actor-empty-state {
+  margin: 0;
+  color: #444;
+}
+.dsa .actor-feature-dropzone {
+  padding: 18px;
+  text-align: center;
+  color: #444;
+  border-style: dashed;
+}
+@media (max-width: 700px) {
+  .dsa .actor-feature-groups {
+    grid-template-columns: 1fr;
+  }
+  .dsa .actor-feature-group-wide {
+    grid-column: auto;
+  }
+}
 .dsa .proficiencies {
   gap: 6px;
   margin-top: 10px;
@@ -372,6 +430,136 @@
 .dsa .item-formula {
   flex: 0 0 200px;
   padding: 0 8px;
+}
+.dsa .feature-sheet .sheet-body {
+  overflow-y: auto;
+}
+.dsa .feature-sheet .feature-header-grid {
+  display: grid;
+  grid-template-columns: minmax(220px, 320px);
+  gap: 8px;
+}
+.dsa .feature-sheet .feature-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  padding: 2px;
+}
+.dsa .feature-sheet .feature-card {
+  border: 1px solid #c9c7b8;
+  background: rgba(0, 0, 0, 0.03);
+}
+.dsa .feature-sheet .feature-card-wide {
+  grid-column: 1/-1;
+}
+.dsa .feature-sheet .feature-card-header {
+  padding: 8px;
+  border-bottom: 1px solid #c9c7b8;
+  background: rgba(0, 0, 0, 0.05);
+}
+.dsa .feature-sheet .feature-card-header h3 {
+  margin: 0;
+  font-size: 14px;
+}
+.dsa .feature-sheet .feature-card-body {
+  padding: 8px;
+}
+.dsa .feature-sheet .feature-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.dsa .feature-sheet .feature-form-grid-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.dsa .feature-sheet .rule-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.45);
+  border-radius: 4px;
+}
+.dsa .feature-sheet .rule-field label {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: #191813;
+}
+.dsa .feature-sheet .rule-field input,
+.dsa .feature-sheet .rule-field select,
+.dsa .feature-sheet .rule-field textarea {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+}
+.dsa .feature-sheet .rule-field textarea {
+  min-height: 70px;
+  resize: vertical;
+}
+.dsa .feature-sheet .feature-span-2 {
+  grid-column: span 2;
+}
+.dsa .feature-sheet .feature-text-field {
+  margin-bottom: 10px;
+}
+.dsa .feature-sheet .checkbox-field {
+  justify-content: center;
+}
+.dsa .feature-sheet .checkbox-field input[type=checkbox] {
+  width: auto;
+  align-self: flex-start;
+  margin-top: 4px;
+}
+.dsa .feature-sheet .feature-array-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.dsa .feature-sheet .feature-array-header h4 {
+  margin: 0;
+  font-size: 13px;
+}
+.dsa .feature-sheet .feature-array-add,
+.dsa .feature-sheet .feature-array-delete {
+  flex: 0 0 24px;
+  text-align: center;
+}
+.dsa .feature-sheet .feature-array-table {
+  width: 100%;
+  margin: 0;
+  border: 1px solid #c9c7b8;
+}
+.dsa .feature-sheet .feature-array-table th,
+.dsa .feature-sheet .feature-array-table td {
+  padding: 4px;
+  text-align: left;
+  vertical-align: top;
+}
+.dsa .feature-sheet .feature-array-table th {
+  background: rgba(0, 0, 0, 0.04);
+}
+.dsa .feature-sheet .feature-array-table input,
+.dsa .feature-sheet .feature-array-table select {
+  width: 100%;
+}
+.dsa .feature-sheet .feature-array-table th:last-child,
+.dsa .feature-sheet .feature-array-table td:last-child {
+  width: 32px;
+  text-align: center;
+}
+@media (max-width: 700px) {
+  .dsa .feature-sheet .feature-grid,
+  .dsa .feature-sheet .feature-form-grid,
+  .dsa .feature-sheet .feature-form-grid-3 {
+    grid-template-columns: 1fr;
+  }
+  .dsa .feature-sheet .feature-span-2,
+  .dsa .feature-sheet .feature-card-wide {
+    grid-column: auto;
+  }
 }
 .dsa .rasse-sheet .sheet-body {
   overflow-y: auto;

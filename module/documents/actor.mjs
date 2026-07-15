@@ -26,8 +26,8 @@ export class dsaActor extends Actor {
    * is queried and has a roll executed directly from it).
    */
   prepareDerivedData() {
-    const actorData = this;
-    const flags = actorData.flags.dsa || {};
+    const featureSummary = this._prepareFeatureEffects();
+    this.featureSummary = featureSummary;
   }
 
   /**
@@ -64,6 +64,91 @@ export class dsaActor extends Actor {
     result.effects = this.effects?.size > 0 ? this.effects.contents : [];
 
     return result;
+  }
+
+  _prepareFeatureEffects() {
+    const summary = {
+      abilities: Object.keys(CONFIG.DSA.abilities ?? {}).reduce((obj, key) => {
+        obj[key] = 0;
+        return obj;
+      }, {}),
+      resources: {
+        lebensenergie: { value: 0, max: 0 },
+        power: { value: 0, max: 0 },
+      },
+      derivedRules: [],
+    };
+
+    for (const item of this.items.contents) {
+      if (item.type !== 'feature') continue;
+
+      for (const effect of item.system.effects ?? []) {
+        this._applyFeatureEffect(item, effect, summary);
+      }
+    }
+
+    return summary;
+  }
+
+  _applyFeatureEffect(item, effect, summary) {
+    const amount = this._getFeatureEffectAmount(item, effect);
+    const note = effect.note?.trim();
+    const source = item.name;
+
+    if (effect.type === 'modifyResource') {
+      if (effect.targetType === 'ability' && this.system.abilities?.[effect.target]) {
+        this.system.abilities[effect.target].value += amount;
+        summary.abilities[effect.target] += amount;
+        return;
+      }
+
+      const resource = this._resolveFeatureResource(effect.target);
+      if (resource && this.system[resource]) {
+        const mode = (effect.mode || 'max').toLowerCase();
+
+        if (mode === 'value' || mode === 'both') {
+          this.system[resource].value += amount;
+          summary.resources[resource].value += amount;
+        }
+        if (mode === 'max' || mode === 'both') {
+          this.system[resource].max += amount;
+          summary.resources[resource].max += amount;
+        }
+        return;
+      }
+    }
+
+    summary.derivedRules.push({
+      source,
+      type: effect.type,
+      typeLabel: game.i18n.localize(CONFIG.DSA.featureEffectTypes?.[effect.type] ?? effect.type),
+      targetType: effect.targetType,
+      target: effect.target,
+      mode: effect.mode,
+      value: amount,
+      max: effect.max,
+      note,
+    });
+  }
+
+  _getFeatureEffectAmount(item, effect) {
+    const base = Number(effect.value) || 0;
+    const level = item.system.levels?.current ?? 1;
+
+    if (effect.mode === 'perLevel') {
+      return base * level;
+    }
+
+    return base;
+  }
+
+  _resolveFeatureResource(target) {
+    const normalized = String(target ?? '').trim().toLowerCase();
+
+    if (['lebensenergie', 'le', 'lifepoints', 'life'].includes(normalized)) return 'lebensenergie';
+    if (['power', 'astralpunkte', 'astralenergie', 'asp'].includes(normalized)) return 'power';
+
+    return null;
   }
 
 }

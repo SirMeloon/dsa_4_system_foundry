@@ -47,13 +47,18 @@
   {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
     {{!-- Default tab is specified in actor-sheet.mjs --}}
-    <a class="item" data-tab="description">Description</a>
-    <a class="item" data-tab="items">Items</a>
-    <a class="item" data-tab="effects">Effects</a>
+    <a class="item" data-tab="features">{{localize "DSA.Actor.Tabs.Features"}}</a>
+    <a class="item" data-tab="description">{{localize "DSA.Actor.Tabs.Description"}}</a>
+    <a class="item" data-tab="items">{{localize "DSA.Actor.Tabs.Items"}}</a>
+    <a class="item" data-tab="effects">{{localize "DSA.Actor.Tabs.Effects"}}</a>
   </nav>
 
   {{!-- Sheet Body --}}
   <section class="sheet-body">
+
+    <div class="tab features" data-group="primary" data-tab="features">
+      {{> "systems/dsa_4_system_foundry/templates/actor/parts/actor-features.hbs"}}
+    </div>
 
     {{!-- Biography Tab --}}
     <div class="tab biography" data-group="primary" data-tab="description">
@@ -73,4 +78,3 @@
 
   </section>
 </form>
-

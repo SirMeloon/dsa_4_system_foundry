@@ -30,6 +30,9 @@ export class dsaItemSheet extends ItemSheet {
     if (this.item?.type === 'rasse') {
       this.options.width = 720;
       this.options.height = 620;
+    } else if (this.item?.type === 'feature') {
+      this.options.width = 860;
+      this.options.height = 720;
     }
   }
 
@@ -119,6 +122,9 @@ export class dsaItemSheet extends ItemSheet {
     html.on('click', '.appearance-table-add', this._onAppearanceTableAdd.bind(this));
     html.on('click', '.appearance-table-delete', this._onAppearanceTableDelete.bind(this));
     html.on('change', '.appearance-table-input', this._onAppearanceTableChange.bind(this));
+    html.on('click', '.feature-array-add', this._onFeatureArrayAdd.bind(this));
+    html.on('click', '.feature-array-delete', this._onFeatureArrayDelete.bind(this));
+    html.on('change', '.feature-array-input', this._onFeatureArrayChange.bind(this));
 
     // Active Effect management
     html.on('click', '.effect-control', (ev) =>
@@ -152,5 +158,63 @@ export class dsaItemSheet extends ItemSheet {
       ? event.currentTarget.value
       : Number(event.currentTarget.value);
     return this.item.update({ [`system.appearanceTables.${table}`]: entries });
+  }
+
+  /** Add a structured row to one of a feature item's arrays. */
+  async _onFeatureArrayAdd(event) {
+    event.preventDefault();
+    const array = event.currentTarget.dataset.array;
+    const entries = foundry.utils.deepClone(this.item.system?.[array] ?? []);
+    entries.push(this._getFeatureArrayDefaultRow(array));
+    return this.item.update({ [`system.${array}`]: entries });
+  }
+
+  /** Remove a structured row from one of a feature item's arrays. */
+  async _onFeatureArrayDelete(event) {
+    event.preventDefault();
+    const { array, index } = event.currentTarget.dataset;
+    const entries = foundry.utils.deepClone(this.item.system?.[array] ?? []);
+    entries.splice(Number(index), 1);
+    return this.item.update({ [`system.${array}`]: entries });
+  }
+
+  /** Persist a changed value within one of a feature item's structured arrays. */
+  async _onFeatureArrayChange(event) {
+    const { array, index, field } = event.currentTarget.dataset;
+    const entries = foundry.utils.deepClone(this.item.system?.[array] ?? []);
+    const dtype = event.currentTarget.dataset.dtype;
+    let value = event.currentTarget.value;
+
+    if (dtype === 'Number') value = Number(value);
+    entries[Number(index)][field] = value;
+
+    return this.item.update({ [`system.${array}`]: entries });
+  }
+
+  /** Default row templates for feature system arrays. */
+  _getFeatureArrayDefaultRow(array) {
+    if (array === 'requirements') {
+      return {
+        type: 'ability',
+        target: '',
+        operator: '>=',
+        value: '',
+        note: '',
+      };
+    }
+
+    if (array === 'effects') {
+      return {
+        type: 'grantFeature',
+        targetType: '',
+        target: '',
+        mode: '',
+        value: 0,
+        max: 0,
+        note: '',
+      };
+    }
+
+    return {};
   }
 }

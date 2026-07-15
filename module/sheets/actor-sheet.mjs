@@ -48,6 +48,25 @@ export class dsaActorSheet extends ActorSheet {
 
     // Adding a pointer to CONFIG.DSA
     context.config = CONFIG.DSA;
+    context.featureSummary = foundry.utils.deepClone(this.actor.featureSummary ?? {
+      abilities: {},
+      resources: {},
+      derivedRules: [],
+    });
+    context.featureAbilityBonuses = Object.entries(context.featureSummary.abilities ?? {})
+      .filter(([, value]) => Number(value))
+      .map(([key, value]) => ({
+        key,
+        value,
+        label: game.i18n.localize(CONFIG.DSA.abilityAbbreviations?.[key] ?? key),
+      }));
+    context.featureResourceBonuses = Object.entries(context.featureSummary.resources ?? {})
+      .filter(([, bonus]) => Number(bonus?.value) || Number(bonus?.max))
+      .map(([key, bonus]) => ({
+        key,
+        value: Number(bonus?.value) || 0,
+        max: Number(bonus?.max) || 0,
+      }));
 
     // Prepare character data and items.
     if (actorData.type == 'character') {
@@ -105,6 +124,12 @@ export class dsaActorSheet extends ActorSheet {
     // Initialize containers.
     const gear = [];
     const features = [];
+    const featureBuckets = {
+      advantage: [],
+      disadvantage: [],
+      specialAbility: [],
+      uncategorized: [],
+    };
     const spells = {
       0: [],
       1: [],
@@ -128,6 +153,11 @@ export class dsaActorSheet extends ActorSheet {
       // Append to features.
       else if (i.type === 'feature') {
         features.push(i);
+        if (featureBuckets[i.system.category]) {
+          featureBuckets[i.system.category].push(i);
+        } else {
+          featureBuckets.uncategorized.push(i);
+        }
       }
       // Append to spells.
       else if (i.type === 'spell') {
@@ -140,6 +170,8 @@ export class dsaActorSheet extends ActorSheet {
     // Assign and return
     context.gear = gear;
     context.features = features;
+    context.featureBuckets = featureBuckets;
+    context.hasFeatures = features.length > 0;
     context.spells = spells;
   }
 
