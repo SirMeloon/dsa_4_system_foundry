@@ -301,7 +301,11 @@ export class dsaActorSheet extends ActorSheet {
     const itemId = event.currentTarget.dataset.itemId;
     const item = this.actor.items.get(itemId);
     if (!item) return;
-    return item.update({ 'system.taw': Number(event.currentTarget.value) });
+    const parsed = Number.parseInt(event.currentTarget.value, 10);
+    const taw = Number.isNaN(parsed) ? 0 : parsed;
+
+    event.currentTarget.value = taw;
+    return item.update({ 'system.taw': taw });
   }
 
   /**
