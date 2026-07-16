@@ -7,7 +7,11 @@ import { dsaItemSheet } from './sheets/item-sheet.mjs';
 // Import helper/utility classes and constants.
 import { preloadHandlebarsTemplates } from './helpers/templates.mjs';
 import { DSA } from './helpers/config.mjs';
-import { seedSystemTalentCompendium } from './helpers/talent-compendium.mjs';
+import {
+  initializeSystemTalentCompendium,
+  migrateTalentTawValues,
+  seedSystemTalentCompendium,
+} from './helpers/talent-compendium.mjs';
 // Import DataModel classes
 import * as models from './data/_module.mjs';
 
@@ -93,6 +97,16 @@ Handlebars.registerHelper('toLowerCase', function (str) {
 Hooks.once('ready', function () {
   // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
   Hooks.on('hotbarDrop', (bar, data, slot) => createItemMacro(data, slot));
+
+  if (game.user.isGM) {
+    Promise.resolve()
+      .then(() => migrateTalentTawValues())
+      .then(() => initializeSystemTalentCompendium())
+      .catch((error) => {
+        console.error('DSA talent initialization failed', error);
+        ui.notifications.error('DSA Talent-Initialisierung fehlgeschlagen. Siehe Konsole.');
+      });
+  }
 });
 
 /* -------------------------------------------- */

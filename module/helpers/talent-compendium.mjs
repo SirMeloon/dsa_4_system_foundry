@@ -12,17 +12,18 @@ export async function seedSystemTalentCompendium() {
   const updates = [];
 
   for (const talent of TALENT_DEFINITIONS) {
+    const normalized = normalizeTalentSourceData(talent);
     const current = existingByName.get(talent.name);
     if (!current) {
-      creates.push(talent);
+      creates.push(normalized);
       continue;
     }
 
     updates.push({
       _id: current.id,
-      name: talent.name,
-      img: talent.img,
-      system: talent.system,
+      name: normalized.name,
+      img: normalized.img,
+      system: normalized.system,
     });
   }
 
@@ -50,4 +51,61 @@ export function getSystemTalentCompendium() {
   }
 
   return pack;
+}
+
+export async function initializeSystemTalentCompendium() {
+  const pack = getSystemTalentCompendium();
+  await pack.getIndex();
+  if (pack.index.size > 0) return pack;
+  return seedSystemTalentCompendium();
+}
+
+export async function migrateTalentTawValues() {
+  const worldTalentUpdates = game.items.contents
+    .filter((item) => item.type === 'talent')
+    .flatMap((item) => buildTalentUpdate(item));
+
+  if (worldTalentUpdates.length) {
+    await Item.updateDocuments(worldTalentUpdates);
+  }
+
+  for (const actor of game.actors.contents) {
+    const embeddedUpdates = actor.items.contents
+      .filter((item) => item.type === 'talent')
+      .flatMap((item) => buildTalentUpdate(item));
+
+    if (embeddedUpdates.length) {
+      await actor.updateEmbeddedDocuments('Item', embeddedUpdates);
+    }
+  }
+}
+
+function buildTalentUpdate(item) {
+  const system = normalizeTalentSystemData(item.system);
+  if (system.taw === item.system.taw) return [];
+  return [{ _id: item.id, system }];
+}
+
+function normalizeTalentSourceData(talent) {
+  return {
+    ...talent,
+    system: normalizeTalentSystemData(talent.system),
+  };
+}
+
+function normalizeTalentSystemData(system) {
+  const source = system?.toPlainObject ? system.toPlainObject() : foundry.utils.deepClone(system ?? {});
+  const parsed = Number.parseInt(source.taw, 10);
+
+  source.taw = Number.isNaN(parsed) ? 0 : parsed;
+  source.group ??= '';
+  source.basicTalent ??= false;
+  source.effectiveEncumbrance ??= '';
+  source.advancementLetter ??= '';
+  source.combat ??= {};
+  source.combat.kind ??= 'none';
+  source.combat.attackOnly ??= false;
+  source.combat.fallbackTalent ??= '';
+
+  return source;
 }
