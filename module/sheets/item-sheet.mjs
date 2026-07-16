@@ -33,6 +33,9 @@ export class dsaItemSheet extends ItemSheet {
     } else if (this.item?.type === 'feature') {
       this.options.width = 860;
       this.options.height = 720;
+    } else if (this.item?.type === 'talent') {
+      this.options.width = 760;
+      this.options.height = 620;
     }
   }
 

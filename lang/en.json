@@ -25,6 +25,7 @@
     "Actor": {
       "Tabs": {
         "Features": "Advantages and features",
+        "Talents": "Talents",
         "Description": "Description",
         "Items": "Items",
         "Spells": "Spells",
@@ -38,6 +39,32 @@
         "Disadvantage": "Disadvantages",
         "SpecialAbility": "Special abilities"
       }
+    },
+    "Talent": {
+      "Tabs": {
+        "Description": "Description",
+        "Details": "Details"
+      },
+      "Sections": {
+        "General": "General",
+        "Combat": "Combat talent"
+      },
+      "Fields": {
+        "Group": "Talent group",
+        "BasicTalent": "Basic talent",
+        "EffectiveEncumbrance": "Effective encumbrance",
+        "AdvancementLetter": "Advancement letter",
+        "CombatKind": "Combat kind",
+        "AttackOnly": "Attack only",
+        "FallbackTalent": "Fallback talent",
+        "Taw": "TaW"
+      },
+      "CombatKind": {
+        "None": "No combat talent",
+        "Melee": "Melee",
+        "Ranged": "Ranged"
+      },
+      "Ungrouped": "Ungrouped"
     },
     "Feature": {
       "Tabs": {
@@ -191,6 +218,7 @@
     "Item": {
       "item": "Item",
       "feature": "Feature",
+      "talent": "Talent",
       "spell": "Spell",
       "rasse": "Race"
     }

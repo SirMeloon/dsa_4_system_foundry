@@ -25,6 +25,7 @@
     "Actor": {
       "Tabs": {
         "Features": "Vor- und Nachteile",
+        "Talents": "Talente",
         "Description": "Beschreibung",
         "Items": "Gegenstände",
         "Spells": "Zauber",
@@ -38,6 +39,32 @@
         "Disadvantage": "Nachteile",
         "SpecialAbility": "Sonderfertigkeiten"
       }
+    },
+    "Talent": {
+      "Tabs": {
+        "Description": "Beschreibung",
+        "Details": "Details"
+      },
+      "Sections": {
+        "General": "Allgemein",
+        "Combat": "Kampftalent"
+      },
+      "Fields": {
+        "Group": "Talentgruppe",
+        "BasicTalent": "Basis-Talent",
+        "EffectiveEncumbrance": "Effektive Behinderung",
+        "AdvancementLetter": "Steigerungstabelle",
+        "CombatKind": "Kampftyp",
+        "AttackOnly": "Nur Attacke",
+        "FallbackTalent": "Ersatz-Talent",
+        "Taw": "TaW"
+      },
+      "CombatKind": {
+        "None": "Kein Kampftalent",
+        "Melee": "Nahkampf",
+        "Ranged": "Fernkampf"
+      },
+      "Ungrouped": "Ohne Gruppe"
     },
     "Feature": {
       "Tabs": {
@@ -191,6 +218,7 @@
     "Item": {
       "item": "Item",
       "feature": "Feature",
+      "talent": "Talent",
       "spell": "Spell",
       "rasse": "Rasse"
     }

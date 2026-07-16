@@ -1,0 +1,93 @@
+<form class='{{cssClass}} talent-sheet flexcol' autocomplete='off'>
+  <header class='sheet-header'>
+    <img
+      class='profile-img'
+      src='{{item.img}}'
+      data-edit='img'
+      title='{{item.name}}'
+    />
+    <div class='header-fields'>
+      <h1 class='charname'><input
+          name='name'
+          type='text'
+          value='{{item.name}}'
+          placeholder='Name'
+        /></h1>
+      <div class='talent-header-grid'>
+        <div class='rule-field'>
+          <label>{{localize 'DSA.Talent.Fields.Group'}}</label>
+          <input type='text' name='system.group' value='{{system.group}}' />
+        </div>
+        <div class='rule-field'>
+          <label>{{localize 'DSA.Talent.Fields.Taw'}}</label>
+          <input type='number' name='system.taw' value='{{system.taw}}' step='1' data-dtype='Number' />
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <nav class='sheet-tabs tabs' data-group='primary'>
+    <a class='item' data-tab='description'>{{localize 'DSA.Talent.Tabs.Description'}}</a>
+    <a class='item' data-tab='details'>{{localize 'DSA.Talent.Tabs.Details'}}</a>
+  </nav>
+
+  <section class='sheet-body'>
+    <div class='tab' data-group='primary' data-tab='description'>
+      {{editor enrichedDescription target='system.description' engine='prosemirror' button=true editable=editable}}
+    </div>
+
+    <div class='tab talent-details' data-group='primary' data-tab='details'>
+      <div class='talent-grid'>
+        <section class='talent-card'>
+          <header class='talent-card-header'>
+            <h3>{{localize 'DSA.Talent.Sections.General'}}</h3>
+          </header>
+          <div class='talent-card-body talent-form-grid'>
+            <div class='rule-field'>
+              <label>{{localize 'DSA.Talent.Fields.Group'}}</label>
+              <input type='text' name='system.group' value='{{system.group}}' />
+            </div>
+            <div class='rule-field checkbox-field'>
+              <label>{{localize 'DSA.Talent.Fields.BasicTalent'}}</label>
+              <input type='checkbox' name='system.basicTalent' {{checked system.basicTalent}} />
+            </div>
+            <div class='rule-field'>
+              <label>{{localize 'DSA.Talent.Fields.EffectiveEncumbrance'}}</label>
+              <input type='text' name='system.effectiveEncumbrance' value='{{system.effectiveEncumbrance}}' />
+            </div>
+            <div class='rule-field'>
+              <label>{{localize 'DSA.Talent.Fields.AdvancementLetter'}}</label>
+              <input type='text' name='system.advancementLetter' value='{{system.advancementLetter}}' />
+            </div>
+            <div class='rule-field'>
+              <label>{{localize 'DSA.Talent.Fields.Taw'}}</label>
+              <input type='number' name='system.taw' value='{{system.taw}}' step='1' data-dtype='Number' />
+            </div>
+          </div>
+        </section>
+
+        <section class='talent-card'>
+          <header class='talent-card-header'>
+            <h3>{{localize 'DSA.Talent.Sections.Combat'}}</h3>
+          </header>
+          <div class='talent-card-body talent-form-grid'>
+            <div class='rule-field'>
+              <label>{{localize 'DSA.Talent.Fields.CombatKind'}}</label>
+              <select name='system.combat.kind'>
+                {{selectOptions config.talentCombatKinds selected=system.combat.kind localize=true}}
+              </select>
+            </div>
+            <div class='rule-field checkbox-field'>
+              <label>{{localize 'DSA.Talent.Fields.AttackOnly'}}</label>
+              <input type='checkbox' name='system.combat.attackOnly' {{checked system.combat.attackOnly}} />
+            </div>
+            <div class='rule-field talent-span-2'>
+              <label>{{localize 'DSA.Talent.Fields.FallbackTalent'}}</label>
+              <input type='text' name='system.combat.fallbackTalent' value='{{system.combat.fallbackTalent}}' />
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+</form>

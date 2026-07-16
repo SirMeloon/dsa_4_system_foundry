@@ -124,6 +124,8 @@ export class dsaActorSheet extends ActorSheet {
     // Initialize containers.
     const gear = [];
     const features = [];
+    const talents = [];
+    const talentsByGroup = {};
     const featureBuckets = {
       advantage: [],
       disadvantage: [],
@@ -159,6 +161,12 @@ export class dsaActorSheet extends ActorSheet {
           featureBuckets.uncategorized.push(i);
         }
       }
+      else if (i.type === 'talent') {
+        talents.push(i);
+        const group = i.system.group?.trim() || game.i18n.localize('DSA.Talent.Ungrouped');
+        talentsByGroup[group] ??= [];
+        talentsByGroup[group].push(i);
+      }
       // Append to spells.
       else if (i.type === 'spell') {
         if (i.system.spellLevel != undefined) {
@@ -172,6 +180,9 @@ export class dsaActorSheet extends ActorSheet {
     context.features = features;
     context.featureBuckets = featureBuckets;
     context.hasFeatures = features.length > 0;
+    context.talents = talents;
+    context.talentsByGroup = talentsByGroup;
+    context.hasTalents = talents.length > 0;
     context.spells = spells;
   }
 
@@ -220,6 +231,7 @@ export class dsaActorSheet extends ActorSheet {
     html.on('click', '.proficiency-create', this._onProficiencyCreate.bind(this));
     html.on('click', '.proficiency-delete', this._onProficiencyDelete.bind(this));
     html.on('change', '.proficiency-input', this._onProficiencyChange.bind(this));
+    html.on('change', '.talent-taw-input', this._onTalentTawChange.bind(this));
 
     // Drag events for macros.
     if (this.actor.isOwner) {
@@ -282,6 +294,14 @@ export class dsaActorSheet extends ActorSheet {
     const values = [...(this.actor.system.proficiencies?.[proficiency] ?? [])];
     values[Number(index)] = event.currentTarget.value;
     return this.actor.update({ [`system.proficiencies.${proficiency}`]: values });
+  }
+
+  /** Persist the TaW on an embedded talent item. */
+  async _onTalentTawChange(event) {
+    const itemId = event.currentTarget.dataset.itemId;
+    const item = this.actor.items.get(itemId);
+    if (!item) return;
+    return item.update({ 'system.taw': Number(event.currentTarget.value) });
   }
 
   /**

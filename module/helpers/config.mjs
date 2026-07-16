@@ -81,3 +81,9 @@ DSA.featureEffectTargetTypes = {
   rule: 'DSA.Feature.TargetType.Rule',
   check: 'DSA.Feature.TargetType.Check',
 };
+
+DSA.talentCombatKinds = {
+  none: 'DSA.Talent.CombatKind.None',
+  melee: 'DSA.Talent.CombatKind.Melee',
+  ranged: 'DSA.Talent.CombatKind.Ranged',
+};

@@ -561,6 +561,103 @@
     grid-column: auto;
   }
 }
+.dsa .talent-sheet .sheet-body {
+  overflow-y: auto;
+}
+.dsa .talent-sheet .talent-header-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.dsa .talent-sheet .talent-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  padding: 2px;
+}
+.dsa .talent-sheet .talent-card {
+  border: 1px solid #c9c7b8;
+  background: rgba(0, 0, 0, 0.03);
+}
+.dsa .talent-sheet .talent-card-header {
+  padding: 8px;
+  border-bottom: 1px solid #c9c7b8;
+  background: rgba(0, 0, 0, 0.05);
+}
+.dsa .talent-sheet .talent-card-header h3 {
+  margin: 0;
+  font-size: 14px;
+}
+.dsa .talent-sheet .talent-card-body {
+  padding: 8px;
+}
+.dsa .talent-sheet .talent-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.dsa .talent-sheet .rule-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.45);
+  border-radius: 4px;
+}
+.dsa .talent-sheet .rule-field label {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: #191813;
+}
+.dsa .talent-sheet .rule-field input,
+.dsa .talent-sheet .rule-field select {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+}
+.dsa .talent-sheet .checkbox-field {
+  justify-content: center;
+}
+.dsa .talent-sheet .checkbox-field input[type=checkbox] {
+  width: auto;
+  align-self: flex-start;
+  margin-top: 4px;
+}
+.dsa .talent-sheet .talent-span-2 {
+  grid-column: span 2;
+}
+.dsa .talent-list .talent-prop {
+  flex: 0 0 90px;
+}
+.dsa .talent-list .talent-taw {
+  flex: 0 0 70px;
+  padding: 0 6px;
+}
+.dsa .talent-list .talent-name-block {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.dsa .talent-list .talent-name-block small {
+  color: #444;
+  font-size: 11px;
+}
+.dsa .talent-list .talent-taw-input {
+  width: 100%;
+  text-align: center;
+}
+@media (max-width: 700px) {
+  .dsa .talent-sheet .talent-header-grid,
+  .dsa .talent-sheet .talent-grid,
+  .dsa .talent-sheet .talent-form-grid {
+    grid-template-columns: 1fr;
+  }
+  .dsa .talent-sheet .talent-span-2 {
+    grid-column: auto;
+  }
+}
 .dsa .rasse-sheet .sheet-body {
   overflow-y: auto;
 }

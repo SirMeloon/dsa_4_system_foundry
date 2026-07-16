@@ -8,6 +8,7 @@ export const preloadHandlebarsTemplates = async function () {
     // Actor partials.
     'systems/dsa_4_system_foundry/templates/actor/parts/actor-features.hbs',
     'systems/dsa_4_system_foundry/templates/actor/parts/actor-items.hbs',
+    'systems/dsa_4_system_foundry/templates/actor/parts/actor-talents.hbs',
     'systems/dsa_4_system_foundry/templates/actor/parts/actor-spells.hbs',
     'systems/dsa_4_system_foundry/templates/actor/parts/actor-effects.hbs',
     // Item partials

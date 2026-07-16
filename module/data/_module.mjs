@@ -7,5 +7,6 @@ export {default as dsaNPC} from "./actor-npc.mjs";
 export {default as dsaItemBase} from "./base-item.mjs";
 export {default as dsaItem} from "./item-item.mjs";
 export {default as dsaFeature} from "./item-feature.mjs";
+export {default as dsaTalent} from "./item-talent.mjs";
 export {default as dsaSpell} from "./item-spell.mjs";
 export {default as dsaRasse} from "./item-rasse.mjs";

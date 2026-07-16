@@ -49,6 +49,7 @@ Hooks.once('init', function () {
   CONFIG.Item.dataModels = {
     item: models.dsaItem,
     feature: models.dsaFeature,
+    talent: models.dsaTalent,
     spell: models.dsaSpell,
     rasse: models.dsaRasse
   }
