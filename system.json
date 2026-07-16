@@ -51,7 +51,15 @@
       "path": "lang/de.json"
     }
   ],
-  "packs": [],
+  "packs": [
+    {
+      "name": "dsa-talente",
+      "label": "DSA Talente",
+      "path": "packs/dsa-talente",
+      "type": "Item",
+      "system": "dsa_4_system_foundry"
+    }
+  ],
   "packFolders": [],
   "socket": false,
   "manifest": "Replace this with a link to the /latest release system.json so people can receive updates after they've installed the system",

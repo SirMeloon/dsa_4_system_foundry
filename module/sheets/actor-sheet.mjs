@@ -303,9 +303,11 @@ export class dsaActorSheet extends ActorSheet {
     if (!item) return;
     const parsed = Number.parseInt(event.currentTarget.value, 10);
     const taw = Number.isNaN(parsed) ? 0 : parsed;
+    const system = item.system.toPlainObject ? item.system.toPlainObject() : foundry.utils.deepClone(item.system);
 
     event.currentTarget.value = taw;
-    return item.update({ 'system.taw': taw });
+    system.taw = taw;
+    return item.update({ system });
   }
 
   /**

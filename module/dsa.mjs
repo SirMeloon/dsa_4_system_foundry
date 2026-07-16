@@ -7,6 +7,7 @@ import { dsaItemSheet } from './sheets/item-sheet.mjs';
 // Import helper/utility classes and constants.
 import { preloadHandlebarsTemplates } from './helpers/templates.mjs';
 import { DSA } from './helpers/config.mjs';
+import { seedSystemTalentCompendium } from './helpers/talent-compendium.mjs';
 // Import DataModel classes
 import * as models from './data/_module.mjs';
 
@@ -21,6 +22,7 @@ Hooks.once('init', function () {
     dsaActor,
     dsaItem,
     rollItemMacro,
+    seedSystemTalentCompendium,
   };
 
   // Add custom constants for configuration.
