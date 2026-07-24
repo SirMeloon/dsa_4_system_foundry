@@ -65,14 +65,23 @@ Hooks.once('init', function () {
   // if the transfer property on the Active Effect is true.
   CONFIG.ActiveEffect.legacyTransferral = false;
 
-  // Register sheet application classes
-  Actors.unregisterSheet('core', ActorSheet);
-  Actors.registerSheet('dsa', dsaActorSheet, {
+  // Register ApplicationV2 sheet classes.
+  const DocumentSheetConfig = foundry.applications.apps.DocumentSheetConfig;
+  DocumentSheetConfig.unregisterSheet(
+    Actor,
+    'core',
+    foundry.appv1.sheets.ActorSheet
+  );
+  DocumentSheetConfig.registerSheet(Actor, 'dsa', dsaActorSheet, {
     makeDefault: true,
     label: 'DSA.SheetLabels.Actor',
   });
-  Items.unregisterSheet('core', ItemSheet);
-  Items.registerSheet('dsa', dsaItemSheet, {
+  DocumentSheetConfig.unregisterSheet(
+    Item,
+    'core',
+    foundry.appv1.sheets.ItemSheet
+  );
+  DocumentSheetConfig.registerSheet(Item, 'dsa', dsaItemSheet, {
     makeDefault: true,
     label: 'DSA.SheetLabels.Item',
   });

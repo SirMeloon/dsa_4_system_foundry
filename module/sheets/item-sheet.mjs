@@ -3,66 +3,80 @@ import {
   prepareActiveEffectCategories,
 } from '../helpers/effects.mjs';
 
+const { HandlebarsApplicationMixin } = foundry.applications.api;
+const { ItemSheetV2 } = foundry.applications.sheets;
+const TextEditorV2 = foundry.applications.ux.TextEditor.implementation;
+
 /**
- * Extend the basic ItemSheet with some very simple modifications
- * @extends {ItemSheet}
+ * ApplicationV2 item sheet for DSA.
+ * @extends {ItemSheetV2}
  */
-export class dsaItemSheet extends ItemSheet {
+export class dsaItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
   /** @override */
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ['dsa', 'sheet', 'item'],
+  static DEFAULT_OPTIONS = {
+    classes: ['dsa', 'sheet', 'item', 'flexcol'],
+    tag: 'form',
+    form: {
+      closeOnSubmit: false,
+      submitOnChange: true,
+    },
+    position: {
       width: 520,
       height: 480,
-      tabs: [
-        {
-          navSelector: '.sheet-tabs',
-          contentSelector: '.sheet-body',
-          initial: 'description',
-        },
-      ],
-    });
-  }
+    },
+    window: {
+      resizable: true,
+    },
+  };
 
-  constructor(...args) {
-    super(...args);
+  static PARTS = {
+    sheet: {
+      template: 'systems/dsa_4_system_foundry/templates/item/item-item-sheet.hbs',
+      scrollable: ['.sheet-body'],
+    },
+  };
 
-    if (this.item?.type === 'rasse') {
-      this.options.width = 720;
-      this.options.height = 620;
-    } else if (this.item?.type === 'feature') {
-      this.options.width = 860;
-      this.options.height = 720;
-    } else if (this.item?.type === 'talent') {
-      this.options.width = 760;
-      this.options.height = 620;
-    }
+  tabGroups = {
+    primary: 'description',
+  };
+
+  /** @override */
+  _configureRenderOptions(options) {
+    super._configureRenderOptions(options);
+    const sizes = {
+      rasse: { width: 720, height: 620 },
+      feature: { width: 860, height: 720 },
+      talent: { width: 760, height: 620 },
+    };
+    options.position = {
+      ...(sizes[this.item.type] ?? {}),
+      ...options.position,
+    };
   }
 
   /** @override */
-  get template() {
-    const path = 'systems/dsa_4_system_foundry/templates/item';
-    // Return a single sheet for all item types.
-    // return `${path}/item-sheet.hbs`;
-
-    // Alternatively, you could use the following return statement to do a
-    // unique item sheet by type, like `weapon-sheet.hbs`.
-    return `${path}/item-${this.item.type}-sheet.hbs`;
+  _configureRenderParts(options) {
+    const parts = super._configureRenderParts(options);
+    parts.sheet.template =
+      `systems/dsa_4_system_foundry/templates/item/item-${this.item.type}-sheet.hbs`;
+    return parts;
   }
 
   /* -------------------------------------------- */
 
   /** @override */
-  async getData() {
+  async _prepareContext(options) {
     // Retrieve base data structure.
-    const context = super.getData();
+    const context = await super._prepareContext(options);
 
     // Use a safe clone of the item data for further operations.
     const itemData = this.document.toPlainObject();
+    context.item = this.item;
+    context.editable = this.isEditable;
 
     // Enrich description info for display
     // Enrichment turns text like `[[/r 1d20]]` into buttons
-    const options = {
+    const enrichmentOptions = {
       secrets: this.document.isOwner,
       async: true,
       rollData: this.item.getRollData(),
@@ -70,10 +84,16 @@ export class dsaItemSheet extends ItemSheet {
     };
     if (this.item.type === 'rasse') {
       context.enrichedDescription = {
-        general: await TextEditor.enrichHTML(this.item.system.description.general, options),
-        originDistribution: await TextEditor.enrichHTML(this.item.system.description.originDistribution, options),
-        appearance: await TextEditor.enrichHTML(this.item.system.description.appearance, options),
-        reproductionAging: await TextEditor.enrichHTML(this.item.system.description.reproductionAging, options),
+        general: await TextEditorV2.enrichHTML(this.item.system.description.general, enrichmentOptions),
+        originDistribution: await TextEditorV2.enrichHTML(
+          this.item.system.description.originDistribution,
+          enrichmentOptions
+        ),
+        appearance: await TextEditorV2.enrichHTML(this.item.system.description.appearance, enrichmentOptions),
+        reproductionAging: await TextEditorV2.enrichHTML(
+          this.item.system.description.reproductionAging,
+          enrichmentOptions
+        ),
       };
 
       const height = this.item.system.getHeightRollData();
@@ -93,7 +113,10 @@ export class dsaItemSheet extends ItemSheet {
       context.weightFormula = `${game.i18n.localize('DSA.Item.Rasse.HeightValue')} - ${formatWeight(subtract)}`;
       context.weightRange = `${formatWeight(weight.minimumWeight)}-${formatWeight(weight.maximumWeight)} ${game.i18n.localize('DSA.Item.Rasse.WeightUnit')}`;
     } else {
-      context.enrichedDescription = await TextEditor.enrichHTML(this.item.system.description, options); 
+      context.enrichedDescription = await TextEditorV2.enrichHTML(
+        this.item.system.description,
+        enrichmentOptions
+      );
     }
 
 
@@ -114,25 +137,68 @@ export class dsaItemSheet extends ItemSheet {
   /* -------------------------------------------- */
 
   /** @override */
-  activateListeners(html) {
-    super.activateListeners(html);
+  _onRender(context, options) {
+    super._onRender(context, options);
+    this.element.classList.add(`${this.item.type}-sheet`);
+
+    this.element.querySelectorAll('.sheet-tabs [data-tab]').forEach((element) =>
+      element.addEventListener('click', this._onChangeTab.bind(this))
+    );
+    this._renderTabs();
 
     // Everything below here is only needed if the sheet is editable
     if (!this.isEditable) return;
 
     // Roll handlers, click handlers, etc. would go here.
 
-    html.on('click', '.appearance-table-add', this._onAppearanceTableAdd.bind(this));
-    html.on('click', '.appearance-table-delete', this._onAppearanceTableDelete.bind(this));
-    html.on('change', '.appearance-table-input', this._onAppearanceTableChange.bind(this));
-    html.on('click', '.feature-array-add', this._onFeatureArrayAdd.bind(this));
-    html.on('click', '.feature-array-delete', this._onFeatureArrayDelete.bind(this));
-    html.on('change', '.feature-array-input', this._onFeatureArrayChange.bind(this));
+    this._listen('click', '.appearance-table-add', this._onAppearanceTableAdd);
+    this._listen('click', '.appearance-table-delete', this._onAppearanceTableDelete);
+    this._listen('change', '.appearance-table-input', this._onAppearanceTableChange);
+    this._listen('click', '.feature-array-add', this._onFeatureArrayAdd);
+    this._listen('click', '.feature-array-delete', this._onFeatureArrayDelete);
+    this._listen('change', '.feature-array-input', this._onFeatureArrayChange);
+    this._listen('click', '[data-edit]', this._onEditImage);
 
     // Active Effect management
-    html.on('click', '.effect-control', (ev) =>
-      onManageActiveEffect(ev, this.item)
+    this.element.querySelectorAll('.effect-control').forEach((element) =>
+      element.addEventListener('click', (event) =>
+        onManageActiveEffect(event, this.item)
+      )
     );
+  }
+
+  _listen(type, selector, handler) {
+    this.element.querySelectorAll(selector).forEach((element) =>
+      element.addEventListener(type, handler.bind(this))
+    );
+  }
+
+  _onChangeTab(event) {
+    event.preventDefault();
+    this.tabGroups.primary = event.currentTarget.dataset.tab;
+    this._renderTabs();
+  }
+
+  _renderTabs() {
+    const active = this.tabGroups.primary;
+    this.element.querySelectorAll('.sheet-tabs [data-tab]').forEach((tab) =>
+      tab.classList.toggle('active', tab.dataset.tab === active)
+    );
+    this.element.querySelectorAll('.sheet-body > [data-tab]').forEach((tab) =>
+      tab.classList.toggle('active', tab.dataset.tab === active)
+    );
+  }
+
+  async _onEditImage(event) {
+    const target = event.currentTarget;
+    const path = target.dataset.edit;
+    const picker = new foundry.applications.apps.FilePicker.implementation({
+      current: foundry.utils.getProperty(this.document._source, path),
+      type: target.dataset.type || 'image',
+      document: this.document,
+      callback: (src) => this.document.update({ [path]: src }),
+    });
+    await picker.browse();
   }
 
   /** Add a row to one of a race item's appearance tables. */

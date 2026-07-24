@@ -3,46 +3,67 @@ import {
   prepareActiveEffectCategories,
 } from '../helpers/effects.mjs';
 
+const { HandlebarsApplicationMixin } = foundry.applications.api;
+const { ActorSheetV2 } = foundry.applications.sheets;
+const TextEditorV2 = foundry.applications.ux.TextEditor.implementation;
+
 /**
- * Extend the basic ActorSheet with some very simple modifications
- * @extends {ActorSheet}
+ * ApplicationV2 actor sheet for DSA.
+ * @extends {ActorSheetV2}
  */
-export class dsaActorSheet extends ActorSheet {
+export class dsaActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   /** @override */
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ['dsa', 'sheet', 'actor'],
+  static DEFAULT_OPTIONS = {
+    classes: ['dsa', 'sheet', 'actor', 'flexcol'],
+    tag: 'form',
+    form: {
+      closeOnSubmit: false,
+      submitOnChange: true,
+    },
+    position: {
       width: 600,
       height: 600,
-      tabs: [
-        {
-          navSelector: '.sheet-tabs',
-          contentSelector: '.sheet-body',
-          initial: 'features',
-        },
-      ],
-    });
-  }
+    },
+    window: {
+      resizable: true,
+    },
+  };
 
-  /** @override */
-  get template() {
-    return `systems/dsa_4_system_foundry/templates/actor/actor-${this.actor.type}-sheet.hbs`;
-  }
+  static PARTS = {
+    sheet: {
+      template: 'systems/dsa_4_system_foundry/templates/actor/actor-character-sheet.hbs',
+      scrollable: ['.sheet-body'],
+    },
+  };
+
+  tabGroups = {
+    primary: 'features',
+  };
 
   /* -------------------------------------------- */
 
   /** @override */
-  async getData() {
+  _configureRenderParts(options) {
+    const parts = super._configureRenderParts(options);
+    parts.sheet.template =
+      `systems/dsa_4_system_foundry/templates/actor/actor-${this.actor.type}-sheet.hbs`;
+    return parts;
+  }
+
+  /** @override */
+  async _prepareContext(options) {
     // Retrieve the data structure from the base sheet. You can inspect or log
     // the context variable to see the structure, but some key properties for
     // sheets are the actor object, the data object, whether or not it's
     // editable, the items array, and the effects array.
-    const context = super.getData();
+    const context = await super._prepareContext(options);
 
     // Use a safe clone of the actor data for further operations.
     const actorData = this.document.toPlainObject();
 
     // Add the actor's data to context.data for easier access, as well as flags.
+    context.actor = this.actor;
+    context.editable = this.isEditable;
     context.system = actorData.system;
     context.flags = actorData.flags;
     context.portrait = {
@@ -84,7 +105,7 @@ export class dsaActorSheet extends ActorSheet {
 
     // Enrich biography info for display
     // Enrichment turns text like `[[/r 1d20]]` into buttons
-    context.enrichedBiography = await TextEditor.enrichHTML(
+    context.enrichedBiography = await TextEditorV2.enrichHTML(
       this.actor.system.biography,
       {
         // Whether to show secret blocks in the finished html
@@ -192,59 +213,109 @@ export class dsaActorSheet extends ActorSheet {
   /* -------------------------------------------- */
 
   /** @override */
-  activateListeners(html) {
-    super.activateListeners(html);
+  _onRender(context, options) {
+    super._onRender(context, options);
+    const html = this.element;
+    html.classList.add(this.actor.type);
 
     // Render the item sheet for viewing/editing prior to the editable check.
-    html.on('click', '.item-edit', (ev) => {
-      const li = $(ev.currentTarget).parents('.item');
-      const item = this.actor.items.get(li.data('itemId'));
-      item.sheet.render(true);
-    });
+    html.querySelectorAll('.item-edit').forEach((element) =>
+      element.addEventListener('click', (event) => {
+        const itemId = event.currentTarget.closest('.item')?.dataset.itemId;
+        this.actor.items.get(itemId)?.sheet.render({ force: true });
+      })
+    );
+
+    html.querySelectorAll('.sheet-tabs [data-tab]').forEach((element) =>
+      element.addEventListener('click', this._onChangeTab.bind(this))
+    );
+    this._renderTabs();
 
     // -------------------------------------------------------------
     // Everything below here is only needed if the sheet is editable
     if (!this.isEditable) return;
 
     // Add Inventory Item
-    html.on('click', '.item-create', this._onItemCreate.bind(this));
+    html.querySelectorAll('.item-create').forEach((element) =>
+      element.addEventListener('click', this._onItemCreate.bind(this))
+    );
 
     // Delete Inventory Item
-    html.on('click', '.item-delete', (ev) => {
-      const li = $(ev.currentTarget).parents('.item');
-      const item = this.actor.items.get(li.data('itemId'));
-      item.delete();
-      li.slideUp(200, () => this.render(false));
-    });
+    html.querySelectorAll('.item-delete').forEach((element) =>
+      element.addEventListener('click', async (event) => {
+        const row = event.currentTarget.closest('.item');
+        const item = this.actor.items.get(row?.dataset.itemId);
+        if (item) await item.delete();
+      })
+    );
 
     // Active Effect management
-    html.on('click', '.effect-control', (ev) => {
-      const row = ev.currentTarget.closest('li');
-      const document =
-        row.dataset.parentId === this.actor.id
-          ? this.actor
-          : this.actor.items.get(row.dataset.parentId);
-      onManageActiveEffect(ev, document);
-    });
+    html.querySelectorAll('.effect-control').forEach((element) =>
+      element.addEventListener('click', (event) => {
+        const row = event.currentTarget.closest('li');
+        const document =
+          row.dataset.parentId === this.actor.id
+            ? this.actor
+            : this.actor.items.get(row.dataset.parentId);
+        onManageActiveEffect(event, document);
+      })
+    );
 
     // Rollable abilities.
-    html.on('click', '.rollable', this._onRoll.bind(this));
+    html.querySelectorAll('.rollable').forEach((element) =>
+      element.addEventListener('click', this._onRoll.bind(this))
+    );
 
     // Character proficiency lists are stored as arrays, so update them directly.
-    html.on('click', '.proficiency-create', this._onProficiencyCreate.bind(this));
-    html.on('click', '.proficiency-delete', this._onProficiencyDelete.bind(this));
-    html.on('change', '.proficiency-input', this._onProficiencyChange.bind(this));
-    html.on('change', '.talent-taw-input', this._onTalentTawChange.bind(this));
+    this._listen('click', '.proficiency-create', this._onProficiencyCreate);
+    this._listen('click', '.proficiency-delete', this._onProficiencyDelete);
+    this._listen('change', '.proficiency-input', this._onProficiencyChange);
+    this._listen('change', '.talent-taw-input', this._onTalentTawChange);
+    this._listen('click', '[data-edit]', this._onEditImage);
 
     // Drag events for macros.
     if (this.actor.isOwner) {
       let handler = (ev) => this._onDragStart(ev);
-      html.find('li.item').each((i, li) => {
+      html.querySelectorAll('li.item').forEach((li) => {
         if (li.classList.contains('inventory-header')) return;
         li.setAttribute('draggable', true);
         li.addEventListener('dragstart', handler, false);
       });
     }
+  }
+
+  _listen(type, selector, handler) {
+    this.element.querySelectorAll(selector).forEach((element) =>
+      element.addEventListener(type, handler.bind(this))
+    );
+  }
+
+  _onChangeTab(event) {
+    event.preventDefault();
+    this.tabGroups.primary = event.currentTarget.dataset.tab;
+    this._renderTabs();
+  }
+
+  _renderTabs() {
+    const active = this.tabGroups.primary;
+    this.element.querySelectorAll('.sheet-tabs [data-tab]').forEach((tab) =>
+      tab.classList.toggle('active', tab.dataset.tab === active)
+    );
+    this.element.querySelectorAll('.sheet-body > [data-tab]').forEach((tab) =>
+      tab.classList.toggle('active', tab.dataset.tab === active)
+    );
+  }
+
+  async _onEditImage(event) {
+    const target = event.currentTarget;
+    const path = target.dataset.edit;
+    const picker = new foundry.applications.apps.FilePicker.implementation({
+      current: foundry.utils.getProperty(this.document._source, path),
+      type: target.dataset.type || 'image',
+      document: this.document,
+      callback: (src) => this.document.update({ [path]: src }),
+    });
+    await picker.browse();
   }
 
   /**
@@ -258,7 +329,7 @@ export class dsaActorSheet extends ActorSheet {
     // Get the type of item to create.
     const type = header.dataset.type;
     // Grab any data associated with this control.
-    const data = duplicate(header.dataset);
+    const data = foundry.utils.deepClone(header.dataset);
     // Initialize a default name.
     const name = `New ${type.capitalize()}`;
     // Prepare the item object.
