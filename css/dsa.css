@@ -216,10 +216,33 @@
   justify-content: flex-start;
   margin-bottom: 10px;
 }
-.dsa .sheet-header .profile-img {
+.dsa .sheet-header .profile-img,
+.dsa .sheet-header .portrait {
   flex: 0 0 100px;
   height: 100px;
   margin-right: 10px;
+}
+.dsa .sheet-header .portrait {
+  position: relative;
+  cursor: pointer;
+}
+.dsa .sheet-header .portrait > img,
+.dsa .sheet-header .portrait > video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top center;
+}
+.dsa .sheet-header .portrait.token > img,
+.dsa .sheet-header .portrait.token > video {
+  border: none;
+  border-radius: 0;
+  object-fit: contain;
+  object-position: center;
+  filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.6));
 }
 .dsa .sheet-header .header-fields {
   flex: 1;
