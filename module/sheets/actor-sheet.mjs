@@ -64,6 +64,7 @@ export class dsaActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     // Add the actor's data to context.data for easier access, as well as flags.
     context.actor = this.actor;
     context.editable = this.isEditable;
+    context.items = this.actor.items.contents;
     context.system = actorData.system;
     context.flags = actorData.flags;
     context.portrait = {
