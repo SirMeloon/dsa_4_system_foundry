@@ -208,6 +208,10 @@
 .dsa .item-form {
   font-family: "Roboto", sans-serif;
 }
+.dsa .sheet-content {
+  height: 100%;
+  min-height: 0;
+}
 .dsa .sheet-header {
   flex: 0 auto;
   overflow: hidden;
