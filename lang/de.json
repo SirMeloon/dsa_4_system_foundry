@@ -1,4 +1,6 @@
 {
+  "DSA.SheetModeEdit": "Bearbeiten",
+  "DSA.SheetModePlay": "Spielen",
   "DSA": {
     "Ability": {
       "Mu": { "long": "Mut", "abbr": "MU" },

@@ -3,7 +3,9 @@ import {
   prepareActiveEffectCategories,
 } from '../helpers/effects.mjs';
 
-const { HandlebarsApplicationMixin } = foundry.applications.api;
+import ApplicationV2Mixin from '../applications/api/application-v2-mixin.mjs';
+import PrimarySheetMixin from '../applications/api/primary-sheet-mixin.mjs';
+
 const { ActorSheetV2 } = foundry.applications.sheets;
 const TextEditorV2 = foundry.applications.ux.TextEditor.implementation;
 
@@ -11,10 +13,10 @@ const TextEditorV2 = foundry.applications.ux.TextEditor.implementation;
  * ApplicationV2 actor sheet for DSA.
  * @extends {ActorSheetV2}
  */
-export class dsaActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
+export class dsaActorSheet extends PrimarySheetMixin(ApplicationV2Mixin(ActorSheetV2)) {
   /** @override */
   static DEFAULT_OPTIONS = {
-    classes: ['dsa', 'sheet', 'actor', 'flexcol'],
+    classes: ['sheet', 'actor', 'flexcol'],
     tag: 'form',
     form: {
       closeOnSubmit: false,
@@ -63,7 +65,6 @@ export class dsaActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 
     // Add the actor's data to context.data for easier access, as well as flags.
     context.actor = this.actor;
-    context.editable = this.isEditable;
     context.items = this.actor.items.contents;
     context.system = actorData.system;
     context.flags = actorData.flags;

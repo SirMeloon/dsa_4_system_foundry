@@ -3,7 +3,9 @@ import {
   prepareActiveEffectCategories,
 } from '../helpers/effects.mjs';
 
-const { HandlebarsApplicationMixin } = foundry.applications.api;
+import ApplicationV2Mixin from '../applications/api/application-v2-mixin.mjs';
+import PrimarySheetMixin from '../applications/api/primary-sheet-mixin.mjs';
+
 const { ItemSheetV2 } = foundry.applications.sheets;
 const TextEditorV2 = foundry.applications.ux.TextEditor.implementation;
 
@@ -11,10 +13,10 @@ const TextEditorV2 = foundry.applications.ux.TextEditor.implementation;
  * ApplicationV2 item sheet for DSA.
  * @extends {ItemSheetV2}
  */
-export class dsaItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
+export class dsaItemSheet extends PrimarySheetMixin(ApplicationV2Mixin(ItemSheetV2)) {
   /** @override */
   static DEFAULT_OPTIONS = {
-    classes: ['dsa', 'sheet', 'item', 'flexcol'],
+    classes: ['sheet', 'item', 'flexcol'],
     tag: 'form',
     form: {
       closeOnSubmit: false,
@@ -72,7 +74,6 @@ export class dsaItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
     // Use a safe clone of the item data for further operations.
     const itemData = this.document.toPlainObject();
     context.item = this.item;
-    context.editable = this.isEditable;
 
     // Enrich description info for display
     // Enrichment turns text like `[[/r 1d20]]` into buttons
